@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1a1f3a;
+  --color-navy-deep: #0d1020;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c97a;
+  --color-gold-dark: #b8860b;
+  --color-cream: #f5f0e8;
+  --color-cream-dark: #e8e0d0;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+:root {
+  --background: #1a1f3a;
+  --foreground: #f5f0e8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Bigger touch targets on touch devices */
+@media (hover: none) {
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c);
+}
+
+/* Shimmering gold for headings — slow, luxurious */
+.gold-shimmer {
+  background: linear-gradient(
+    100deg,
+    #b8860b 0%,
+    #c9a84c 25%,
+    #f5e2a1 45%,
+    #e8c97a 50%,
+    #f5e2a1 55%,
+    #c9a84c 75%,
+    #b8860b 100%
+  );
+  background-size: 250% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+[dir='rtl'] {
+  text-align: right;
+}
+
+/* ============== Animations ============== */
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: scaleY(1); opacity: 0.3; }
+  50% { transform: scaleY(1.6); opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Reveal pattern — start hidden, .is-visible class triggers animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for grids */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 500ms; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 600ms; }
+.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 700ms; }
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Page-load entrance animations */
+.animate-fade-in { animation: fade-in 800ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in-up { animation: fade-in-up 900ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in-down { animation: fade-in-down 600ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-in-right { animation: slide-in-right 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-gentle-float { animation: gentle-float 4s ease-in-out infinite; }
+.animate-scroll-bounce { animation: scroll-bounce 2s ease-in-out infinite; transform-origin: top; }
+.animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+
+/* Animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* Smooth focus rings (gold) */
+:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .reveal-stagger > * { opacity: 1; transform: none; }
+}
+
+/* Mobile menu slide-down */
+@keyframes menu-slide-down {
+  from { opacity: 0; transform: translateY(-8px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 500px; }
+}
+.animate-menu-slide-down { animation: menu-slide-down 350ms cubic-bezier(0.16, 1, 0.3, 1) both; overflow: hidden; }
+
+/* ============== New animations ============== */
+
+/* Marquee — infinite horizontal scroll */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-x 40s linear infinite; }
+[dir='rtl'] .animate-marquee { animation-direction: reverse; }
+
+/* Hero aurora — slow drifting gold orb */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  33% { transform: translate(40px, -30px) scale(1.1); opacity: 0.5; }
+  66% { transform: translate(-30px, 40px) scale(0.95); opacity: 0.4; }
+}
+.animate-aurora { animation: aurora-drift 18s ease-in-out infinite; }
+
+/* Animated gold divider — line draws from center on reveal */
+.gold-divider {
+  display: block;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  margin: 0 auto;
+  transition: width 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible .gold-divider,
+.reveal-stagger.is-visible .gold-divider,
+.is-visible > .gold-divider {
+  width: 3rem;
+}
+.gold-divider.wide { /* explicit wider variant */ }
+.reveal.is-visible .gold-divider.wide,
+.is-visible > .gold-divider.wide {
+  width: 5rem;
+}
+
+/* Button shimmer sweep on hover */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%);
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.btn-gold:hover::before {
+  transform: translateX(100%);
+}
+
+/* Letter-by-letter stagger reveal for headings */
+.letter-stagger > .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: fade-in-up 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Pulse ring for floating CTA */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.animate-pulse-ring { animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* Float up entrance for fixed buttons */
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-float-up { animation: float-up 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Slow vertical drift for logo / decorative elements */
+@keyframes drift-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-drift-y { animation: drift-y 6s ease-in-out infinite; }

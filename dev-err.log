@@ -1,0 +1,6 @@
+⚠ Port 3000 is in use by process 11908, using available port 3001 instead.
+[browser] Image with src "/dresses/rose-eternelle.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://C:/Users/Simon/Documents/Claude/Elisheva Ifergan/vol-doiseau/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2477:13)
+[browser] Image with src "/dresses/lumiere-divine.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://C:/Users/Simon/Documents/Claude/Elisheva Ifergan/vol-doiseau/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2477:13)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior (file://C:/Users/Simon/Documents/Claude/Elisheva Ifergan/vol-doiseau/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2477:13)

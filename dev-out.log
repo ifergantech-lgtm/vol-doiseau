@@ -1,0 +1,26 @@
+
+> vol-doiseau@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.156.172.229:3001
+- Environments: .env.local
+✓ Ready in 1034ms
+
+ GET /he 200 in 3.1s (next.js: 728ms, proxy.ts: 272ms, generate-params: 549ms, application-code: 2.1s)
+ GET /he 200 in 403ms (next.js: 14ms, proxy.ts: 5ms, generate-params: 6ms, application-code: 385ms)
+ GET /he/collection 200 in 856ms (next.js: 499ms, proxy.ts: 5ms, generate-params: 444ms, application-code: 352ms)
+ GET /he/collection 200 in 2.4s (next.js: 41ms, proxy.ts: 27ms, generate-params: 20ms, application-code: 2.4s)
+ GET /he 200 in 583ms (next.js: 34ms, proxy.ts: 19ms, generate-params: 18ms, application-code: 530ms)
+ GET /fr 200 in 64ms (next.js: 30ms, proxy.ts: 14ms, generate-params: 17ms, application-code: 20ms)
+ GET /fr 200 in 68ms (next.js: 35ms, proxy.ts: 12ms, generate-params: 16ms, application-code: 20ms)
+ GET /fr 200 in 61ms (next.js: 30ms, proxy.ts: 10ms, generate-params: 15ms, application-code: 21ms)
+ GET /fr 200 in 6.5s (next.js: 38ms, proxy.ts: 16ms, generate-params: 19ms, application-code: 6.4s)
+ GET /fr 200 in 3.3s (next.js: 13ms, proxy.ts: 12ms, generate-params: 56µs, application-code: 3.3s)
+ GET /fr 200 in 709ms (next.js: 15ms, proxy.ts: 10ms, generate-params: 159µs, application-code: 683ms)
+ GET /fr 200 in 1859ms (next.js: 16ms, proxy.ts: 11ms, generate-params: 80µs, application-code: 1831ms)
+ GET /fr/collection 200 in 1228ms (next.js: 31ms, proxy.ts: 13ms, generate-params: 14ms, application-code: 1184ms)
+ GET /fr/services 200 in 722ms (next.js: 631ms, proxy.ts: 10ms, generate-params: 542ms, application-code: 81ms)
+ GET /fr/classes 200 in 2.2s (next.js: 697ms, proxy.ts: 17ms, generate-params: 602ms, application-code: 1462ms)
+ GET /fr/classes 200 in 238ms (next.js: 32ms, proxy.ts: 12ms, generate-params: 17ms, application-code: 195ms)
