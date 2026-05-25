@@ -34,54 +34,92 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <Image
-          src="/shop/hero-storefront.jpg"
-          alt="Vol D'Oiseau — King George 6, Tel Aviv"
-          fill
-          priority
-          className="object-cover scale-105"
-        />
-        {/* Aurora orb — soft gold ambient drifting behind text */}
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-navy">
+        {/* Background layer */}
+        <div className="absolute inset-0 bg-navy" />
+
+        {/* Subtle glow */}
         <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none blur-3xl animate-aurora"
+          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] rounded-full pointer-events-none blur-3xl opacity-30"
           style={{
             background:
-              'radial-gradient(circle, rgba(232, 201, 122, 0.25) 0%, rgba(201, 168, 76, 0.1) 40%, transparent 70%)',
+              'radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%)',
           }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/80 to-navy" />
 
-        <div className="relative z-10 text-center px-5 sm:px-6 max-w-3xl mx-auto">
-          <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/70 mb-5 sm:mb-6 animate-fade-in-down">
-            Vol D&apos;Oiseau Paris
-          </p>
-          <HeroTitle
-            text={t('hero_title')}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.12em] uppercase mb-5 sm:mb-6 leading-[1.05] gold-shimmer"
-          />
-          <p className="text-cream/60 text-sm sm:text-base tracking-wide mb-8 sm:mb-10 max-w-lg mx-auto leading-relaxed animate-fade-in-up delay-500">
-            {t('hero_subtitle')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up delay-700">
-            <MagneticButton
-              href={`/${locale}/collection`}
-              className="btn-gold px-8 sm:px-10 py-4 text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg"
-            >
-              {t('cta_collection')}
-            </MagneticButton>
-            <Link
-              href={`/${locale}/contact`}
-              className="px-8 sm:px-10 py-4 text-xs tracking-widest uppercase border border-gold/40 text-cream/80 hover:border-gold hover:text-gold hover:bg-gold/5 transition-all"
-            >
-              {t('cta_contact')}
-            </Link>
+        {/* Content grid */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 py-12 md:py-0">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
+            {/* Left: Text content */}
+            <Reveal>
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 animate-fade-in-down">
+                    Vol D&apos;Oiseau — Paris
+                  </p>
+                  <div className="w-12 h-px bg-gradient-to-r from-gold to-transparent" />
+                </div>
+
+                <div className="space-y-6">
+                  <h1 className="font-display text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.1] text-cream">
+                    <span>{t('hero_title').split(' ').slice(0, -1).join(' ')}</span>
+                    <br />
+                    <span className="text-gold italic">{t('hero_title').split(' ').slice(-1)}</span>
+                  </h1>
+                </div>
+
+                <p className="text-cream/65 text-sm sm:text-base leading-relaxed max-w-md font-light">
+                  {t('hero_subtitle')}
+                </p>
+
+                <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                  <MagneticButton
+                    href={`/${locale}/collection`}
+                    className="btn-gold px-8 py-4 text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg"
+                  >
+                    {t('cta_collection')} →
+                  </MagneticButton>
+                  <Link
+                    href={`/${locale}/contact`}
+                    className="px-8 py-4 text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:border-gold hover:text-gold transition-all text-center"
+                  >
+                    {t('cta_contact')}
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Right: Hero image */}
+            <Reveal>
+              <div className="relative h-[500px] md:h-[600px] hidden md:block">
+                <Image
+                  src="/shop/hero-storefront.jpg"
+                  alt="Vol D'Oiseau — King George 6, Tel Aviv"
+                  fill
+                  priority
+                  className="object-cover rounded-sm border border-gold/20 hover:border-gold/50 transition-colors duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-40 rounded-sm" />
+              </div>
+            </Reveal>
           </div>
         </div>
 
+        {/* Mobile hero image */}
+        <div className="md:hidden absolute inset-0 z-0">
+          <Image
+            src="/shop/hero-storefront.jpg"
+            alt="Vol D'Oiseau — King George 6, Tel Aviv"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/70 to-navy" />
+        </div>
+
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/40 animate-fade-in delay-700">
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/40 animate-fade-in delay-700 z-20">
           <span className="text-[9px] tracking-[0.4em] uppercase">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-gold/60 to-transparent animate-scroll-bounce" />
         </div>
@@ -89,18 +127,22 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
       {/* Featured dresses */}
       {featured && featured.length > 0 && (
-        <section className="py-16 sm:py-24 px-5 sm:px-6">
+        <section className="py-24 sm:py-32 px-5 sm:px-6 bg-gradient-to-b from-navy via-navy/95 to-navy border-t border-gold/10">
           <div className="max-w-7xl mx-auto">
             <Reveal>
-              <div className="text-center mb-12 sm:mb-16">
-                <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">— {tn('collection')} —</p>
-                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-[0.12em] uppercase text-cream">
-                  {t('featured_title')}
-                </h2>
-                <span className="gold-divider mt-6" />
+              <div className="mb-16 sm:mb-20">
+                <div className="space-y-4 mb-8">
+                  <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">— {tn('collection')} —</p>
+                  <h2 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-[0.08em] text-cream">
+                    {t('featured_title').split(' ').slice(0, 1).join(' ')}
+                    <span className="text-gold italic block sm:inline"> {t('featured_title').split(' ').slice(1).join(' ')}</span>
+                  </h2>
+                </div>
+                <div className="w-12 h-px bg-gradient-to-r from-gold to-transparent" />
               </div>
             </Reveal>
-            <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+
+            <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16 sm:mb-20">
               {featured.map((dress) => (
                 <DressCard
                   key={dress.id}
@@ -114,13 +156,15 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
                 />
               ))}
             </Reveal>
+
             <Reveal>
-              <div className="text-center mt-12 sm:mt-14">
+              <div className="text-left">
                 <Link
                   href={`/${locale}/collection`}
-                  className="inline-block px-8 sm:px-10 py-4 text-xs tracking-widest uppercase border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition-all"
+                  className="inline-flex items-center px-8 py-4 text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:text-gold hover:border-gold transition-all group"
                 >
-                  {t('cta_collection')} →
+                  <span>{t('cta_collection')}</span>
+                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               </div>
             </Reveal>
@@ -129,36 +173,38 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       )}
 
       {/* Services */}
-      <section className="py-16 sm:py-24 px-5 sm:px-6 bg-navy-deep relative overflow-hidden">
-        {/* Subtle gold accent line at top */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+      <section className="py-24 sm:py-32 px-5 sm:px-6 bg-navy-deep border-t border-gold/10 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
-              <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">— Maison —</p>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-[0.12em] uppercase text-cream">
-                {t('services_title')}
-              </h2>
-              <span className="gold-divider mt-6" />
+            <div className="mb-16 sm:mb-24">
+              <div className="space-y-4 mb-8">
+                <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">— Maison —</p>
+                <h2 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-[0.08em] text-cream">
+                  {t('services_title').split(' ').slice(0, 1).join(' ')}
+                  <span className="text-gold italic block sm:inline"> {t('services_title').split(' ').slice(1).join(' ')}</span>
+                </h2>
+              </div>
+              <div className="w-12 h-px bg-gradient-to-r from-gold to-transparent" />
             </div>
           </Reveal>
-          <Reveal stagger className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+
+          <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {services.map(({ key, href }, idx) => (
               <Link
                 key={key}
                 href={href}
-                className="group relative border border-gold/10 hover:border-gold/40 p-6 sm:p-8 text-center transition-all duration-500 hover:bg-gold/5 hover:-translate-y-1 overflow-hidden min-h-[180px] sm:min-h-[200px] flex flex-col justify-center"
+                className="group relative border border-gold/15 hover:border-gold/50 p-8 sm:p-10 flex flex-col transition-all duration-500 hover:bg-gold/5 hover:-translate-y-1 overflow-hidden"
               >
-                <span className="block text-[10px] sm:text-[11px] tracking-[0.4em] uppercase text-gold/40 mb-3 group-hover:text-gold transition-colors">
-                  0{idx + 1}
+                <span className="block text-[10px] tracking-[0.4em] uppercase text-gold/40 mb-6 group-hover:text-gold transition-colors font-light">
+                  {String(idx + 1).padStart(2, '0')}
                 </span>
-                <h3 className="font-display text-base sm:text-lg md:text-xl tracking-wide text-cream mb-2 group-hover:text-gold transition-colors">
+                <h3 className="font-display text-lg sm:text-xl tracking-[0.05em] text-cream mb-4 group-hover:text-gold transition-colors leading-tight">
                   {t(`service_${key}`)}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-cream/40 leading-relaxed">
+                <p className="text-xs sm:text-sm text-cream/50 leading-relaxed flex-grow">
                   {t(`service_${key}_desc`)}
                 </p>
-                <span className="absolute bottom-0 left-0 h-px w-0 bg-gold group-hover:w-full transition-all duration-500" />
+                <div className="w-8 h-px bg-gold/30 mt-6 group-hover:w-12 group-hover:bg-gold transition-all duration-500" />
               </Link>
             ))}
           </Reveal>
@@ -171,8 +217,8 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-gold/15 group">
               <Image
-                src="/shop/interior-1.jpg"
-                alt="Vol D'Oiseau boutique interior — King George 6, Tel Aviv"
+                src="/shop/exterior-1.jpg"
+                alt="Vol D'Oiseau boutique storefront — King George 6, Tel Aviv"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"

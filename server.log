@@ -1443,3 +1443,4 @@ Step 2: Uploading 27 images...
 Successful: 27
 Failed: 0
  POST /api/setup-dresses 200 in 37.5s (next.js: 62ms, application-code: 37.5s)
+/c/Program Files/nodejs/npm: line 65:  2876 Killed                     "$NODE_EXE" "$NPM_CLI_JS" "$@"

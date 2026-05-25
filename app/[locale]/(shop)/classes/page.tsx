@@ -36,55 +36,111 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
         <div className="mt-6 w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
       </section>
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-6 py-16 sm:py-24">
-        <Reveal stagger className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
-          {/* Children */}
-          <div className="group relative border border-gold/10 p-6 sm:p-8 hover:border-gold/40 hover:-translate-y-1 transition-all duration-500 hover:shadow-[0_15px_40px_-15px_rgba(201,168,76,0.2)] overflow-hidden">
-            <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-4 group-hover:text-gold transition-colors">01</p>
-            <h2 className="font-display text-2xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-4 group-hover:text-gold transition-colors">
-              {t('children_title')}
-            </h2>
-            <div className="w-8 h-px bg-gold/30 mb-6 group-hover:w-16 transition-all duration-500" />
-            <dl className="space-y-4 text-sm text-cream/60">
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('schedule')}</dt>
-                <dd className="font-display text-base">{childrenSchedule}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('duration')}</dt>
-                <dd>{t('sessions')}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('location')}</dt>
-                <dd>{t('location_value')}</dd>
-              </div>
-            </dl>
-          </div>
+      {/* Studio Section — integrated layout */}
+      <section className="py-16 sm:py-24 px-5 sm:px-6 bg-navy-deep border-b border-gold/10">
+        <Reveal>
+          <div className="max-w-6xl mx-auto">
+            <h3 className="font-display text-2xl sm:text-3xl tracking-[0.15em] uppercase text-cream text-center mb-4">
+              {t('studio')}
+            </h3>
+            <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-12" />
 
-          {/* Adults */}
-          <div className="group relative border border-gold/10 p-6 sm:p-8 hover:border-gold/40 hover:-translate-y-1 transition-all duration-500 hover:shadow-[0_15px_40px_-15px_rgba(201,168,76,0.2)] overflow-hidden">
-            <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-4 group-hover:text-gold transition-colors">02</p>
-            <h2 className="font-display text-2xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-4 group-hover:text-gold transition-colors">
-              {t('adults_title')}
-            </h2>
-            <div className="w-8 h-px bg-gold/30 mb-6 group-hover:w-16 transition-all duration-500" />
-            <dl className="space-y-4 text-sm text-cream/60">
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('schedule')}</dt>
-                <dd className="font-display text-base">{adultsSchedule}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('duration')}</dt>
-                <dd>{t('sessions')}</dd>
-              </div>
-              <div>
-                <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-1">{t('location')}</dt>
-                <dd>{t('location_value')}</dd>
-              </div>
-            </dl>
+            {/* Children Classes + Images */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16 items-center">
+              <Reveal>
+                <div className="space-y-2">
+                  <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-4">01</p>
+                  <h2 className="font-display text-2xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-6">
+                    {t('children_title')}
+                  </h2>
+                  <div className="w-8 h-px bg-gold/30 mb-8" />
+                  <dl className="space-y-5 text-sm text-cream/60">
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('schedule')}</dt>
+                      <dd className="font-display text-base text-cream">{childrenSchedule}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('duration')}</dt>
+                      <dd className="text-cream">{t('sessions')}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('location')}</dt>
+                      <dd className="text-cream">{t('location_value')}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </Reveal>
+              <Reveal>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
+                    <img
+                      src="/shop-photos/IMG_20260524_111022.jpg"
+                      alt="Sewing studio workspace"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
+                    <img
+                      src="/shop-photos/IMG_20260524_111033.jpg"
+                      alt="Sewing machines and tools"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Adults Classes + Images */}
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <Reveal>
+                <div className="grid grid-cols-2 gap-4 md:order-2">
+                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
+                    <img
+                      src="/shop-photos/IMG_20260524_111049.jpg"
+                      alt="Class workspace detail"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
+                    <img
+                      src="/shop-photos/IMG_20260524_111110.jpg"
+                      alt="Studio environment"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal>
+                <div className="space-y-2 md:order-1">
+                  <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-4">02</p>
+                  <h2 className="font-display text-2xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-6">
+                    {t('adults_title')}
+                  </h2>
+                  <div className="w-8 h-px bg-gold/30 mb-8" />
+                  <dl className="space-y-5 text-sm text-cream/60">
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('schedule')}</dt>
+                      <dd className="font-display text-base text-cream">{adultsSchedule}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('duration')}</dt>
+                      <dd className="text-cream">{t('sessions')}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('location')}</dt>
+                      <dd className="text-cream">{t('location_value')}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </Reveal>
-      </div>
+      </section>
 
       {/* Curriculum */}
       <section className="py-14 sm:py-16 px-5 sm:px-6 bg-navy-deep border-y border-gold/10">
