@@ -18,13 +18,22 @@ export default async function CollectionPage({ params }: PageProps<'/[locale]/co
 
   return (
     <div className="pt-20">
-      <section className="py-16 sm:py-20 px-5 sm:px-6 text-center border-b border-gold/10 animate-fade-in-down">
-        <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-4">Vol D&apos;Oiseau</p>
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-[0.12em] uppercase text-cream mb-4">
-          {t('title')}
-        </h1>
-        <p className="text-cream/55 text-sm tracking-wide max-w-xl mx-auto leading-relaxed">{t('subtitle')}</p>
-        <div className="mt-6 w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
+      <section className="py-20 sm:py-28 px-5 sm:px-6 border-b border-gold/10 animate-fade-in-down bg-gradient-to-b from-navy via-navy to-navy-deep">
+        <div className="max-w-7xl mx-auto">
+          <div className="space-y-6 mb-8">
+            <div className="space-y-4">
+              <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">Vol D&apos;Oiseau</p>
+              <div className="w-12 h-px bg-gradient-to-r from-gold to-transparent" />
+            </div>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl tracking-[0.08em] text-cream leading-[1.1]">
+              {t('title').split(' ').slice(0, 1).join(' ')}
+              <span className="text-gold italic block sm:inline"> {t('title').split(' ').slice(1).join(' ')}</span>
+            </h1>
+          </div>
+          <p className="text-cream/60 text-base sm:text-lg leading-relaxed max-w-2xl font-light">
+            {t('subtitle')}
+          </p>
+        </div>
       </section>
 
       <CollectionClient
