@@ -59,26 +59,26 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href={`/${locale}`}
-          className="flex-shrink-0 flex flex-col items-center leading-none group"
+          className="flex-shrink-0 flex flex-col items-center leading-none group py-2"
           onClick={() => setOpen(false)}
         >
-          <span className="text-lg sm:text-xl font-display tracking-[0.25em] uppercase gold-shimmer">
+          <span className="text-sm sm:text-lg md:text-xl font-display tracking-[0.25em] uppercase gold-shimmer">
             Vol D&apos;Oiseau
           </span>
-          <span className="text-[8px] sm:text-[9px] tracking-[0.4em] uppercase text-gold/70 mt-0.5 group-hover:text-gold transition-colors">
+          <span className="text-[7px] sm:text-[8px] tracking-[0.4em] uppercase text-gold/70 mt-0.5 group-hover:text-gold transition-colors">
             Paris
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {links.map((link) => {
             const active = pathname === link.href
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-xs tracking-widest uppercase transition-colors hover:text-gold py-2 ${
+                className={`relative text-[10px] lg:text-xs tracking-widest uppercase transition-colors hover:text-gold py-2 px-1 ${
                   active ? 'text-gold' : 'text-cream/70'
                 }`}
               >
@@ -98,23 +98,23 @@ export default function Navbar() {
 
           {/* Mobile hamburger — animated morph to X */}
           <button
-            className="md:hidden relative w-11 h-11 flex items-center justify-center text-cream/80 hover:text-gold transition-colors -mr-2"
+            className="md:hidden relative w-12 h-12 flex items-center justify-center text-cream/80 hover:text-gold transition-colors -mr-1.5"
             onClick={() => setOpen(!open)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
             <span
-              className={`absolute block h-px w-6 bg-current transition-all duration-300 ${
+              className={`absolute block h-0.5 w-6 bg-current transition-all duration-300 ${
                 open ? 'rotate-45' : '-translate-y-2'
               }`}
             />
             <span
-              className={`absolute block h-px w-6 bg-current transition-all duration-300 ${
+              className={`absolute block h-0.5 w-6 bg-current transition-all duration-300 ${
                 open ? 'opacity-0' : 'opacity-100'
               }`}
             />
             <span
-              className={`absolute block h-px w-6 bg-current transition-all duration-300 ${
+              className={`absolute block h-0.5 w-6 bg-current transition-all duration-300 ${
                 open ? '-rotate-45' : 'translate-y-2'
               }`}
             />
@@ -124,14 +124,14 @@ export default function Navbar() {
 
       {/* Mobile full-height drop-down menu */}
       <nav
-        className={`md:hidden fixed inset-x-0 top-16 bottom-0 bg-navy-deep/98 backdrop-blur-xl border-t border-gold/20 transition-all duration-500 ${
+        className={`md:hidden fixed inset-x-0 top-20 bottom-0 bg-navy-deep/98 backdrop-blur-xl border-t border-gold/20 transition-all duration-500 ${
           open
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-2 pointer-events-none'
         }`}
         aria-hidden={!open}
       >
-        <div className="h-full overflow-y-auto px-6 py-10 flex flex-col gap-1">
+        <div className="h-full overflow-y-auto px-5 sm:px-6 py-8 sm:py-10 flex flex-col gap-0.5">
           {links.map((link, idx) => {
             const active = pathname === link.href
             return (
@@ -139,13 +139,13 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block py-4 text-lg font-display tracking-[0.15em] uppercase border-b border-gold/10 transition-all duration-300 ${
+                className={`block py-3.5 sm:py-4 text-base sm:text-lg font-display tracking-[0.15em] uppercase border-b border-gold/10 transition-all duration-300 ${
                   active ? 'text-gold' : 'text-cream/80 hover:text-gold'
                 } ${open ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}
                 style={{ transitionDelay: open ? `${100 + idx * 60}ms` : '0ms' }}
               >
                 <span className="inline-flex items-center gap-3">
-                  <span className="text-[10px] text-gold/40 font-body">0{idx + 1}</span>
+                  <span className="text-[9px] text-gold/40 font-body">0{idx + 1}</span>
                   {link.label}
                 </span>
               </Link>
@@ -154,14 +154,14 @@ export default function Navbar() {
 
           {/* Contact strip at the bottom of the menu */}
           <div
-            className={`mt-auto pt-10 transition-all duration-500 ${
+            className={`mt-auto pt-8 sm:pt-10 transition-all duration-500 ${
               open ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ transitionDelay: open ? '500ms' : '0ms' }}
           >
-            <p className="text-[10px] tracking-[0.4em] uppercase text-gold/50 mb-3">Vol D&apos;Oiseau</p>
-            <p className="text-sm text-cream/60 mb-1">King George 6, Tel Aviv</p>
-            <a href="tel:0502290718" className="text-sm text-cream/60 hover:text-gold transition-colors block">
+            <p className="text-[9px] tracking-[0.4em] uppercase text-gold/50 mb-2 sm:mb-3">Vol D&apos;Oiseau</p>
+            <p className="text-xs sm:text-sm text-cream/60 mb-1">King George 6, Tel Aviv</p>
+            <a href="tel:0502290718" className="text-xs sm:text-sm text-cream/60 hover:text-gold transition-colors block">
               050-229-0718
             </a>
           </div>

@@ -68,23 +68,23 @@ export default function DressCard({ dress, locale, availabilityLabels }: DressCa
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-gold/0 via-gold/5 to-gold/0 pointer-events-none" />
           {/* Availability badge */}
           <span
-            className={`absolute top-3 start-3 text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 border rounded-full backdrop-blur-sm ${categoryColor} transition-transform duration-500 group-hover:scale-105`}
+            className={`absolute top-2 sm:top-3 start-2 sm:start-3 text-[8px] sm:text-[9px] tracking-[0.2em] uppercase px-2 sm:px-2.5 py-0.5 sm:py-1 border rounded-full backdrop-blur-sm ${categoryColor} transition-transform duration-500 group-hover:scale-105`}
           >
             {availLabel}
           </span>
           {/* Quick-view label that fades in on hover (desktop) */}
-          <span className="absolute bottom-3 end-3 text-[10px] tracking-[0.3em] uppercase text-gold opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 hidden sm:inline-block">
+          <span className="absolute bottom-3 end-3 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-gold opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 hidden sm:inline-block">
             View →
           </span>
         </div>
 
         {/* Info */}
-        <div className="p-4 sm:p-5">
-          <h3 className="font-display text-base sm:text-lg tracking-wide text-cream mb-1.5 group-hover:text-gold transition-colors duration-300 line-clamp-1">
+        <div className="p-3 sm:p-4 md:p-5">
+          <h3 className="font-display text-sm sm:text-base md:text-lg tracking-wide text-cream mb-2 sm:mb-2.5 group-hover:text-gold transition-colors duration-300 line-clamp-1">
             {title}
           </h3>
-          <div className="flex items-center justify-between gap-3">
-            <div className="text-xs text-cream/55 space-y-0.5 leading-tight">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <div className="text-[11px] sm:text-xs text-cream/55 space-y-0.5 leading-tight">
               {dress.price_sale != null && (
                 <p className="font-medium">{formatPrice(dress.price_sale)}</p>
               )}
@@ -92,7 +92,7 @@ export default function DressCard({ dress, locale, availabilityLabels }: DressCa
                 <p className="text-gold/70">{formatPrice(dress.price_rental)}</p>
               )}
             </div>
-            <span className="text-[11px] tracking-widest uppercase text-gold/60 group-hover:text-gold transition-all duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+            <span className="text-[10px] sm:text-[11px] tracking-widest uppercase text-gold/60 group-hover:text-gold transition-all duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 flex-shrink-0">
               →
             </span>
           </div>
