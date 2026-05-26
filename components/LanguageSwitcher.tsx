@@ -12,10 +12,12 @@ export default function LanguageSwitcher() {
   const currentLocale = (params?.locale as string) || routing.defaultLocale
 
   function switchLocale(locale: string) {
-    // Replace the locale segment in the pathname
-    const segments = pathname.split('/')
-    segments[1] = locale
-    router.push(segments.join('/'))
+    // Remove the current locale prefix from pathname, then prepend the new one
+    // In next-intl with App Router, pathname includes the locale at the beginning
+    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/$1')
+    const newPath = `/${locale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`
+    console.log('🌍 Language Switch:', { locale, currentLocale, pathname, pathWithoutLocale, newPath })
+    router.push(newPath)
   }
 
   return (
