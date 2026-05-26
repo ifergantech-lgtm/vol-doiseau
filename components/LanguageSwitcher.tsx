@@ -1,7 +1,6 @@
 'use client'
 
 import { useParams, usePathname } from 'next/navigation'
-import Link from 'next/link'
 import { routing } from '@/i18n/routing'
 
 const labels: Record<string, string> = { he: 'עברית', fr: 'Français', en: 'English' }
@@ -20,17 +19,17 @@ export default function LanguageSwitcher() {
       {routing.locales.map((locale) => {
         const newPath = `/${locale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`
         return (
-          <Link
+          <a
             key={locale}
             href={newPath}
-            className={`text-[10px] tracking-widest px-2 py-1 rounded transition-colors ${
+            className={`text-[10px] tracking-widest px-2 py-1 rounded transition-colors cursor-pointer ${
               locale === currentLocale
                 ? 'text-gold border border-gold/40'
                 : 'text-cream/50 hover:text-gold'
             }`}
           >
             {labels[locale]}
-          </Link>
+          </a>
         )
       })}
     </div>
