@@ -4,7 +4,7 @@ import { useParams, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { routing } from '@/i18n/routing'
 
-const labels: Record<string, string> = { he: 'עב', fr: 'FR', en: 'EN' }
+const labels: Record<string, string> = { he: 'עברית', fr: 'Français', en: 'English' }
 
 export default function LanguageSwitcher() {
   const params = useParams()
