@@ -113,7 +113,7 @@ export default function CollectionClient({
           <p className="text-cream/30 text-sm tracking-widest uppercase">{labels.empty}</p>
         </div>
       ) : (
-        <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
+        <Reveal stagger className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 sm:gap-6">
           {filtered.map((dress) => (
             <DressCard
               key={dress.id}

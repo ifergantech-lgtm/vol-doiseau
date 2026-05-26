@@ -131,7 +131,7 @@ export default function Navbar() {
         }`}
         aria-hidden={!open}
       >
-        <div className="h-full overflow-y-auto px-5 sm:px-6 py-8 sm:py-10 flex flex-col gap-0.5">
+        <div className="h-full overflow-hidden px-5 sm:px-6 py-6 sm:py-8 flex flex-col gap-0 justify-start">
           {links.map((link, idx) => {
             const active = pathname === link.href
             return (
