@@ -22,7 +22,7 @@ export default async function LocaleLayout({
     notFound()
   }
 
-  const messages = await getMessages({ locale })
+  const messages = await getMessages()
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '33781721617'
 
   return (
