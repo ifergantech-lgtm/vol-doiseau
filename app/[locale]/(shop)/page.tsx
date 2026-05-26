@@ -34,80 +34,9 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-20 bg-navy">
-        {/* Background layer */}
-        <div className="absolute inset-0 bg-navy" />
-
-        {/* Subtle glow — scaled down for mobile */}
-        <div
-          className="absolute top-1/4 left-1/4 w-[500px] sm:w-[700px] md:w-[800px] h-[500px] sm:h-[700px] md:h-[800px] rounded-full pointer-events-none blur-3xl opacity-30"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%)',
-          }}
-          aria-hidden
-        />
-
-        {/* Content grid */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-0">
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-20 items-center">
-            {/* Left: Text content */}
-            <Reveal>
-              <div className="space-y-5 sm:space-y-6 md:space-y-8">
-                <div className="space-y-2 sm:space-y-3">
-                  <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 animate-fade-in-down">
-                    Vol D&apos;Oiseau — Paris
-                  </p>
-                  <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
-                </div>
-
-                <div className="space-y-4 sm:space-y-5">
-                  <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
-                    <span>{t('hero_title').split(' ').slice(0, -1).join(' ')}</span>
-                    <br />
-                    <span className="text-gold italic">{t('hero_title').split(' ').slice(-1)}</span>
-                  </h1>
-                </div>
-
-                <p className="text-cream/65 text-xs sm:text-sm md:text-base leading-relaxed max-w-md font-light">
-                  {t('hero_subtitle')}
-                </p>
-
-                <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
-                  <MagneticButton
-                    href={`/${locale}/collection`}
-                    className="btn-gold px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
-                  >
-                    {t('cta_collection')} →
-                  </MagneticButton>
-                  <Link
-                    href={`/${locale}/contact`}
-                    className="px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:border-gold hover:text-gold transition-all text-center h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
-                  >
-                    {t('cta_contact')}
-                  </Link>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Right: Hero image */}
-            <Reveal>
-              <div className="relative h-[400px] sm:h-[500px] md:h-[600px] hidden md:block">
-                <Image
-                  src="/shop/hero-storefront.jpg"
-                  alt="Vol D'Oiseau — King George 6, Tel Aviv"
-                  fill
-                  priority
-                  className="object-cover rounded-sm border border-gold/20 hover:border-gold/50 transition-colors duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-40 rounded-sm" />
-              </div>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Mobile hero image */}
-        <div className="md:hidden absolute inset-0 z-0">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-navy">
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
           <Image
             src="/shop/hero-storefront.jpg"
             alt="Vol D'Oiseau — King George 6, Tel Aviv"
@@ -115,7 +44,49 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/70 to-navy" />
+          {/* Gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/60 md:from-navy/95 md:via-navy/85 md:to-navy/40" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-24 md:py-32 pt-20 sm:pt-24 md:pt-20">
+          <Reveal>
+            <div className="space-y-5 sm:space-y-6 md:space-y-8 max-w-2xl">
+              <div className="space-y-2 sm:space-y-3">
+                <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 animate-fade-in-down">
+                  Vol D&apos;Oiseau — Paris
+                </p>
+                <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
+              </div>
+
+              <div className="space-y-4 sm:space-y-5">
+                <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
+                  <span>{t('hero_title').split(' ').slice(0, -1).join(' ')}</span>
+                  <br />
+                  <span className="text-gold italic">{t('hero_title').split(' ').slice(-1)}</span>
+                </h1>
+              </div>
+
+              <p className="text-cream/75 text-xs sm:text-sm md:text-base leading-relaxed font-light">
+                {t('hero_subtitle')}
+              </p>
+
+              <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
+                <MagneticButton
+                  href={`/${locale}/collection`}
+                  className="btn-gold px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
+                >
+                  {t('cta_collection')} →
+                </MagneticButton>
+                <Link
+                  href={`/${locale}/contact`}
+                  className="px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:border-gold hover:text-gold transition-all text-center h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
+                >
+                  {t('cta_contact')}
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {/* Scroll indicator */}
