@@ -426,3 +426,48 @@ TypeError: network error
  GET /en 200 in 1158ms (next.js: 312ms, generate-params: 59µs, application-code: 846ms)
  GET /en 200 in 1308ms (next.js: 292ms, generate-params: 38µs, application-code: 1016ms)
  GET /en 200 in 1604ms (next.js: 20ms, generate-params: 9ms, application-code: 1584ms)
+ POST /api/webhooks/stripe 404 in 12.5s (next.js: 2.2s, application-code: 10.2s)
+ POST /api/webhooks/stripe 404 in 11.8s (next.js: 1838ms, application-code: 10.0s)
+ POST /api/webhooks/stripe 404 in 13.1s (next.js: 3.0s, application-code: 10.1s)
+ POST /api/webhooks/stripe 404 in 12.5s (next.js: 2.6s, application-code: 10.0s)
+ POST /api/webhooks/stripe 404 in 10.9s (next.js: 1146ms, application-code: 9.8s)
+ POST /api/webhooks/stripe 404 in 11.2s (next.js: 1297ms, application-code: 9.9s)
+ POST /api/webhooks/stripe 404 in 12.0s (next.js: 2.1s, application-code: 9.9s)
+ POST /api/webhooks/stripe 404 in 13.0s (next.js: 3.4s, application-code: 9.6s)
+ POST /api/webhooks/stripe 404 in 11.4s (next.js: 1880ms, application-code: 9.5s)
+ POST /api/webhooks/stripe 404 in 12.7s (next.js: 3.0s, application-code: 9.7s)
+ POST /api/webhooks/stripe 404 in 13.4s (next.js: 3.7s, application-code: 9.7s)
+ POST /api/webhooks/stripe 404 in 13.2s (next.js: 3.7s, application-code: 9.5s)
+ POST /api/webhooks/stripe 404 in 12.7s (next.js: 3.7s, application-code: 8.9s)
+ POST /api/webhooks/stripe 404 in 12.6s (next.js: 11.5s, application-code: 1175ms)
+ POST /api/webhooks/stripe 404 in 10.6s (next.js: 2.0s, application-code: 8.6s)
+ POST /api/webhooks/stripe 404 in 418ms (next.js: 77ms, application-code: 341ms)
+ POST /api/webhooks/stripe 404 in 416ms (next.js: 133ms, application-code: 283ms)
+ POST /api/webhooks/stripe 404 in 423ms (next.js: 39ms, application-code: 385ms)
+ POST /api/webhooks/stripe 404 in 422ms (next.js: 57ms, application-code: 365ms)
+ POST /api/webhooks/stripe 404 in 419ms (next.js: 113ms, application-code: 307ms)
+ POST /api/webhooks/stripe 404 in 395ms (next.js: 213ms, application-code: 182ms)
+ POST /api/webhooks/stripe 404 in 395ms (next.js: 232ms, application-code: 163ms)
+ POST /api/webhooks/stripe 404 in 395ms (next.js: 249ms, application-code: 146ms)
+ POST /api/webhooks/stripe 404 in 44ms (next.js: 4ms, application-code: 40ms)
+ POST /api/webhooks/stripe 404 in 54ms (next.js: 4ms, application-code: 50ms)
+ POST /api/webhooks/stripe 404 in 49ms (next.js: 4ms, application-code: 45ms)
+ POST /api/webhooks/stripe 404 in 45ms (next.js: 4ms, application-code: 42ms)
+ POST /api/webhooks/stripe 404 in 60ms (next.js: 7ms, application-code: 53ms)
+ POST /api/webhooks/stripe 404 in 51ms (next.js: 4ms, application-code: 47ms)
+ POST /api/webhooks/stripe 404 in 55ms (next.js: 5ms, application-code: 50ms)
+ POST /api/webhooks/stripe 404 in 46ms (next.js: 4ms, application-code: 41ms)
+⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.83.154.229:3000
+- Environments: .env.local
+✓ Ready in 1029ms
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Simon\Documents\Claude\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Simon\Documents\Claude\Elisheva Ifergan\vol-doiseau\package-lock.json
+
+
