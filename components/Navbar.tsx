@@ -131,15 +131,15 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed top-20 left-0 right-0 z-40 md:hidden bg-navy-deep/98 border-b border-gold/50 backdrop-blur-md shadow-lg">
-          <nav className="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-1">
+        <div className="fixed top-16 left-0 right-0 z-40 md:hidden bg-navy-deep/98 border-b border-gold/50 backdrop-blur-md shadow-lg max-h-[calc(100vh-64px)] overflow-y-auto">
+          <nav className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-0.5">
             {links.map((link) => {
               const active = pathname === link.href
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-4 rounded text-sm sm:text-base font-medium transition-colors ${
+                  className={`px-4 py-3 rounded text-sm font-medium transition-colors ${
                     active
                       ? 'bg-gold/30 text-gold font-bold'
                       : 'text-cream hover:text-gold hover:bg-gold/15'
@@ -149,7 +149,7 @@ export default function Navbar() {
                 </Link>
               )
             })}
-            <div className="px-4 py-4 border-t border-gold/30 mt-3">
+            <div className="px-4 py-3 border-t border-gold/30 mt-1">
               <LanguageSwitcher />
             </div>
           </nav>
