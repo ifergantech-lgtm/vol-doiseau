@@ -1,172 +1,147 @@
-import { getTranslations } from 'next-intl/server'
-import { createClient } from '@/lib/supabase/server'
-import EnquiryForm from '@/components/EnquiryForm'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import Reveal from '@/components/Reveal'
-import { getLocalizedText, type Locale } from '@/lib/utils'
 
-export const dynamic = 'force-dynamic'
+export default function ClassesPage() {
+  const t = useTranslations('classes')
 
-export default async function ClassesPage({ params }: PageProps<'/[locale]/classes'>) {
-  const { locale } = await params
-  const t = await getTranslations('classes')
-
-  const supabase = await createClient()
-  const { data: classInfo } = await supabase
-    .from('class_info')
-    .select('*')
-    .eq('id', 1)
-    .single()
-
-  const childrenSchedule = classInfo
-    ? getLocalizedText(classInfo.children_schedule, locale as Locale)
-    : t('schedule_children')
-  const adultsSchedule = classInfo
-    ? getLocalizedText(classInfo.adults_schedule, locale as Locale)
-    : t('schedule_adults')
+  const classes = [
+    {
+      id: 'children',
+      titleKey: 'childrenTitle',
+      descriptionKey: 'childrenDesc',
+      ageKey: 'childrenAge',
+      scheduleKey: 'childrenSchedule',
+      durationKey: 'duration',
+      sessionsKey: 'sessions',
+    },
+    {
+      id: 'adults',
+      titleKey: 'adultsTitle',
+      descriptionKey: 'adultsDesc',
+      ageKey: 'adultsAge',
+      scheduleKey: 'adultsSchedule',
+      durationKey: 'duration',
+      sessionsKey: 'sessions',
+    },
+  ]
 
   return (
-    <div className="pt-20">
-      {/* Header */}
-      <section className="py-12 sm:py-20 md:py-28 px-5 sm:px-6 text-center border-b border-gold/10 animate-fade-in-down">
-        <p className="text-[11px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-3 sm:mb-4">Vol D&apos;Oiseau</p>
-        <h1 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] uppercase text-cream mb-3 sm:mb-4 leading-[1.2]">
-          {t('title')}
-        </h1>
-        <p className="text-cream/55 text-sm sm:text-base tracking-wide max-w-xl mx-auto leading-relaxed">{t('subtitle')}</p>
-        <div className="mt-5 sm:mt-6 w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
+    <main className="bg-navy">
+      {/* Hero Section */}
+      <section className="pt-20 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-6">
+        <Reveal>
+          <div className="text-center space-y-3 sm:space-y-6">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-display tracking-[0.1em] uppercase text-cream leading-tight">
+              {t('hero')}
+            </h1>
+            <p className="text-xs sm:text-sm md:text-base text-cream/60 max-w-2xl mx-auto leading-relaxed">
+              {t('heroSub')}
+            </p>
+            <div className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
+          </div>
+        </Reveal>
       </section>
 
-      {/* Studio Section — integrated layout */}
-      <section className="py-12 sm:py-20 md:py-24 px-5 sm:px-6 bg-navy-deep border-b border-gold/10">
-        <Reveal>
-          <div className="max-w-6xl mx-auto">
-            <h3 className="font-display text-xl sm:text-3xl tracking-[0.15em] uppercase text-cream text-center mb-3 sm:mb-4 leading-[1.2]">
-              {t('studio')}
-            </h3>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8 sm:mb-12" />
+      {/* Classes Grid */}
+      <section className="px-4 sm:px-6 pb-12 sm:pb-16">
+        <div className="max-w-6xl mx-auto">
+          <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            {classes.map((classItem) => (
+              <div
+                key={classItem.id}
+                className="group relative overflow-hidden border border-gold/20 hover:border-gold/50 transition-all duration-300"
+              >
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Children Classes + Images */}
-            <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 items-center">
-              <Reveal>
-                <div className="space-y-2">
-                  <p className="text-[11px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-3 sm:mb-4">01</p>
-                  <h2 className="font-display text-xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-4 sm:mb-6 leading-[1.2]">
-                    {t('children_title')}
-                  </h2>
-                  <div className="w-8 h-px bg-gold/30 mb-6 sm:mb-8" />
-                  <dl className="space-y-4 sm:space-y-5 text-sm text-cream/60">
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('schedule')}</dt>
-                      <dd className="font-display text-base text-cream">{childrenSchedule}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('duration')}</dt>
-                      <dd className="text-cream">{t('sessions')}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('location')}</dt>
-                      <dd className="text-cream">{t('location_value')}</dd>
-                    </div>
-                  </dl>
-                </div>
-              </Reveal>
-              <Reveal>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
-                    <img
-                      src="/shop-photos/IMG_20260524_111022.jpg"
-                      alt="Sewing studio workspace"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Content */}
+                <div className="relative p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-5">
+                  {/* Header */}
+                  <div className="space-y-1 sm:space-y-2">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-display tracking-[0.1em] uppercase text-gold">
+                      {t(classItem.titleKey)}
+                    </h2>
+                    <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-cream/50">
+                      {t(classItem.ageKey)}
+                    </p>
                   </div>
-                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
-                    <img
-                      src="/shop-photos/IMG_20260524_111033.jpg"
-                      alt="Sewing machines and tools"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm md:text-base text-cream/70 leading-relaxed">
+                    {t(classItem.descriptionKey)}
+                  </p>
+
+                  {/* Details Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2 sm:pt-4">
+                    {/* Schedule */}
+                    <div className="space-y-1">
+                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
+                        {t('schedule')}
+                      </p>
+                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80 leading-snug">
+                        {t(classItem.scheduleKey)}
+                      </p>
+                    </div>
+
+                    {/* Duration */}
+                    <div className="space-y-1">
+                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
+                        {t('length')}
+                      </p>
+                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80">
+                        {t(classItem.durationKey)}
+                      </p>
+                    </div>
+
+                    {/* Sessions */}
+                    <div className="space-y-1">
+                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
+                        {t('courseLength')}
+                      </p>
+                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80">
+                        {t(classItem.sessionsKey)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="pt-3 sm:pt-4 border-t border-gold/10">
+                    <Link
+                      href="/contact"
+                      className="inline-block text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold hover:text-cream transition-colors py-2 sm:py-2.5 px-3 sm:px-5 border border-gold/30 hover:border-gold/60 group-hover:bg-gold/10 transition-all duration-300 whitespace-nowrap"
+                    >
+                      {t('enquire')}
+                    </Link>
                   </div>
                 </div>
-              </Reveal>
+              </div>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Info Section */}
+      <section className="px-4 sm:px-6 pb-16 sm:pb-20">
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <div className="bg-gradient-to-r from-gold/10 to-transparent border border-gold/20 p-4 sm:p-6 md:p-10 space-y-3 sm:space-y-5">
+              <h3 className="text-base sm:text-lg md:text-xl font-display tracking-[0.1em] uppercase text-gold">
+                {t('interested')}
+              </h3>
+              <p className="text-xs sm:text-sm md:text-base text-cream/70 leading-relaxed max-w-3xl">
+                {t('infoText')}
+              </p>
+              <Link
+                href="/contact"
+                className="inline-block text-[9px] sm:text-xs tracking-[0.2em] uppercase text-cream hover:text-gold transition-colors py-2 sm:py-2.5 px-3 sm:px-5 border border-cream/40 hover:border-gold transition-all duration-300"
+              >
+                {t('contactUs')}
+              </Link>
             </div>
-
-            {/* Adults Classes + Images */}
-            <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
-              <Reveal>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:order-2">
-                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
-                    <img
-                      src="/shop-photos/IMG_20260524_111049.jpg"
-                      alt="Class workspace detail"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                  <div className="group relative overflow-hidden aspect-square border border-gold/20 hover:border-gold/50 transition-colors duration-500">
-                    <img
-                      src="/shop-photos/IMG_20260524_111110.jpg"
-                      alt="Studio environment"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-                </div>
-              </Reveal>
-              <Reveal>
-                <div className="space-y-2 md:order-1">
-                  <p className="text-[11px] sm:text-xs tracking-[0.4em] uppercase text-gold/50 mb-3 sm:mb-4">02</p>
-                  <h2 className="font-display text-xl sm:text-3xl tracking-[0.12em] uppercase text-cream mb-4 sm:mb-6 leading-[1.2]">
-                    {t('adults_title')}
-                  </h2>
-                  <div className="w-8 h-px bg-gold/30 mb-6 sm:mb-8" />
-                  <dl className="space-y-4 sm:space-y-5 text-sm text-cream/60">
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('schedule')}</dt>
-                      <dd className="font-display text-base text-cream">{adultsSchedule}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('duration')}</dt>
-                      <dd className="text-cream">{t('sessions')}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-[11px] tracking-[0.3em] uppercase text-gold/50 mb-2">{t('location')}</dt>
-                      <dd className="text-cream">{t('location_value')}</dd>
-                    </div>
-                  </dl>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
-
-      {/* Curriculum */}
-      <section className="py-12 sm:py-16 px-5 sm:px-6 bg-navy-deep border-y border-gold/10">
-        <Reveal>
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="font-display text-lg sm:text-2xl tracking-[0.15em] uppercase text-cream mb-3 sm:mb-4 leading-[1.2]">
-              {t('curriculum_title')}
-            </h3>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-5 sm:mb-6" />
-            <p className="text-cream/55 text-sm sm:text-base leading-relaxed">{t('curriculum')}</p>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Enquiry form */}
-      <section className="py-12 sm:py-20 md:py-24 px-5 sm:px-6">
-        <Reveal>
-          <div className="max-w-2xl mx-auto">
-            <h3 className="font-display text-xl sm:text-3xl tracking-[0.15em] uppercase text-cream text-center mb-3 sm:mb-4 leading-[1.2]">
-              {t('enquire')}
-            </h3>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8 sm:mb-10" />
-            <EnquiryForm enquiryType="class" />
-          </div>
-        </Reveal>
-      </section>
-    </div>
+    </main>
   )
 }

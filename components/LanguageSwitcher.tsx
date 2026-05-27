@@ -15,14 +15,14 @@ export default function LanguageSwitcher() {
   const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/$1')
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5 sm:gap-1">
       {routing.locales.map((locale) => {
         const newPath = `/${locale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`
         return (
           <a
             key={locale}
             href={newPath}
-            className={`text-[10px] tracking-widest px-2 py-1 rounded transition-colors cursor-pointer ${
+            className={`text-[8px] sm:text-[9px] tracking-widest px-1.5 sm:px-2 py-0.5 sm:py-1 rounded transition-colors cursor-pointer ${
               locale === currentLocale
                 ? 'text-gold border border-gold/40'
                 : 'text-cream/50 hover:text-gold'
