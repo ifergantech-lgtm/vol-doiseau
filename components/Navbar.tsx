@@ -49,11 +49,26 @@ export default function Navbar() {
           className="flex-shrink-0 flex items-center gap-2 sm:gap-3 leading-none group py-2"
         >
           {/* Bird Logo */}
-          <img
-            src="/bird-logo.svg"
-            alt="Vol D'Oiseau bird logo"
+          <svg
             className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0"
-          />
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Bird body */}
+            <circle cx="12" cy="12" r="3.5" fill="#c9a84c" />
+            {/* Bird head */}
+            <circle cx="15" cy="10" r="2.5" fill="#c9a84c" />
+            {/* Beak */}
+            <path d="M17 10 L20 9.5 L17 10.5 Z" fill="#c9a84c" />
+            {/* Left wing */}
+            <path d="M 9 11 Q 4 8 2 12 Q 5 14 9 12" fill="#c9a84c" opacity="0.9" />
+            {/* Right wing */}
+            <path d="M 15 11 Q 20 8 22 12 Q 19 14 15 12" fill="#c9a84c" opacity="0.9" />
+            {/* Tail feathers */}
+            <path d="M 10 15 Q 8 18 7 20 L 9 18 Q 11 16 10 15 Z" fill="#c9a84c" opacity="0.85" />
+            <path d="M 14 15 Q 16 18 17 20 L 15 18 Q 13 16 14 15 Z" fill="#c9a84c" opacity="0.85" />
+          </svg>
 
           {/* Text */}
           <div className="flex flex-col leading-none">
