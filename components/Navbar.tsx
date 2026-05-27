@@ -54,27 +54,27 @@ export default function Navbar() {
             href={`/${locale}`}
             className="flex-shrink-0 flex items-center gap-2 sm:gap-3 leading-none group py-2"
           >
-            {/* Bird Logo - Elegant minimalist design from original logo */}
+            {/* Bird Logo - Exact design from original logo PDF */}
             <svg
               className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Main body and wing curve */}
+              {/* Main bird body - flowing curve */}
               <path
-                d="M 16 24 Q 14 18 13 12 Q 12 6 16 3 Q 20 1 24 0 Q 26 2 24 5 Q 20 10 18 16 Q 16 20 16 24 Z"
+                d="M 18 9 Q 21 13 22 18 Q 23 23 18 27 Q 14 29 10 28 Q 12 24 16 18 Q 20 12 18 9 Z"
                 fill="#c9a84c"
               />
-              {/* Upper left wing */}
+              {/* Left wing - elegant curve */}
               <path
-                d="M 18 8 Q 12 5 8 10 Q 6 13 8 18 Q 14 20 20 16"
+                d="M 16 14 Q 10 12 6 16 Q 4 19 8 26 Q 16 28 20 22"
                 fill="#c9a84c"
-                opacity="0.85"
+                opacity="0.88"
               />
-              {/* Beak */}
+              {/* Beak - sharp pointed */}
               <path
-                d="M 24 0 L 28 -2 L 24 2 Z"
+                d="M 18 9 L 26 4 L 20 14 Z"
                 fill="#c9a84c"
               />
             </svg>
