@@ -46,14 +46,24 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href={`/${locale}`}
-          className="flex-shrink-0 flex flex-col items-center leading-none group py-2"
+          className="flex-shrink-0 flex items-center gap-2 sm:gap-3 leading-none group py-2"
         >
-          <span className="text-sm sm:text-lg md:text-xl font-display tracking-[0.25em] uppercase gold-shimmer">
-            Vol D&apos;Oiseau
-          </span>
-          <span className="text-[7px] sm:text-[8px] tracking-[0.4em] uppercase text-gold/70 mt-0.5 group-hover:text-gold transition-colors">
-            Paris
-          </span>
+          {/* Bird Logo */}
+          <img
+            src="/bird-logo.svg"
+            alt="Vol D'Oiseau bird logo"
+            className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0"
+          />
+
+          {/* Text */}
+          <div className="flex flex-col leading-none">
+            <span className="text-sm sm:text-lg md:text-xl font-display tracking-[0.25em] uppercase gold-shimmer">
+              Vol D&apos;Oiseau
+            </span>
+            <span className="text-[7px] sm:text-[8px] tracking-[0.4em] uppercase text-gold/70 mt-0.5 group-hover:text-gold transition-colors">
+              Paris
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
