@@ -133,25 +133,25 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed top-20 left-0 right-0 z-40 md:hidden bg-navy-deep border-b border-gold/30 backdrop-blur-md">
-          <nav className="max-w-7xl mx-auto px-5 py-4 flex flex-col gap-2">
+        <div className="fixed top-20 left-0 right-0 z-40 md:hidden bg-navy-deep/98 border-b border-gold/50 backdrop-blur-md shadow-lg">
+          <nav className="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-1">
             {links.map((link) => {
               const active = pathname === link.href
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-3 rounded transition-colors ${
+                  className={`px-4 py-4 rounded text-sm sm:text-base font-medium transition-colors ${
                     active
-                      ? 'bg-gold/20 text-gold'
-                      : 'text-cream/70 hover:text-cream hover:bg-gold/10'
+                      ? 'bg-gold/30 text-gold font-bold'
+                      : 'text-cream hover:text-gold hover:bg-gold/15'
                   }`}
                 >
                   {link.label}
                 </Link>
               )
             })}
-            <div className="px-4 py-3 border-t border-gold/20 mt-2">
+            <div className="px-4 py-4 border-t border-gold/30 mt-3">
               <LanguageSwitcher />
             </div>
           </nav>
