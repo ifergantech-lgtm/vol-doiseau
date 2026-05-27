@@ -129,31 +129,54 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile sidebar menu - slides in from left */}
       {menuOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 md:hidden bg-navy-deep/98 border-b border-gold/50 backdrop-blur-md shadow-lg max-h-[calc(100vh-64px)] overflow-y-auto">
-          <nav className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-0.5">
-            {links.map((link) => {
-              const active = pathname === link.href
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-4 py-3 rounded text-sm font-medium transition-colors ${
-                    active
-                      ? 'bg-gold/30 text-gold font-bold'
-                      : 'text-cream hover:text-gold hover:bg-gold/15'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )
-            })}
-            <div className="px-4 py-3 border-t border-gold/30 mt-1">
+        <>
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 z-30 bg-black/40 md:hidden"
+            onClick={() => setMenuOpen(false)}
+          />
+
+          {/* Sidebar */}
+          <div className="fixed top-0 left-0 h-screen w-64 z-40 md:hidden bg-navy-deep border-r border-gold/30 shadow-[4px_0_20px_rgba(0,0,0,0.4)] transform transition-transform duration-300 ease-out translate-x-0 overflow-y-auto">
+            {/* Close button */}
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="absolute top-6 right-6 text-gold hover:text-cream transition-colors"
+              aria-label="Close menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Navigation */}
+            <nav className="pt-20 px-6 flex flex-col gap-2">
+              {links.map((link) => {
+                const active = pathname === link.href
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-4 py-4 rounded text-lg font-medium tracking-wide transition-all ${
+                      active
+                        ? 'bg-gold/20 text-gold border-l-4 border-gold'
+                        : 'text-cream hover:text-gold hover:bg-gold/10'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            {/* Language Switcher at bottom */}
+            <div className="absolute bottom-6 left-0 right-0 px-6 border-t border-gold/20 pt-6">
               <LanguageSwitcher />
             </div>
-          </nav>
-        </div>
+          </div>
+        </>
       )}
     </>
   )
