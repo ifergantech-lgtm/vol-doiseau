@@ -5,7 +5,7 @@
   <!-- Gold circle border -->
   <circle cx="100" cy="100" r="92" fill="none" stroke="#c9a84c" stroke-width="5"/>
 
-  <!-- Bird silhouette - exact traced from original logo -->
+  <!-- Bird silhouette in flight -->
   <defs>
     <linearGradient id="faviconGold" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#e8d5b7;stop-opacity:1" />
@@ -14,12 +14,15 @@
     </linearGradient>
   </defs>
 
-  <!-- Main bird body - flowing S-curve from beak through body -->
-  <path d="M 115 55 Q 120 62 122 75 Q 123 88 118 100 Q 112 115 100 125 Q 92 130 85 128 Q 88 120 95 110 Q 105 95 108 80 Q 110 68 115 55 Z" fill="url(#faviconGold)" opacity="0.95"/>
+  <!-- Left wing - long elegant curve -->
+  <path d="M 100 100 Q 75 85 60 92 Q 55 95 62 108 Q 85 105 100 105" fill="url(#faviconGold)" opacity="0.92"/>
 
-  <!-- Left wing - elegant curve -->
-  <path d="M 100 85 Q 85 80 75 90 Q 72 96 78 108 Q 90 115 105 105" fill="url(#faviconGold)" opacity="0.88"/>
+  <!-- Right wing - long elegant curve -->
+  <path d="M 100 100 Q 125 85 140 92 Q 145 95 138 108 Q 115 105 100 105" fill="url(#faviconGold)" opacity="0.92"/>
 
-  <!-- Beak - sharp pointed triangle -->
-  <path d="M 115 55 L 128 42 L 120 62 Z" fill="url(#faviconGold)"/>
+  <!-- Body - compact center -->
+  <ellipse cx="100" cy="102" rx="8" ry="10" fill="url(#faviconGold)"/>
+
+  <!-- Head - pointed beak -->
+  <path d="M 100 90 L 108 83 L 102 93 Z" fill="url(#faviconGold)"/>
 </svg>
