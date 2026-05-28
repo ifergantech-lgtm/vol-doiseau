@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { useParams, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -55,27 +56,15 @@ export default function Navbar() {
             className="flex-shrink-0 flex items-center gap-2 sm:gap-3 leading-none group py-2"
           >
             {/* Bird Logo - Elegant silhouette in flight */}
-            <svg
-              className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="navBirdGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#e8d5b7" />
-                  <stop offset="100%" stopColor="#c9a84c" />
-                </linearGradient>
-              </defs>
-              {/* Left wing - long elegant curve */}
-              <path d="M 16 16 Q 8 12 4 14 Q 2 16 5 20 Q 12 18 16 18" fill="url(#navBirdGradient)" opacity="0.9" />
-              {/* Right wing - long elegant curve */}
-              <path d="M 16 16 Q 24 12 28 14 Q 30 16 27 20 Q 20 18 16 18" fill="url(#navBirdGradient)" opacity="0.9" />
-              {/* Body - small compact center */}
-              <ellipse cx="16" cy="17" rx="3" ry="4" fill="url(#navBirdGradient)" />
-              {/* Head - pointed beak */}
-              <path d="M 16 14 L 19 12 L 17 15 Z" fill="url(#navBirdGradient)" />
-            </svg>
+            <div className="relative w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0">
+              <Image
+                src="/logo bird final.png"
+                alt="Vol D'oiseau logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
 
             {/* Text */}
             <div className="flex flex-col leading-none">
