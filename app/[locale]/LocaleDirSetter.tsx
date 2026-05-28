@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 export default function LocaleDirSetter({ locale }: { locale: string }) {
   useEffect(() => {
     document.documentElement.lang = locale
-    document.documentElement.dir = locale === 'he' ? 'rtl' : 'ltr'
+    document.documentElement.dir = (locale === 'he' || locale === 'ar') ? 'rtl' : 'ltr'
   }, [locale])
 
   return null
