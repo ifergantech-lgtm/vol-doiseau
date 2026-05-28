@@ -134,12 +134,12 @@ export default function Navbar() {
         <>
           {/* Backdrop overlay */}
           <div
-            className="fixed inset-0 z-30 bg-black/40 md:hidden"
+            className="fixed inset-0 z-30 bg-black/40"
             onClick={() => setMenuOpen(false)}
           />
 
           {/* Sidebar */}
-          <div className="fixed top-0 left-0 h-screen w-64 z-40 md:hidden bg-navy-deep border-r border-gold/30 shadow-[4px_0_20px_rgba(0,0,0,0.4)] transform transition-transform duration-300 ease-out translate-x-0 overflow-y-auto">
+          <div className="fixed top-0 left-0 h-screen w-64 z-40 bg-navy-deep border-r border-gold/30 shadow-[4px_0_20px_rgba(0,0,0,0.4)] transform transition-transform duration-300 ease-out translate-x-0 overflow-y-auto">
             {/* Close button */}
             <button
               onClick={() => setMenuOpen(false)}
