@@ -47,13 +47,11 @@ export default function LanguageSwitcher() {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          strokeWidth={1.5}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20H7m6-4h.01M3 13h2m10 0h2M3 21h18"
-          />
+          <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+          <ellipse cx="12" cy="12" rx="4.5" ry="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18" />
         </svg>
       </button>
 
