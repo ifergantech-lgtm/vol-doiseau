@@ -1,147 +1,181 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 
-export default function ClassesPage() {
-  const t = useTranslations('classes')
+export const dynamic = 'force-dynamic'
+
+export default async function ClassesPage({ params }: PageProps<'/[locale]/classes'>) {
+  const { locale } = await params
+  const t = await getTranslations('classes')
 
   const classes = [
     {
-      id: 'children',
-      titleKey: 'childrenTitle',
-      descriptionKey: 'childrenDesc',
-      ageKey: 'childrenAge',
-      scheduleKey: 'childrenSchedule',
-      durationKey: 'duration',
-      sessionsKey: 'sessions',
+      num:      '01',
+      titleKey: 'childrenTitle' as const,
+      descKey:  'childrenDesc' as const,
+      ageKey:   'childrenAge' as const,
+      schedKey: 'childrenSchedule' as const,
     },
     {
-      id: 'adults',
-      titleKey: 'adultsTitle',
-      descriptionKey: 'adultsDesc',
-      ageKey: 'adultsAge',
-      scheduleKey: 'adultsSchedule',
-      durationKey: 'duration',
-      sessionsKey: 'sessions',
+      num:      '02',
+      titleKey: 'adultsTitle' as const,
+      descKey:  'adultsDesc' as const,
+      ageKey:   'adultsAge' as const,
+      schedKey: 'adultsSchedule' as const,
     },
   ]
 
   return (
-    <main className="bg-navy">
-      {/* Hero Section */}
-      <section className="pt-20 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-6">
+    <main className="bg-navy min-h-screen">
+
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-24 px-5 sm:px-8 max-w-7xl mx-auto">
         <Reveal>
-          <div className="text-center space-y-3 sm:space-y-6">
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-display tracking-[0.1em] uppercase text-cream leading-tight">
-              {t('hero')}
-            </h1>
-            <p className="text-xs sm:text-sm md:text-base text-cream/60 max-w-2xl mx-auto leading-relaxed">
-              {t('heroSub')}
-            </p>
-            <div className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
-          </div>
+          <p className="text-[9px] sm:text-[10px] tracking-[0.45em] uppercase text-gold/50 mb-5 sm:mb-7">
+            Vol D&apos;Oiseau — {t('studio')}
+          </p>
+          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.06em] text-cream leading-[1.05] mb-6 sm:mb-8">
+            {t('hero')}
+          </h1>
+          <div className="w-14 h-px bg-gradient-to-r from-gold to-transparent mb-6 sm:mb-8" />
+          <p className="text-cream/55 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl font-light">
+            {t('heroSub')}
+          </p>
         </Reveal>
       </section>
 
-      {/* Classes Grid */}
-      <section className="px-4 sm:px-6 pb-12 sm:pb-16">
-        <div className="max-w-6xl mx-auto">
-          <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-            {classes.map((classItem) => (
-              <div
-                key={classItem.id}
-                className="group relative overflow-hidden border border-gold/20 hover:border-gold/50 transition-all duration-300"
-              >
-                {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* ── Classes ──────────────────────────────────────── */}
+      {classes.map((cls, i) => (
+        <section
+          key={cls.num}
+          className={`px-5 sm:px-8 py-14 sm:py-20 border-t border-gold/10 ${
+            i % 2 === 1 ? 'bg-navy-deep' : ''
+          }`}
+        >
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 sm:gap-16 items-start">
 
-                {/* Content */}
-                <div className="relative p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-5">
-                  {/* Header */}
-                  <div className="space-y-1 sm:space-y-2">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-display tracking-[0.1em] uppercase text-gold">
-                      {t(classItem.titleKey)}
-                    </h2>
-                    <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-cream/50">
-                      {t(classItem.ageKey)}
+                {/* Left — number + title + description */}
+                <div>
+                  <span className="font-display text-[72px] sm:text-[100px] md:text-[130px] leading-none text-gold/8 select-none block -mb-4 sm:-mb-6">
+                    {cls.num}
+                  </span>
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[0.08em] text-cream mb-4 sm:mb-5">
+                    {t(cls.titleKey)}
+                  </h2>
+                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-gold/50 mb-5 sm:mb-7">
+                    {t(cls.ageKey)}
+                  </p>
+                  <p className="text-cream/65 text-sm sm:text-base leading-relaxed max-w-lg">
+                    {t(cls.descKey)}
+                  </p>
+                </div>
+
+                {/* Right — specs + CTA */}
+                <div className="border border-gold/15 p-6 sm:p-8 space-y-6">
+                  {/* Schedule */}
+                  <div>
+                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
+                      {t('schedule')}
+                    </p>
+                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
+                      {t(cls.schedKey)}
                     </p>
                   </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm md:text-base text-cream/70 leading-relaxed">
-                    {t(classItem.descriptionKey)}
-                  </p>
-
-                  {/* Details Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2 sm:pt-4">
-                    {/* Schedule */}
-                    <div className="space-y-1">
-                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
-                        {t('schedule')}
-                      </p>
-                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80 leading-snug">
-                        {t(classItem.scheduleKey)}
-                      </p>
-                    </div>
-
-                    {/* Duration */}
-                    <div className="space-y-1">
-                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
-                        {t('length')}
-                      </p>
-                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80">
-                        {t(classItem.durationKey)}
-                      </p>
-                    </div>
-
-                    {/* Sessions */}
-                    <div className="space-y-1">
-                      <p className="text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold/60">
-                        {t('courseLength')}
-                      </p>
-                      <p className="text-[11px] sm:text-xs md:text-sm text-cream/80">
-                        {t(classItem.sessionsKey)}
-                      </p>
-                    </div>
+                  <div className="h-px bg-gold/10" />
+                  {/* Duration */}
+                  <div>
+                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
+                      {t('length')}
+                    </p>
+                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
+                      {t('duration')}
+                    </p>
                   </div>
-
-                  {/* CTA Button */}
-                  <div className="pt-3 sm:pt-4 border-t border-gold/10">
-                    <Link
-                      href="/contact"
-                      className="inline-block text-[9px] sm:text-xs tracking-[0.2em] uppercase text-gold hover:text-cream transition-colors py-2 sm:py-2.5 px-3 sm:px-5 border border-gold/30 hover:border-gold/60 group-hover:bg-gold/10 transition-all duration-300 whitespace-nowrap"
-                    >
-                      {t('enquire')}
-                    </Link>
+                  <div className="h-px bg-gold/10" />
+                  {/* Course length */}
+                  <div>
+                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
+                      {t('courseLength')}
+                    </p>
+                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
+                      {t('sessions')}
+                    </p>
                   </div>
+                  <div className="h-px bg-gold/10" />
+                  {/* Location */}
+                  <div>
+                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
+                      {t('location')}
+                    </p>
+                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
+                      {t('location_value')}
+                    </p>
+                  </div>
+                  {/* CTA */}
+                  <Link
+                    href={`/${locale}/contact`}
+                    className="block text-center text-[10px] tracking-widest uppercase font-medium text-navy-deep py-3.5 mt-2 transition-opacity hover:opacity-90"
+                    style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
+                  >
+                    {t('enquire')} →
+                  </Link>
                 </div>
+
               </div>
-            ))}
+            </Reveal>
+          </div>
+        </section>
+      ))}
+
+      {/* ── Curriculum strip ─────────────────────────────── */}
+      <section className="px-5 sm:px-8 py-14 sm:py-20 border-t border-gold/10">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <div className="flex flex-col sm:flex-row sm:items-start gap-8 sm:gap-16">
+              <div className="flex-shrink-0">
+                <p className="text-[9px] tracking-[0.4em] uppercase text-gold/50 mb-2">
+                  {t('curriculum_title')}
+                </p>
+                <div className="w-8 h-px bg-gold/40" />
+              </div>
+              <p className="text-cream/60 text-sm sm:text-base leading-relaxed">
+                {t('curriculum')}
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Info Section */}
-      <section className="px-4 sm:px-6 pb-16 sm:pb-20">
-        <div className="max-w-4xl mx-auto">
+      {/* ── Bottom CTA ───────────────────────────────────── */}
+      <section className="px-5 sm:px-8 py-16 sm:py-24 border-t border-gold/10 bg-navy-deep">
+        <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="bg-gradient-to-r from-gold/10 to-transparent border border-gold/20 p-4 sm:p-6 md:p-10 space-y-3 sm:space-y-5">
-              <h3 className="text-base sm:text-lg md:text-xl font-display tracking-[0.1em] uppercase text-gold">
-                {t('interested')}
-              </h3>
-              <p className="text-xs sm:text-sm md:text-base text-cream/70 leading-relaxed max-w-3xl">
-                {t('infoText')}
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
+              <div>
+                <p className="text-[9px] tracking-[0.4em] uppercase text-gold/50 mb-4">
+                  — {t('studio')} —
+                </p>
+                <h2 className="font-display text-2xl sm:text-4xl md:text-5xl tracking-[0.07em] text-cream mb-3">
+                  {t('interested')}
+                </h2>
+                <p className="text-cream/45 text-xs sm:text-sm leading-relaxed max-w-md">
+                  {t('infoText')}
+                </p>
+              </div>
               <Link
-                href="/contact"
-                className="inline-block text-[9px] sm:text-xs tracking-[0.2em] uppercase text-cream hover:text-gold transition-colors py-2 sm:py-2.5 px-3 sm:px-5 border border-cream/40 hover:border-gold transition-all duration-300"
+                href={`/${locale}/contact`}
+                className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-4 text-[10px] tracking-widest uppercase font-medium text-navy-deep transition-opacity hover:opacity-90"
+                style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
               >
-                {t('contactUs')}
+                {t('contactUs')} →
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
+
     </main>
   )
 }
