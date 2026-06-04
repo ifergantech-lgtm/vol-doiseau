@@ -27,7 +27,6 @@ export default function DressCard({ dress, locale, availabilityLabels }: DressCa
   const categoryColor = {
     evening: 'bg-gold/10 text-gold border-gold/30',
     wedding: 'bg-cream/10 text-cream border-cream/30',
-    cocktail: 'bg-gold-light/10 text-gold-light border-gold-light/30',
   }[dress.category] || 'bg-gold/10 text-gold border-gold/30'
 
   const availLabel =

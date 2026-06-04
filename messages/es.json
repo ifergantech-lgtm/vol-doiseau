@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "La Colección",
-    "subtitle": "Vestidos de noche, de novia y de cóctel — lujo importado",
+    "subtitle": "Vestidos de noche y de novia — lujo importado",
     "filter_all": "Todo",
     "filter_evening": "Noche",
     "filter_wedding": "Boda",
-    "filter_cocktail": "Cóctel",
     "filter_sale": "Venta",
     "filter_rental": "Alquiler",
     "enquire": "Consultar y precio",
@@ -47,7 +46,6 @@
     "back": "Volver a la colección",
     "category_evening": "Vestido de noche",
     "category_wedding": "Vestido de novia",
-    "category_cocktail": "Vestido de cóctel",
     "ils": "₪"
   },
   "services": {

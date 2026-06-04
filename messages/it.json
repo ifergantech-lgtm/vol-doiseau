@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "La Collezione",
-    "subtitle": "Abiti da sera, da sposa e da cocktail — lusso importato",
+    "subtitle": "Abiti da sera e da sposa — lusso importato",
     "filter_all": "Tutti",
     "filter_evening": "Sera",
     "filter_wedding": "Sposa",
-    "filter_cocktail": "Cocktail",
     "filter_sale": "Vendita",
     "filter_rental": "Noleggio",
     "enquire": "Richiedi informazioni e prezzi",
@@ -47,7 +46,6 @@
     "back": "Torna alla collezione",
     "category_evening": "Abito da sera",
     "category_wedding": "Abito da sposa",
-    "category_cocktail": "Abito da cocktail",
     "ils": "₪"
   },
   "services": {

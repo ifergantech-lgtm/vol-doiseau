@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "La Collection",
-    "subtitle": "Robes de soirée, de mariée et cocktail — importations de prestige",
+    "subtitle": "Robes de soirée et de mariée — importations de prestige",
     "filter_all": "Tout",
     "filter_evening": "Soirée",
     "filter_wedding": "Mariage",
-    "filter_cocktail": "Cocktail",
     "filter_sale": "Vente",
     "filter_rental": "Location",
     "enquire": "Renseignements & prix",
@@ -47,7 +46,6 @@
     "back": "Retour à la collection",
     "category_evening": "Robe de soirée",
     "category_wedding": "Robe de mariée",
-    "category_cocktail": "Robe cocktail",
     "ils": "₪"
   },
   "services": {

@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "הקולקציה",
-    "subtitle": "שמלות ערב, שמלות כלה וקוקטייל — ייבוא יוקרתי",
+    "subtitle": "שמלות ערב ושמלות כלה — ייבוא יוקרתי",
     "filter_all": "הכל",
     "filter_evening": "ערב",
     "filter_wedding": "כלה",
-    "filter_cocktail": "קוקטייל",
     "filter_sale": "מכירה",
     "filter_rental": "השאלה",
     "enquire": "לפרטים ומחירים",
@@ -47,7 +46,6 @@
     "back": "חזרה לקולקציה",
     "category_evening": "שמלת ערב",
     "category_wedding": "שמלת כלה",
-    "category_cocktail": "שמלת קוקטייל",
     "ils": "₪"
   },
   "services": {

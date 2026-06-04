@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "Коллекция",
-    "subtitle": "Вечерние, свадебные и коктейльные платья — импортированная роскошь",
+    "subtitle": "Вечерние и свадебные платья — импортированная роскошь",
     "filter_all": "Все",
     "filter_evening": "Вечерние",
     "filter_wedding": "Свадебные",
-    "filter_cocktail": "Коктейльные",
     "filter_sale": "Продажа",
     "filter_rental": "Аренда",
     "enquire": "Запрос и цены",
@@ -47,7 +46,6 @@
     "back": "Вернуться к коллекции",
     "category_evening": "Вечернее платье",
     "category_wedding": "Свадебное платье",
-    "category_cocktail": "Коктейльное платье",
     "ils": "₪"
   },
   "services": {

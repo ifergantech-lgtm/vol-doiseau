@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "المجموعة",
-    "subtitle": "فساتين السهرة والزفاف والكوكتيل — فاخرة ومستوردة",
+    "subtitle": "فساتين السهرة والزفاف — فاخرة ومستوردة",
     "filter_all": "الكل",
     "filter_evening": "سهرة",
     "filter_wedding": "زفاف",
-    "filter_cocktail": "كوكتيل",
     "filter_sale": "بيع",
     "filter_rental": "تأجير",
     "enquire": "استفسار وأسعار",
@@ -47,7 +46,6 @@
     "back": "العودة إلى المجموعة",
     "category_evening": "فستان سهرة",
     "category_wedding": "فستان زفاف",
-    "category_cocktail": "فستان كوكتيل",
     "ils": "₪"
   },
   "services": {

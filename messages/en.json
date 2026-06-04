@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "The Collection",
-    "subtitle": "Evening gowns, wedding dresses and cocktail — imported luxury",
+    "subtitle": "Evening gowns and wedding dresses — imported luxury",
     "filter_all": "All",
     "filter_evening": "Evening",
     "filter_wedding": "Wedding",
-    "filter_cocktail": "Cocktail",
     "filter_sale": "Sale",
     "filter_rental": "Rental",
     "enquire": "Enquire & pricing",
@@ -47,7 +46,6 @@
     "back": "Back to collection",
     "category_evening": "Evening gown",
     "category_wedding": "Wedding dress",
-    "category_cocktail": "Cocktail dress",
     "ils": "₪"
   },
   "services": {

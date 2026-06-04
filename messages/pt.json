@@ -27,11 +27,10 @@
   },
   "collection": {
     "title": "A Coleção",
-    "subtitle": "Vestidos de gala, de noiva e de coquetel — luxo importado",
+    "subtitle": "Vestidos de gala e de noiva — luxo importado",
     "filter_all": "Todos",
     "filter_evening": "Gala",
     "filter_wedding": "Noiva",
-    "filter_cocktail": "Coquetel",
     "filter_sale": "Venda",
     "filter_rental": "Aluguel",
     "enquire": "Consultar e preços",
@@ -47,7 +46,6 @@
     "back": "Voltar à coleção",
     "category_evening": "Vestido de gala",
     "category_wedding": "Vestido de noiva",
-    "category_cocktail": "Vestido de coquetel",
     "ils": "₪"
   },
   "services": {

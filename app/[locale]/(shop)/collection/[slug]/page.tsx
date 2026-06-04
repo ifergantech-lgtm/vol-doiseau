@@ -28,7 +28,7 @@ export default async function DressPage({ params }: PageProps<'/[locale]/collect
   const description = getLocalizedText(dress.description, locale as Locale)
   const whatsappUrl = getWhatsAppUrl(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '33781721617')
 
-  const categoryLabel = t(`category_${dress.category}` as 'category_evening' | 'category_wedding' | 'category_cocktail')
+  const categoryLabel = t(`category_${dress.category}` as 'category_evening' | 'category_wedding')
 
   return (
     <div className="pt-20">

@@ -19,7 +19,7 @@ interface DressData {
 }
 
 const LOCALES = ['en', 'fr', 'he'] as const
-const CATEGORIES = ['evening', 'wedding', 'cocktail'] as const
+const CATEGORIES = ['evening', 'wedding'] as const
 const AVAILABILITIES = ['sale', 'rental', 'both'] as const
 
 export default function DressForm({ initial }: { initial?: DressData }) {

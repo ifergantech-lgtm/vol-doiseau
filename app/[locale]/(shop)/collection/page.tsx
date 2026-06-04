@@ -43,7 +43,6 @@ export default async function CollectionPage({ params }: PageProps<'/[locale]/co
           all: t('filter_all'),
           evening: t('filter_evening'),
           wedding: t('filter_wedding'),
-          cocktail: t('filter_cocktail'),
           sale: t('filter_sale'),
           rental: t('filter_rental'),
           empty: t('empty'),

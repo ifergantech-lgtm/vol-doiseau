@@ -20,7 +20,6 @@ interface Labels {
   all: string
   evening: string
   wedding: string
-  cocktail: string
   sale: string
   rental: string
   empty: string
@@ -54,7 +53,6 @@ export default function CollectionClient({
     { key: 'all', label: labels.all },
     { key: 'evening', label: labels.evening },
     { key: 'wedding', label: labels.wedding },
-    { key: 'cocktail', label: labels.cocktail },
   ]
 
   const availFilters = [
