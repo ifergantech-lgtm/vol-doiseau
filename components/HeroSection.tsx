@@ -115,8 +115,13 @@ export default function HeroSection({
                 fill
                 priority={i === 0}
                 sizes="100vw"
-                className="object-cover object-top transition-opacity duration-[2000ms] ease-in-out"
-                style={{ opacity: i === currentIdx ? 1 : 0 }}
+                className="object-cover object-top"
+                style={{
+                  opacity: i === currentIdx ? 1 : 0,
+                  transition: 'opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  animation: `kenburns ${8 + i * 1.3}s ease-in-out infinite alternate`,
+                  transformOrigin: 'center center',
+                }}
               />
             ))
           ) : (

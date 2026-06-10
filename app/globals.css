@@ -291,3 +291,23 @@ body {
   50% { transform: translateY(-5px); }
 }
 .animate-drift-y { animation: drift-y 6s ease-in-out infinite; }
+
+/* Hero staggered entrance — each element gets its own animationDelay inline */
+.hero-enter {
+  opacity: 0;
+  animation: fade-in-up 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Carousel Ken Burns — slow continuous zoom, alternates direction */
+@keyframes kenburns {
+  from { transform: scale(1.0) translate(0%, 0%); }
+  to   { transform: scale(1.1) translate(-1%, -1%); }
+}
+
+/* Floating gold particle */
+@keyframes particle-rise {
+  0%   { opacity: 0;   transform: translateY(0px)     scale(1);   }
+  12%  { opacity: 0.6; }
+  78%  { opacity: 0.3; transform: translateY(-90px)   scale(0.6); }
+  100% { opacity: 0;   transform: translateY(-130px)  scale(0.2); }
+}

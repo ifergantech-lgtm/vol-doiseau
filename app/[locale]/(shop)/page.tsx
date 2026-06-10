@@ -146,11 +146,11 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-gold/15 group">
               <Image
-                src="/shop/interior/elisheva-at-work.jpg"
-                alt="Élisheva Ifergan adjusting a gown at the Tel Aviv atelier"
+                src="/shop/hero-storefront.jpg"
+                alt="Vol D'Oiseau boutique — King George 6, Tel Aviv"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-[center_20%] brightness-[1.08] contrast-[1.03] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                className="object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/40 via-transparent to-transparent" />
             </div>
