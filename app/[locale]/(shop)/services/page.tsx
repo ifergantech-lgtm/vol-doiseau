@@ -13,10 +13,10 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
       {/* Header */}
       <section className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 overflow-hidden">
         <Image
-          src="/shop/interior/elisheva-at-work.jpg"
-          alt="Élisheva Ifergan at the atelier"
+          src="/shop/interior/studio-threads.jpg"
+          alt="Vol D'Oiseau atelier — sewing studio"
           fill
-          className="object-cover object-[center_20%] opacity-[0.22] brightness-[1.05]"
+          className="object-cover object-center opacity-[0.20] brightness-[1.05]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy/85 to-navy" />

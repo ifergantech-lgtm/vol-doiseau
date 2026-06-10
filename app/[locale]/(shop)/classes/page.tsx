@@ -32,11 +32,11 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 px-5 sm:px-8 overflow-hidden">
         <Image
-          src="/shop/interior/elisheva-at-work.jpg"
-          alt="Élisheva at work"
+          src="/shop/interior/studio-singer.jpg"
+          alt="Vol D'Oiseau sewing studio — Singer machine"
           fill
           priority
-          className="object-cover object-[center_20%] opacity-[0.15] brightness-[1.05]"
+          className="object-cover object-center opacity-[0.16] brightness-[1.05]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/50 via-navy/80 to-navy" />
         {/* Aurora orbs */}
