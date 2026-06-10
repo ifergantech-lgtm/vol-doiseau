@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import DressCard from '@/components/DressCard'
 import Reveal from '@/components/Reveal'
 import HeroSection from '@/components/HeroSection'
+import AmbientGlow from '@/components/AmbientGlow'
 import MagneticButton from '@/components/MagneticButton'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -56,15 +57,16 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
       {/* Featured dresses */}
       {featured && featured.length > 0 && (
-        <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-navy via-navy/95 to-navy border-t border-gold/10">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative overflow-hidden py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-navy via-navy/95 to-navy border-t border-gold/10">
+          <AmbientGlow density="light" orb="top-right" />
+          <div className="relative z-10 max-w-7xl mx-auto">
             <Reveal>
               <div className="mb-12 sm:mb-16 md:mb-20">
                 <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-4 sm:mb-6 md:mb-8">
                   <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">— {tn('collection')} —</p>
                   <h2 className="font-display text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] text-cream leading-[1.3] sm:leading-[1.2]">
                     {t('featured_title').split(' ').slice(0, 1).join(' ')}
-                    <span className="text-gold italic block sm:inline"> {t('featured_title').split(' ').slice(1).join(' ')}</span>
+                    <span className="gold-shimmer italic block sm:inline"> {t('featured_title').split(' ').slice(1).join(' ')}</span>
                   </h2>
                 </div>
                 <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
@@ -102,15 +104,16 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       )}
 
       {/* Services */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-navy-deep border-t border-gold/10 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-navy-deep border-t border-gold/10 overflow-hidden">
+        <AmbientGlow density="rich" orb="bottom-left" />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <Reveal>
             <div className="mb-12 sm:mb-16 md:mb-24">
               <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-4 sm:mb-6 md:mb-8">
                 <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">— Maison —</p>
                 <h2 className="font-display text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] text-cream leading-[1.3] sm:leading-[1.2]">
                   {t('services_title').split(' ').slice(0, 1).join(' ')}
-                  <span className="text-gold italic block sm:inline"> {t('services_title').split(' ').slice(1).join(' ')}</span>
+                  <span className="gold-shimmer italic block sm:inline"> {t('services_title').split(' ').slice(1).join(' ')}</span>
                 </h2>
               </div>
               <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
@@ -141,9 +144,10 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </section>
 
       {/* About Elisheva — with real boutique interior */}
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
-          <Reveal>
+      <section className="relative overflow-hidden py-12 sm:py-16 md:py-24 px-4 sm:px-6">
+        <AmbientGlow density="light" orb="top-left" />
+        <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
+          <Reveal variant="zoom">
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-gold/15 group">
               <Image
                 src="/shop/hero-storefront.jpg"
@@ -175,7 +179,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
         <Reveal>
           <MagneticButton
             href={`/${locale}/contact`}
-            className="btn-gold px-6 sm:px-8 md:px-12 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] inline-flex items-center justify-center rounded-sm"
+            className="btn-gold breathe-glow px-6 sm:px-8 md:px-12 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] inline-flex items-center justify-center rounded-sm"
           >
             {t('footer_cta')}
           </MagneticButton>

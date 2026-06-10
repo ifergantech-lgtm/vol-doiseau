@@ -39,7 +39,7 @@ export default async function CollectionPage({ params }: PageProps<'/[locale]/co
             </div>
             <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.08em] text-cream leading-[1.2] sm:leading-[1.1]">
               {t('title').split(' ').slice(0, 1).join(' ')}
-              <span className="text-gold italic block sm:inline"> {t('title').split(' ').slice(1).join(' ')}</span>
+              <span className="gold-shimmer italic block sm:inline"> {t('title').split(' ').slice(1).join(' ')}</span>
             </h1>
           </div>
           <p className="text-cream/60 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-light">

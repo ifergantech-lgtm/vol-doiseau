@@ -193,7 +193,7 @@ export default function HeroSection({
             <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
               <span>{firstWords}</span>
               <br />
-              <span className="text-gold italic">{lastWord}</span>
+              <span className="gold-shimmer italic">{lastWord}</span>
             </h1>
           </div>
 
@@ -212,7 +212,7 @@ export default function HeroSection({
           >
             <MagneticButton
               href={`/${locale}/collection`}
-              className="btn-gold px-6 sm:px-8 py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
+              className="btn-gold breathe-glow px-6 sm:px-8 py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
             >
               {ctaCollection} →
             </MagneticButton>

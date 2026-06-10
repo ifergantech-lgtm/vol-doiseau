@@ -7,6 +7,8 @@ interface RevealProps {
   className?: string
   /** When true, children get `reveal-stagger` so child elements animate in sequence */
   stagger?: boolean
+  /** Animation style. 'up' (default) fades up; 'zoom' fades + scales in. */
+  variant?: 'up' | 'zoom'
   /** Wrapper element. Defaults to div. */
   as?: ElementType
   /** Distance from viewport edge to start the animation (px). Default: 80. */
@@ -26,6 +28,7 @@ export default function Reveal({
   children,
   className = '',
   stagger = false,
+  variant = 'up',
   as: Tag = 'div',
   rootMargin = '0px 0px -80px 0px',
   threshold = 0.05,
@@ -62,7 +65,7 @@ export default function Reveal({
     return () => observer.disconnect()
   }, [rootMargin, threshold, disabled])
 
-  const baseClass = stagger ? 'reveal-stagger' : 'reveal'
+  const baseClass = stagger ? 'reveal-stagger' : variant === 'zoom' ? 'reveal-zoom' : 'reveal'
   const visibleClass = visible ? ' is-visible' : ''
   const merged = `${baseClass}${visibleClass}${className ? ` ${className}` : ''}`
 

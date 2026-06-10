@@ -7,6 +7,7 @@ import BottomNav from '@/components/BottomNav'
 import Footer from '@/components/Footer'
 import Marquee from '@/components/Marquee'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
+import ScrollProgress from '@/components/ScrollProgress'
 import LocaleDirSetter from './LocaleDirSetter'
 
 export function generateStaticParams() {
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <LocaleDirSetter locale={locale} />
+      <ScrollProgress />
       <Navbar />
       <main className="flex-1 pb-24 md:pb-0">{children}</main>
       <Marquee items={["Vol D'Oiseau", 'Paris', 'Tel Aviv', 'Haute Couture', 'Sur Mesure']} />

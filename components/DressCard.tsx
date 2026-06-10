@@ -65,6 +65,8 @@ export default function DressCard({ dress, locale, availabilityLabels }: DressCa
           <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/90 via-navy-deep/10 to-transparent pointer-events-none" />
           {/* Gold sweep on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-gold/0 via-gold/5 to-gold/0 pointer-events-none" />
+          {/* Diagonal light shine that sweeps across on hover */}
+          <div className="card-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
           {/* Availability badge */}
           <span
             className={`absolute top-2 sm:top-3 start-2 sm:start-3 text-[8px] sm:text-[9px] tracking-[0.2em] uppercase px-2 sm:px-2.5 py-0.5 sm:py-1 border rounded-full backdrop-blur-sm ${categoryColor} transition-transform duration-500 group-hover:scale-105`}
