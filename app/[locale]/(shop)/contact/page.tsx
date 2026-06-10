@@ -51,13 +51,14 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
 
           {/* Phone */}
           <div>
-            <h3 className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">Tel</h3>
+            <h3 className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-3">Phone — calls only</h3>
             <a
-              href="tel:0502290718"
+              href="tel:+972502290718"
               className="text-cream/75 hover:text-gold transition-colors text-base sm:text-lg tracking-wide font-display"
             >
               050-229-0718
             </a>
+            <p className="text-cream/40 text-[11px] tracking-wide mt-1">Israel · calls only</p>
           </div>
 
           {/* Address */}

@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import DressCard from '@/components/DressCard'
 import Reveal from '@/components/Reveal'
-import HeroTitle from '@/components/HeroTitle'
+import HeroSection from '@/components/HeroSection'
 import MagneticButton from '@/components/MagneticButton'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -24,6 +24,17 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
     .eq('is_active', true)
     .limit(6)
 
+  // Carousel: first image from each dress (up to 8), filtered to non-empty
+  const { data: carouselDresses } = await supabase
+    .from('dresses')
+    .select('images')
+    .eq('is_active', true)
+    .limit(10)
+  const carouselImages = (carouselDresses || [])
+    .map(d => (d.images as string[] | null)?.[0])
+    .filter((url): url is string => Boolean(url))
+    .slice(0, 8)
+
   const services = [
     { key: 'sale', href: `/${locale}/collection` },
     { key: 'rental', href: `/${locale}/collection?availability=rental` },
@@ -34,67 +45,14 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-navy">
-        {/* Hero background image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/shop/hero-storefront.jpg"
-            alt="Vol D'Oiseau — King George 6, Tel Aviv"
-            fill
-            priority
-            className="object-cover"
-          />
-          {/* Gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/60 md:from-navy/95 md:via-navy/85 md:to-navy/40" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-24 md:py-32 pt-20 sm:pt-24 md:pt-20">
-          <Reveal>
-            <div className="space-y-5 sm:space-y-6 md:space-y-8 max-w-2xl">
-              <div className="space-y-2 sm:space-y-3">
-                <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 animate-fade-in-down">
-                  Vol D&apos;Oiseau — Paris
-                </p>
-                <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
-              </div>
-
-              <div className="space-y-4 sm:space-y-5">
-                <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
-                  <span>{t('hero_title').split(' ').slice(0, -1).join(' ')}</span>
-                  <br />
-                  <span className="text-gold italic">{t('hero_title').split(' ').slice(-1)}</span>
-                </h1>
-              </div>
-
-              <p className="text-cream/75 text-xs sm:text-sm md:text-base leading-relaxed font-light">
-                {t('hero_subtitle')}
-              </p>
-
-              <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
-                <MagneticButton
-                  href={`/${locale}/collection`}
-                  className="btn-gold px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
-                >
-                  {t('cta_collection')} →
-                </MagneticButton>
-                <Link
-                  href={`/${locale}/contact`}
-                  className="px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:border-gold hover:text-gold transition-all text-center h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
-                >
-                  {t('cta_contact')}
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 sm:gap-2 text-cream/40 animate-fade-in delay-700 z-20">
-          <span className="text-[8px] sm:text-[9px] tracking-[0.4em] uppercase">Scroll</span>
-          <div className="w-px h-6 sm:h-8 bg-gradient-to-b from-gold/60 to-transparent animate-scroll-bounce" />
-        </div>
-      </section>
+      <HeroSection
+        locale={locale}
+        heroTitle={t('hero_title')}
+        heroSubtitle={t('hero_subtitle')}
+        ctaCollection={t('cta_collection')}
+        ctaContact={t('cta_contact')}
+        carouselImages={carouselImages}
+      />
 
       {/* Featured dresses */}
       {featured && featured.length > 0 && (
@@ -188,11 +146,11 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-gold/15 group">
               <Image
-                src="/shop/exterior-1.jpg"
-                alt="Vol D'Oiseau boutique storefront — King George 6, Tel Aviv"
+                src="/shop/interior/elisheva-at-work.jpg"
+                alt="Élisheva Ifergan adjusting a gown at the Tel Aviv atelier"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                className="object-cover object-[center_20%] brightness-[1.08] contrast-[1.03] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/40 via-transparent to-transparent" />
             </div>

@@ -13,13 +13,16 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
       {/* Header */}
       <section className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 overflow-hidden">
         <Image
-          src="/atelier/dressmaking.png"
-          alt="Atelier"
+          src="/shop/interior/elisheva-at-work.jpg"
+          alt="Élisheva Ifergan at the atelier"
           fill
-          className="object-cover opacity-25"
+          className="object-cover object-[center_20%] opacity-[0.22] brightness-[1.05]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy/85 to-navy" />
+        {/* Aurora orbs */}
+        <div className="absolute top-[10%] right-[18%] w-[260px] h-[260px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.20) 0%, transparent 70%)', filter: 'blur(65px)' }} />
+        <div className="absolute bottom-[8%] left-[6%] w-[160px] h-[160px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.11) 0%, transparent 70%)', filter: 'blur(45px)', animationDelay: '-5s' }} />
         <div className="relative z-10 text-center max-w-2xl mx-auto animate-fade-in-down">
           <p className="text-[10px] sm:text-xs tracking-[0.4em] uppercase text-gold/60 mb-4">Vol D&apos;Oiseau</p>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-[0.12em] uppercase text-cream mb-4">

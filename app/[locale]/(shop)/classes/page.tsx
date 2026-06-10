@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
+import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 
 export const dynamic = 'force-dynamic'
@@ -29,7 +30,19 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
     <main className="bg-navy min-h-screen">
 
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="pt-28 sm:pt-36 pb-16 sm:pb-24 px-5 sm:px-8 max-w-7xl mx-auto">
+      <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 px-5 sm:px-8 overflow-hidden">
+        <Image
+          src="/shop/interior/elisheva-at-work.jpg"
+          alt="Élisheva at work"
+          fill
+          priority
+          className="object-cover object-[center_20%] opacity-[0.15] brightness-[1.05]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/50 via-navy/80 to-navy" />
+        {/* Aurora orbs */}
+        <div className="absolute top-[12%] right-[10%] w-[300px] h-[300px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.16) 0%, transparent 70%)', filter: 'blur(75px)' }} />
+        <div className="absolute bottom-[10%] left-[4%] w-[200px] h-[200px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%)', filter: 'blur(55px)', animationDelay: '-9s' }} />
+        <div className="relative z-10 max-w-7xl mx-auto">
         <Reveal>
           <p className="text-[9px] sm:text-[10px] tracking-[0.45em] uppercase text-gold/50 mb-5 sm:mb-7">
             Vol D&apos;Oiseau — {t('studio')}
@@ -42,6 +55,33 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
             {t('heroSub')}
           </p>
         </Reveal>
+        </div>
+      </section>
+
+      {/* ── Studio glimpse ───────────────────────────────── */}
+      <section className="px-5 sm:px-8 pb-10 sm:pb-14">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-2 sm:gap-3">
+          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+            <Image
+              src="/shop/interior/studio-singer.jpg"
+              alt="Sewing machine at the Vol D'Oiseau atelier"
+              fill
+              sizes="(max-width: 768px) 50vw, 40vw"
+              className="object-cover object-center brightness-[1.1] contrast-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+          </div>
+          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+            <Image
+              src="/shop/interior/studio-threads.jpg"
+              alt="Thread spools and tools at the atelier"
+              fill
+              sizes="(max-width: 768px) 50vw, 40vw"
+              className="object-cover object-top brightness-[1.1] contrast-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+          </div>
+        </div>
       </section>
 
       {/* ── Classes ──────────────────────────────────────── */}

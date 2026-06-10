@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import CollectionClient from './CollectionClient'
+import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
@@ -18,8 +19,19 @@ export default async function CollectionPage({ params }: PageProps<'/[locale]/co
 
   return (
     <div className="pt-20">
-      <section className="py-16 sm:py-20 md:py-28 px-5 sm:px-6 border-b border-gold/10 animate-fade-in-down bg-gradient-to-b from-navy via-navy to-navy-deep">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 border-b border-gold/10 animate-fade-in-down overflow-hidden">
+        <Image
+          src="/shop/interior/elisheva-at-work.jpg"
+          alt="Vol D'Oiseau atelier"
+          fill
+          priority
+          className="object-cover object-[center_20%] opacity-[0.18]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/60 via-navy/80 to-navy-deep" />
+        {/* Aurora orbs */}
+        <div className="absolute top-[8%] right-[12%] w-[280px] h-[280px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 70%)', filter: 'blur(70px)' }} />
+        <div className="absolute bottom-[5%] left-[8%] w-[180px] h-[180px] rounded-full pointer-events-none animate-aurora" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%)', filter: 'blur(50px)', animationDelay: '-7s' }} />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
             <div className="space-y-3 sm:space-y-4">
               <p className="text-[11px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">Vol D&apos;Oiseau</p>
