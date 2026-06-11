@@ -73,11 +73,11 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
           </div>
           <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
             <Image
-              src="/shop/interior/studio-threads.jpg"
-              alt="Thread spools and tools at the atelier"
+              src="/shop/interior/studio-rack.jpg"
+              alt="Dresses and Paris fashion prints inside the Vol D'Oiseau boutique"
               fill
               sizes="(max-width: 768px) 50vw, 40vw"
-              className="object-cover object-top brightness-[1.1] contrast-[1.03]"
+              className="object-cover object-center brightness-[1.05] contrast-[1.02]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
           </div>
