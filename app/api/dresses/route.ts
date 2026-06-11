@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { buildSlug } from '@/lib/utils'
+import { autoTranslateDress } from '@/lib/translate'
 
 export async function GET() {
   console.log('[GET /api/dresses] start')
@@ -28,7 +29,9 @@ export async function POST(req: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const body = await req.json()
+    let body = await req.json()
+    // Fill missing languages automatically (e.g. French in -> English + Hebrew out)
+    body = await autoTranslateDress(body)
     const slug = body.slug || buildSlug(body.title?.en || body.title?.fr || body.title?.he || 'dress')
 
     const { data, error } = await supabase

@@ -3,18 +3,20 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useAdminT, type AdminLang, type AdminStringKey } from './adminI18n'
 
-const links = [
-  { href: '/admin', label: 'Dashboard' },
-  { href: '/admin/dresses', label: 'Dresses' },
-  { href: '/admin/enquiries', label: 'Enquiries' },
-  { href: '/admin/classes', label: 'Classes' },
-  { href: '/admin/social', label: 'Social Media' },
+const links: { href: string; key: AdminStringKey }[] = [
+  { href: '/admin', key: 'dashboard' },
+  { href: '/admin/dresses', key: 'dresses' },
+  { href: '/admin/enquiries', key: 'enquiries' },
+  { href: '/admin/classes', key: 'classes' },
+  { href: '/admin/social', key: 'social' },
 ]
 
 export default function AdminNav() {
   const pathname = usePathname()
   const router = useRouter()
+  const { lang, setLang, t } = useAdminT()
 
   async function logout() {
     const supabase = createClient()
@@ -49,16 +51,32 @@ export default function AdminNav() {
                 : 'text-cream/50 hover:text-cream hover:bg-white/5'
             }`}
           >
-            {link.label}
+            {t(link.key)}
           </Link>
         ))}
       </nav>
+      {/* Language toggle */}
+      <div className="px-4 pb-2">
+        <div className="flex border border-gold/15 rounded overflow-hidden">
+          {(['fr', 'en'] as AdminLang[]).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              className={`flex-1 py-2 text-[10px] tracking-widest uppercase transition-colors ${
+                lang === l ? 'bg-gold/15 text-gold' : 'text-cream/40 hover:text-cream'
+              }`}
+            >
+              {l === 'fr' ? 'Français' : 'English'}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="p-4 border-t border-gold/10">
         <button
           onClick={logout}
           className="w-full text-xs tracking-widest uppercase text-cream/30 hover:text-cream transition-colors text-start px-3 py-2"
         >
-          Log out
+          {t('logout')}
         </button>
       </div>
     </aside>

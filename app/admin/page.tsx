@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { useAdminT } from './adminI18n'
 
 interface Stats {
   totalDresses: number
@@ -12,6 +13,7 @@ interface Stats {
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null)
+  const { t } = useAdminT()
 
   useEffect(() => {
     const supabase = createClient()
@@ -28,14 +30,14 @@ export default function AdminDashboard() {
   }, [])
 
   const tiles = [
-    { label: 'Total Dresses', value: stats?.totalDresses, href: '/admin/dresses' },
-    { label: 'Active Dresses', value: stats?.activeDresses, href: '/admin/dresses' },
-    { label: 'New Enquiries', value: stats?.newEnquiries, href: '/admin/enquiries', highlight: true },
+    { label: t('totalDresses'), value: stats?.totalDresses, href: '/admin/dresses' },
+    { label: t('activeDresses'), value: stats?.activeDresses, href: '/admin/dresses' },
+    { label: t('newEnquiries'), value: stats?.newEnquiries, href: '/admin/enquiries', highlight: true },
   ]
 
   return (
     <div>
-      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-8">Dashboard</h1>
+      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-8">{t('dashboard')}</h1>
       <div className="grid sm:grid-cols-3 gap-4 mb-10">
         {tiles.map((tile) => (
           <Link
@@ -71,13 +73,13 @@ export default function AdminDashboard() {
           className="px-6 py-3 text-xs tracking-widest uppercase font-medium text-navy-deep"
           style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
         >
-          + Add dress
+          {t('addDress')}
         </Link>
         <Link
           href="/admin/enquiries"
           className="px-6 py-3 text-xs tracking-widest uppercase border border-gold/30 text-gold hover:bg-gold/10 transition-all"
         >
-          View enquiries
+          {t('viewEnquiries')}
         </Link>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useAdminT, type AdminStringKey } from '../adminI18n'
 
 interface Enquiry {
   id: string
@@ -21,10 +22,17 @@ const STATUS_COLORS: Record<string, string> = {
   replied: 'text-green-400/60 border-green-400/30',
 }
 
+const STATUS_KEYS: Record<string, AdminStringKey> = {
+  new: 'statusNew',
+  read: 'statusRead',
+  replied: 'statusReplied',
+}
+
 export default function AdminEnquiries() {
   const [enquiries, setEnquiries] = useState<Enquiry[]>([])
   const [expanded, setExpanded] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const { t } = useAdminT()
 
   function load() {
     const supabase = createClient()
@@ -48,11 +56,11 @@ export default function AdminEnquiries() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-8">Enquiries</h1>
+      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-8">{t('enquiries')}</h1>
       {loading ? (
-        <p className="text-cream/30 text-sm">Loading…</p>
+        <p className="text-cream/30 text-sm">{t('loading')}</p>
       ) : enquiries.length === 0 ? (
-        <p className="text-cream/30 text-sm tracking-widest uppercase">No enquiries yet</p>
+        <p className="text-cream/30 text-sm tracking-widest uppercase">{t('noEnquiries')}</p>
       ) : (
         <div className="space-y-2">
           {enquiries.map((enq) => (
@@ -80,7 +88,7 @@ export default function AdminEnquiries() {
                   <span
                     className={`text-[9px] tracking-widest uppercase px-2 py-0.5 border ${STATUS_COLORS[enq.status] || ''}`}
                   >
-                    {enq.status}
+                    {STATUS_KEYS[enq.status] ? t(STATUS_KEYS[enq.status]) : enq.status}
                   </span>
                 </div>
               </button>
@@ -103,7 +111,7 @@ export default function AdminEnquiries() {
                             : 'border-cream/10 text-cream/30 hover:border-cream/30'
                         }`}
                       >
-                        {s}
+                        {t(STATUS_KEYS[s])}
                       </button>
                     ))}
                   </div>

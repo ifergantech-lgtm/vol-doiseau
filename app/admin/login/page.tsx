@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useAdminT } from '../adminI18n'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const { t } = useAdminT()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -18,7 +20,7 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
-      setError('Invalid credentials')
+      setError(t('invalidCredentials'))
       setLoading(false)
     } else {
       router.replace('/admin')
@@ -46,7 +48,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-              Email
+              {t('email')}
             </label>
             <input
               type="email"
@@ -58,7 +60,7 @@ export default function LoginPage() {
           </div>
           <div>
             <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-              Password
+              {t('password')}
             </label>
             <input
               type="password"
@@ -75,7 +77,7 @@ export default function LoginPage() {
             className="w-full py-3 text-xs tracking-widest uppercase font-medium text-navy-deep disabled:opacity-50 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
           >
-            {loading ? '...' : 'Log in'}
+            {loading ? '...' : t('login')}
           </button>
         </form>
       </div>

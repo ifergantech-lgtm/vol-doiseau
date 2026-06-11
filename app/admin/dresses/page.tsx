@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatPrice } from '@/lib/utils'
+import { useAdminT } from '../adminI18n'
 
 interface Dress {
   id: string
@@ -22,6 +23,7 @@ interface Dress {
 export default function AdminDresses() {
   const [dresses, setDresses] = useState<Dress[]>([])
   const [loading, setLoading] = useState(true)
+  const { lang, t } = useAdminT()
 
   function load() {
     const supabase = createClient()
@@ -44,7 +46,7 @@ export default function AdminDresses() {
   }
 
   async function deleteDress(id: string) {
-    if (!confirm('Delete this dress?')) return
+    if (!confirm(t('confirmDelete'))) return
     const supabase = createClient()
     await supabase.from('dresses').delete().eq('id', id)
     load()
@@ -53,25 +55,28 @@ export default function AdminDresses() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream">Dresses</h1>
+        <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream">{t('dresses')}</h1>
         <Link
           href="/admin/dresses/new"
           className="px-5 py-2.5 text-xs tracking-widest uppercase font-medium text-navy-deep"
           style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
         >
-          + Add dress
+          {t('addDress')}
         </Link>
       </div>
 
       {loading ? (
-        <p className="text-cream/30 text-sm">Loading…</p>
+        <p className="text-cream/30 text-sm">{t('loading')}</p>
       ) : dresses.length === 0 ? (
-        <p className="text-cream/30 text-sm tracking-widest uppercase">No dresses yet</p>
+        <p className="text-cream/30 text-sm tracking-widest uppercase">{t('noDresses')}</p>
       ) : (
         <div className="space-y-2">
           {dresses.map((dress) => {
             const thumb = dress.images[0] || `https://picsum.photos/seed/${dress.slug}/200/267`
-            const title = dress.title?.en || dress.title?.fr || dress.title?.he || dress.slug
+            const title =
+              (lang === 'fr'
+                ? dress.title?.fr || dress.title?.en
+                : dress.title?.en || dress.title?.fr) || dress.title?.he || dress.slug
             return (
               <div
                 key={dress.id}
@@ -97,19 +102,19 @@ export default function AdminDresses() {
                         : 'border-cream/20 text-cream/30'
                     }`}
                   >
-                    {dress.is_active ? 'Active' : 'Hidden'}
+                    {dress.is_active ? t('active') : t('hidden')}
                   </button>
                   <Link
                     href={`/admin/dresses/${dress.id}`}
                     className="text-[10px] tracking-widest uppercase text-cream/40 hover:text-gold transition-colors"
                   >
-                    Edit
+                    {t('edit')}
                   </Link>
                   <button
                     onClick={() => deleteDress(dress.id)}
                     className="text-[10px] tracking-widest uppercase text-red-400/50 hover:text-red-400 transition-colors"
                   >
-                    Delete
+                    {t('del')}
                   </button>
                 </div>
               </div>

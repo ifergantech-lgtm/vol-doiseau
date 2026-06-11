@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { buildSlug } from '@/lib/utils'
+import { useAdminT } from '../adminI18n'
 
 interface DressData {
   id?: string
@@ -18,13 +19,15 @@ interface DressData {
   is_active?: boolean
 }
 
-const LOCALES = ['en', 'fr', 'he'] as const
+// French first — Élisheva fills French; EN + HE auto-translate on save
+const LOCALES = ['fr', 'en', 'he'] as const
 const CATEGORIES = ['evening', 'wedding'] as const
 const AVAILABILITIES = ['sale', 'rental', 'both'] as const
 
 export default function DressForm({ initial }: { initial?: DressData }) {
   const router = useRouter()
-  const [activeLang, setActiveLang] = useState<'en' | 'fr' | 'he'>('en')
+  const { t } = useAdminT()
+  const [activeLang, setActiveLang] = useState<'en' | 'fr' | 'he'>('fr')
   const [title, setTitle] = useState<Record<string, string>>(initial?.title || {})
   const [description, setDescription] = useState<Record<string, string>>(initial?.description || {})
   const [category, setCategory] = useState(initial?.category || 'evening')
@@ -84,7 +87,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
     })
 
     if (!res.ok) {
-      setError('Failed to save. Please try again.')
+      setError(t('saveError'))
       setSaving(false)
       return
     }
@@ -96,24 +99,27 @@ export default function DressForm({ initial }: { initial?: DressData }) {
   return (
     <div className="max-w-2xl space-y-8">
       {/* Language tabs */}
-      <div className="flex gap-1 border-b border-gold/10 pb-4">
-        {LOCALES.map((l) => (
-          <button
-            key={l}
-            onClick={() => setActiveLang(l)}
-            className={`px-4 py-2 text-[10px] tracking-widest uppercase transition-colors ${
-              activeLang === l ? 'text-gold border-b-2 border-gold' : 'text-cream/40 hover:text-cream'
-            }`}
-          >
-            {l === 'he' ? 'עברית' : l === 'fr' ? 'Français' : 'English'}
-          </button>
-        ))}
+      <div className="border-b border-gold/10 pb-4">
+        <div className="flex gap-1">
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              onClick={() => setActiveLang(l)}
+              className={`px-4 py-2 text-[10px] tracking-widest uppercase transition-colors ${
+                activeLang === l ? 'text-gold border-b-2 border-gold' : 'text-cream/40 hover:text-cream'
+              }`}
+            >
+              {l === 'he' ? 'עברית' : l === 'fr' ? 'Français' : 'English'}
+            </button>
+          ))}
+        </div>
+        <p className="text-[11px] text-gold/60 mt-3 leading-relaxed">{t('autoTranslateHint')}</p>
       </div>
 
       {/* Title */}
       <div>
         <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-          Title ({activeLang})
+          {t('titleLabel')} ({activeLang})
         </label>
         <input
           value={title[activeLang] || ''}
@@ -125,7 +131,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
       {/* Description */}
       <div>
         <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-          Description ({activeLang})
+          {t('descriptionLabel')} ({activeLang})
         </label>
         <textarea
           rows={4}
@@ -138,26 +144,28 @@ export default function DressForm({ initial }: { initial?: DressData }) {
       {/* Category + Availability */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">Category</label>
+          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">{t('category')}</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
           >
             {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c}>{c === 'evening' ? t('catEvening') : t('catWedding')}</option>
             ))}
           </select>
         </div>
         <div>
-          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">Availability</label>
+          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">{t('availability')}</label>
           <select
             value={availability}
             onChange={(e) => setAvailability(e.target.value)}
             className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
           >
             {AVAILABILITIES.map((a) => (
-              <option key={a} value={a}>{a}</option>
+              <option key={a} value={a}>
+                {a === 'sale' ? t('availSale') : a === 'rental' ? t('availRental') : t('availBoth')}
+              </option>
             ))}
           </select>
         </div>
@@ -166,7 +174,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
       {/* Prices */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">Sale price (₪)</label>
+          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">{t('salePrice')}</label>
           <input
             type="number"
             value={priceSale}
@@ -176,7 +184,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
           />
         </div>
         <div>
-          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">Rental price (₪)</label>
+          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">{t('rentalPrice')}</label>
           <input
             type="number"
             value={priceRental}
@@ -190,8 +198,8 @@ export default function DressForm({ initial }: { initial?: DressData }) {
       {/* Toggles */}
       <div className="flex gap-6">
         {[
-          { label: 'Featured', value: isFeatured, set: setIsFeatured },
-          { label: 'Active', value: isActive, set: setIsActive },
+          { label: t('featured'), value: isFeatured, set: setIsFeatured },
+          { label: t('activeToggle'), value: isActive, set: setIsActive },
         ].map(({ label, value, set }) => (
           <label key={label} className="flex items-center gap-2 cursor-pointer">
             <div
@@ -209,7 +217,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
 
       {/* Images */}
       <div>
-        <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-2">Photos</label>
+        <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-2">{t('photos')}</label>
         <div className="flex flex-wrap gap-2 mb-3">
           {images.map((img, i) => (
             <div key={i} className="relative w-16 h-20 border border-gold/10">
@@ -226,7 +234,7 @@ export default function DressForm({ initial }: { initial?: DressData }) {
           ))}
         </div>
         <label className="inline-flex items-center gap-2 px-4 py-2 border border-gold/20 text-xs tracking-widest uppercase text-cream/50 hover:border-gold/50 hover:text-cream cursor-pointer transition-colors">
-          {uploading ? 'Uploading…' : '+ Add photos'}
+          {uploading ? t('uploadingPhotos') : t('addPhotos')}
           <input
             type="file"
             accept="image/*"
@@ -247,13 +255,13 @@ export default function DressForm({ initial }: { initial?: DressData }) {
           className="px-8 py-3 text-xs tracking-widest uppercase font-medium text-navy-deep disabled:opacity-50"
           style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
         >
-          {saving ? 'Saving…' : 'Save'}
+          {saving ? t('saving') : t('save')}
         </button>
         <button
           onClick={() => router.back()}
           className="px-6 py-3 text-xs tracking-widest uppercase border border-gold/20 text-cream/50 hover:text-cream transition-colors"
         >
-          Cancel
+          {t('cancel')}
         </button>
       </div>
     </div>
