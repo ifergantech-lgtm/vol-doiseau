@@ -76,12 +76,12 @@ export default function HeroSection({
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Auto-advance carousel every 2.8 seconds
+  // Auto-advance carousel every 2.4 seconds
   useEffect(() => {
     if (carouselImages.length <= 1) return
     const timer = setInterval(() => {
       setCurrentIdx(i => (i + 1) % carouselImages.length)
-    }, 2800)
+    }, 2400)
     return () => clearInterval(timer)
   }, [carouselImages.length])
 
@@ -115,12 +115,12 @@ export default function HeroSection({
                 fill
                 priority={i === 0}
                 sizes="100vw"
-                className="object-cover object-top"
+                className="object-cover object-[center_30%]"
                 style={{
                   opacity: i === currentIdx ? 1 : 0,
-                  transition: 'opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)',
-                  animation: `kenburns ${8 + i * 1.3}s ease-in-out infinite alternate`,
-                  transformOrigin: 'center center',
+                  transform: i === currentIdx ? 'translateX(0)' : 'translateX(35%)',
+                  transition:
+                    'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
                 }}
               />
             ))

@@ -60,28 +60,30 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
 
       {/* ── Studio glimpse ───────────────────────────────── */}
       <section className="px-5 sm:px-8 pb-10 sm:pb-14">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-2 sm:gap-3">
-          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+        <Reveal stagger className="max-w-7xl mx-auto grid grid-cols-2 gap-2 sm:gap-3">
+          <div className="group relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm border border-gold/15 hover:border-gold/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_15px_40px_-15px_rgba(201,168,76,0.3)]">
             <Image
               src="/shop/interior/studio-singer.jpg"
               alt="Sewing machine at the Vol D'Oiseau atelier"
               fill
               sizes="(max-width: 768px) 50vw, 40vw"
-              className="object-cover object-center brightness-[1.1] contrast-[1.03]"
+              className="object-cover object-center brightness-[1.1] contrast-[1.03] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
             />
+            <div className="card-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
           </div>
-          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+          <div className="group relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm border border-gold/15 hover:border-gold/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_15px_40px_-15px_rgba(201,168,76,0.3)]">
             <Image
               src="/shop/interior/studio-rack.jpg"
               alt="Dresses and Paris fashion prints inside the Vol D'Oiseau boutique"
               fill
               sizes="(max-width: 768px) 50vw, 40vw"
-              className="object-cover object-center brightness-[1.05] contrast-[1.02]"
+              className="object-cover object-center brightness-[1.05] contrast-[1.02] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
             />
+            <div className="card-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── Classes ──────────────────────────────────────── */}
