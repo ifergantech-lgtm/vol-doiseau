@@ -45,6 +45,13 @@ export default function AdminDresses() {
     load()
   }
 
+  // Instant featured toggle — saves immediately, like Active/Hidden
+  async function toggleFeatured(id: string, current: boolean) {
+    const supabase = createClient()
+    await supabase.from('dresses').update({ is_featured: !current }).eq('id', id)
+    load()
+  }
+
   async function deleteDress(id: string) {
     if (!confirm(t('confirmDelete'))) return
     const supabase = createClient()
@@ -64,6 +71,14 @@ export default function AdminDresses() {
           {t('addDress')}
         </Link>
       </div>
+
+      {!loading && dresses.length > 0 && (
+        <p className="text-[11px] text-gold/50 mb-5 -mt-4">
+          {lang === 'fr'
+            ? `${dresses.filter((d) => d.is_featured).length} robe(s) en vedette — la page d'accueil en affiche jusqu'à 6. Touchez l'étoile pour changer.`
+            : `${dresses.filter((d) => d.is_featured).length} featured — the homepage shows up to 6. Tap the star to change.`}
+        </p>
+      )}
 
       {loading ? (
         <p className="text-cream/30 text-sm">{t('loading')}</p>
@@ -94,6 +109,19 @@ export default function AdminDresses() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
+                  <button
+                    onClick={() => toggleFeatured(dress.id, dress.is_featured)}
+                    title={t('featured')}
+                    aria-pressed={dress.is_featured}
+                    className={`flex items-center gap-1 text-[9px] tracking-widest uppercase px-2 py-1 border transition-colors ${
+                      dress.is_featured
+                        ? 'border-gold/40 text-gold bg-gold/10'
+                        : 'border-cream/15 text-cream/25 hover:text-cream/50 hover:border-cream/30'
+                    }`}
+                  >
+                    <span aria-hidden="true">{dress.is_featured ? '★' : '☆'}</span>
+                    <span className="hidden sm:inline">{t('featured')}</span>
+                  </button>
                   <button
                     onClick={() => toggleActive(dress.id, dress.is_active)}
                     className={`text-[9px] tracking-widest uppercase px-2 py-1 border transition-colors ${
