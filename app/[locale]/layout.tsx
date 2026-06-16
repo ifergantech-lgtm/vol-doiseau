@@ -8,6 +8,7 @@ import Footer from '@/components/Footer'
 import Marquee from '@/components/Marquee'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import ScrollProgress from '@/components/ScrollProgress'
+import IntroOverlay from '@/components/IntroOverlay'
 import LocaleDirSetter from './LocaleDirSetter'
 
 export function generateStaticParams() {
@@ -30,6 +31,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <LocaleDirSetter locale={locale} />
+      <IntroOverlay />
       <ScrollProgress />
       <Navbar />
       <main className="flex-1 pb-24 md:pb-0">{children}</main>
