@@ -25,16 +25,24 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
     .eq('is_active', true)
     .limit(6)
 
-  // Carousel: first image from each dress (up to 8), filtered to non-empty
-  const { data: carouselDresses } = await supabase
-    .from('dresses')
-    .select('images')
-    .eq('is_active', true)
-    .limit(10)
-  const carouselImages = (carouselDresses || [])
+  // Hero carousel = the featured dresses' photos. If nothing is featured yet,
+  // fall back to any active dress so the hero is never empty.
+  const featuredImages = (featured || [])
     .map(d => (d.images as string[] | null)?.[0])
     .filter((url): url is string => Boolean(url))
-    .slice(0, 8)
+
+  let carouselImages = featuredImages
+  if (carouselImages.length === 0) {
+    const { data: carouselDresses } = await supabase
+      .from('dresses')
+      .select('images')
+      .eq('is_active', true)
+      .limit(10)
+    carouselImages = (carouselDresses || [])
+      .map(d => (d.images as string[] | null)?.[0])
+      .filter((url): url is string => Boolean(url))
+      .slice(0, 8)
+  }
 
   const services = [
     { key: 'sale', href: `/${locale}/collection` },
