@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl'
 import { useParams, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -55,14 +54,13 @@ export default function Navbar() {
             href={`/${locale}`}
             className="flex-shrink-0 flex items-center gap-2 sm:gap-3 leading-none group py-2"
           >
-            {/* Bird Logo - Elegant silhouette in flight */}
+            {/* Bird Logo — vector, transparent background */}
             <div className="relative w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 flex-shrink-0">
-              <Image
-                src="/logo bird final.png"
-                alt="Vol D'oiseau logo"
-                fill
-                className="object-contain"
-                priority
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-bird.svg"
+                alt="Vol D'Oiseau"
+                className="w-full h-full object-contain"
               />
             </div>
 
