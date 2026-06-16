@@ -63,6 +63,17 @@ const STRINGS = {
     statusNew: 'New',
     statusRead: 'Read',
     statusReplied: 'Replied',
+    call: 'Call',
+    noPhone: 'No phone number left',
+    // Classes editor
+    childrenScheduleLabel: 'Children — schedule',
+    adultsScheduleLabel: 'Adults — schedule',
+    pricePerCourse: 'Price per course (₪)',
+    numSessions: 'Number of sessions',
+    notesLabel: 'Notes (shown on the classes page)',
+    saved: 'Saved ✓',
+    classesReflectHint:
+      'Schedules and notes you save here appear on the public Sewing Classes page (in the language you typed). Other languages keep their default text.',
     // Login
     email: 'Email',
     password: 'Password',
@@ -121,6 +132,17 @@ const STRINGS = {
     statusNew: 'Nouvelle',
     statusRead: 'Lue',
     statusReplied: 'Répondue',
+    call: 'Appeler',
+    noPhone: 'Aucun numéro laissé',
+    // Classes editor
+    childrenScheduleLabel: 'Enfants — horaire',
+    adultsScheduleLabel: 'Adultes — horaire',
+    pricePerCourse: 'Prix par cours (₪)',
+    numSessions: 'Nombre de séances',
+    notesLabel: 'Notes (affichées sur la page Cours)',
+    saved: 'Enregistré ✓',
+    classesReflectHint:
+      "Les horaires et notes enregistrés ici apparaissent sur la page Cours de couture du site (dans la langue saisie). Les autres langues gardent leur texte par défaut.",
     // Login
     email: 'Email',
     password: 'Mot de passe',

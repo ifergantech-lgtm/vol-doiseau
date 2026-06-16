@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useAdminT } from '../adminI18n'
 
-const LOCALES = ['en', 'fr', 'he'] as const
+const LOCALES = ['fr', 'en', 'he'] as const
 
 interface ClassInfo {
   children_schedule: Record<string, string>
@@ -14,10 +15,11 @@ interface ClassInfo {
 }
 
 export default function AdminClasses() {
+  const { t } = useAdminT()
   const [info, setInfo] = useState<ClassInfo | null>(null)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [activeLang, setActiveLang] = useState<'en' | 'fr' | 'he'>('en')
+  const [activeLang, setActiveLang] = useState<'en' | 'fr' | 'he'>('fr')
 
   useEffect(() => {
     const supabase = createClient()
@@ -36,22 +38,26 @@ export default function AdminClasses() {
     setTimeout(() => setSaved(false), 2000)
   }
 
-  function updateSchedule(
-    type: 'children_schedule' | 'adults_schedule',
+  function updateField(
+    field: 'children_schedule' | 'adults_schedule' | 'notes',
     lang: string,
     value: string
   ) {
     setInfo((prev) => prev ? ({
       ...prev,
-      [type]: { ...prev[type], [lang]: value },
+      [field]: { ...prev[field], [lang]: value },
     }) : prev)
   }
 
-  if (!info) return <p className="text-cream/30 text-sm">Loading…</p>
+  if (!info) return <p className="text-cream/30 text-sm">{t('loading')}</p>
+
+  const inputClass =
+    'w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors'
 
   return (
     <div>
-      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-8">Classes</h1>
+      <h1 className="font-display text-2xl tracking-[0.15em] uppercase text-cream mb-3">{t('classes')}</h1>
+      <p className="text-[11px] text-gold/60 mb-8 max-w-xl leading-relaxed">{t('classesReflectHint')}</p>
 
       <div className="max-w-xl space-y-8">
         {/* Language tabs */}
@@ -72,55 +78,38 @@ export default function AdminClasses() {
         {/* Children schedule */}
         <div>
           <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-            Children schedule ({activeLang})
+            {t('childrenScheduleLabel')} ({activeLang})
           </label>
           <input
             value={info.children_schedule?.[activeLang] || ''}
-            onChange={(e) => updateSchedule('children_schedule', activeLang, e.target.value)}
-            className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
+            onChange={(e) => updateField('children_schedule', activeLang, e.target.value)}
+            className={inputClass}
           />
         </div>
 
         {/* Adults schedule */}
         <div>
           <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-            Adults schedule ({activeLang})
+            {t('adultsScheduleLabel')} ({activeLang})
           </label>
           <input
             value={info.adults_schedule?.[activeLang] || ''}
-            onChange={(e) => updateSchedule('adults_schedule', activeLang, e.target.value)}
-            className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
+            onChange={(e) => updateField('adults_schedule', activeLang, e.target.value)}
+            className={inputClass}
           />
         </div>
 
-        {/* Price + sessions */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-              Price per course (₪)
-            </label>
-            <input
-              type="number"
-              value={info.price_per_course?.toString() || ''}
-              onChange={(e) =>
-                setInfo((p) => p ? ({ ...p, price_per_course: e.target.value ? parseFloat(e.target.value) : null }) : p)
-              }
-              className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
-              No. of sessions
-            </label>
-            <input
-              type="number"
-              value={info.num_sessions}
-              onChange={(e) =>
-                setInfo((p) => p ? ({ ...p, num_sessions: parseInt(e.target.value) || 6 }) : p)
-              }
-              className="w-full bg-navy border border-gold/20 px-4 py-3 text-sm text-cream focus:outline-none focus:border-gold/50 transition-colors"
-            />
-          </div>
+        {/* Notes — shown on the public classes page */}
+        <div>
+          <label className="block text-[10px] tracking-widest uppercase text-cream/40 mb-1.5">
+            {t('notesLabel')} ({activeLang})
+          </label>
+          <textarea
+            rows={3}
+            value={info.notes?.[activeLang] || ''}
+            onChange={(e) => updateField('notes', activeLang, e.target.value)}
+            className={inputClass + ' resize-none'}
+          />
         </div>
 
         <button
@@ -129,7 +118,7 @@ export default function AdminClasses() {
           className="px-8 py-3 text-xs tracking-widest uppercase font-medium text-navy-deep disabled:opacity-50"
           style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
         >
-          {saved ? 'Saved ✓' : saving ? 'Saving…' : 'Save'}
+          {saved ? t('saved') : saving ? t('saving') : t('save')}
         </button>
       </div>
     </div>

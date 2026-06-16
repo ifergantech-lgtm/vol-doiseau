@@ -28,6 +28,15 @@ const STATUS_KEYS: Record<string, AdminStringKey> = {
   replied: 'statusReplied',
 }
 
+// Build a wa.me link from a phone number. Best-effort international format:
+// strip non-digits; "00…" → drop the 00; a leading "0" is assumed Israeli (+972).
+function waLink(phone: string): string {
+  let digits = phone.replace(/[^0-9]/g, '')
+  if (digits.startsWith('00')) digits = digits.slice(2)
+  else if (digits.startsWith('0')) digits = '972' + digits.slice(1)
+  return `https://wa.me/${digits}`
+}
+
 export default function AdminEnquiries() {
   const [enquiries, setEnquiries] = useState<Enquiry[]>([])
   const [expanded, setExpanded] = useState<string | null>(null)
@@ -96,10 +105,27 @@ export default function AdminEnquiries() {
               {expanded === enq.id && (
                 <div className="px-4 pb-4 pt-0 border-t border-gold/10 space-y-3">
                   <p className="text-sm text-cream/70 leading-relaxed">{enq.message}</p>
-                  <div className="flex gap-3 text-[10px]">
-                    <a href={`mailto:${enq.email}`} className="text-gold hover:underline">{enq.email}</a>
-                    {enq.phone && <span className="text-cream/40">{enq.phone}</span>}
-                  </div>
+                  {enq.phone ? (
+                    <div className="flex flex-wrap gap-2 items-center text-[10px]">
+                      <span className="text-cream/60 tracking-wide">{enq.phone}</span>
+                      <a
+                        href={waLink(enq.phone)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1 border border-gold/30 text-gold hover:bg-gold/10 transition-colors tracking-widest uppercase"
+                      >
+                        WhatsApp
+                      </a>
+                      <a
+                        href={`tel:${enq.phone.replace(/[^0-9+]/g, '')}`}
+                        className="px-3 py-1 border border-gold/30 text-gold hover:bg-gold/10 transition-colors tracking-widest uppercase"
+                      >
+                        {t('call')}
+                      </a>
+                    </div>
+                  ) : (
+                    <p className="text-[10px] text-cream/30 tracking-widest uppercase">{t('noPhone')}</p>
+                  )}
                   <div className="flex gap-2">
                     {['new', 'read', 'replied'].map((s) => (
                       <button

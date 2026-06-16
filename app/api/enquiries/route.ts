@@ -5,17 +5,19 @@ export async function POST(req: NextRequest) {
   console.log('[POST /api/enquiries] start')
   try {
     const body = await req.json()
-    const { name, email, phone, message, enquiry_type, dress_id } = body
+    const { name, phone, message, enquiry_type, dress_id } = body
 
-    if (!name || !email || !message || !enquiry_type) {
+    // Email is no longer collected — Élisheva is contacted via WhatsApp / phone,
+    // so a phone number is what we require to reach the enquirer back.
+    if (!name || !phone || !message || !enquiry_type) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
     const supabase = await createClient()
     const { error } = await supabase.from('enquiries').insert({
       name,
-      email,
-      phone: phone || null,
+      email: '', // legacy non-null column; email is no longer used
+      phone,
       message,
       enquiry_type,
       dress_id: dress_id || null,

@@ -18,7 +18,6 @@ export default function EnquiryForm({ enquiryType, dressId }: EnquiryFormProps) 
     const form = e.currentTarget
     const data = {
       name: (form.elements.namedItem('name') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
       enquiry_type: enquiryType,
@@ -67,16 +66,10 @@ export default function EnquiryForm({ enquiryType, dressId }: EnquiryFormProps) 
         </div>
         <div>
           <label className="block text-[10px] sm:text-xs tracking-[0.3em] uppercase text-cream/55 mb-2">
-            {t('email')} *
+            {t('phone')} *
           </label>
-          <input name="email" type="email" required autoComplete="email" inputMode="email" className={inputClass} />
+          <input name="phone" type="tel" required autoComplete="tel" inputMode="tel" className={inputClass} />
         </div>
-      </div>
-      <div>
-        <label className="block text-[10px] sm:text-xs tracking-[0.3em] uppercase text-cream/55 mb-2">
-          {t('phone')}
-        </label>
-        <input name="phone" type="tel" autoComplete="tel" inputMode="tel" className={inputClass} />
       </div>
       <div>
         <label className="block text-[10px] sm:text-xs tracking-[0.3em] uppercase text-cream/55 mb-2">

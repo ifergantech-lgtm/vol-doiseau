@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
+import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,20 +10,38 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
   const { locale } = await params
   const t = await getTranslations('classes')
 
+  // Schedules + notes are editable in the admin Classes tab (class_info table).
+  // Use the saved value for this language when present; otherwise fall back to
+  // the translation file (covers languages the admin doesn't edit).
+  const supabase = await createClient()
+  const { data: classInfo } = await supabase.from('class_info').select('*').eq('id', 1).single()
+
+  const fromDbOrText = (
+    field: Record<string, string> | null | undefined,
+    fallbackKey: 'childrenSchedule' | 'adultsSchedule' | 'infoText'
+  ): string => {
+    const value = field?.[locale]
+    return value && value.trim() ? value : t(fallbackKey)
+  }
+
+  const childrenSchedule = fromDbOrText(classInfo?.children_schedule, 'childrenSchedule')
+  const adultsSchedule = fromDbOrText(classInfo?.adults_schedule, 'adultsSchedule')
+  const infoText = fromDbOrText(classInfo?.notes, 'infoText')
+
   const classes = [
     {
       num:      '01',
       titleKey: 'childrenTitle' as const,
       descKey:  'childrenDesc' as const,
       ageKey:   'childrenAge' as const,
-      schedKey: 'childrenSchedule' as const,
+      sched:    childrenSchedule,
     },
     {
       num:      '02',
       titleKey: 'adultsTitle' as const,
       descKey:  'adultsDesc' as const,
       ageKey:   'adultsAge' as const,
-      schedKey: 'adultsSchedule' as const,
+      sched:    adultsSchedule,
     },
   ]
 
@@ -122,7 +141,7 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
                       {t('schedule')}
                     </p>
                     <p className="text-cream text-sm sm:text-base font-display tracking-wide">
-                      {t(cls.schedKey)}
+                      {cls.sched}
                     </p>
                   </div>
                   <div className="h-px bg-gold/10" />
@@ -203,7 +222,7 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
                   {t('interested')}
                 </h2>
                 <p className="text-cream/45 text-xs sm:text-sm leading-relaxed max-w-md">
-                  {t('infoText')}
+                  {infoText}
                 </p>
               </div>
               <Link
