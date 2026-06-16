@@ -46,7 +46,8 @@
     "back": "Retour à la collection",
     "category_evening": "Robe de soirée",
     "category_wedding": "Robe de mariée",
-    "ils": "₪"
+    "ils": "₪",
+    "related": "Vous aimerez aussi"
   },
   "services": {
     "title": "L'Atelier",
@@ -126,5 +127,27 @@
     "status_new": "Nouveau",
     "status_read": "Lu",
     "status_replied": "Répondu"
+  },
+  "seo": {
+    "home": {
+      "title": "Vol D'Oiseau — Robes de soirée & de mariée, Tel Aviv",
+      "description": "Boutique d'inspiration parisienne à Tel Aviv. Robes de soirée et de mariée à la vente et à la location, créations sur mesure, retouches et cours de couture."
+    },
+    "collection": {
+      "title": "Robes de soirée & de mariée",
+      "description": "Découvrez nos robes de soirée et de mariée à la vente et à la location, King George 6, Tel Aviv. Écrivez-nous sur WhatsApp pour les prix et essayages."
+    },
+    "services": {
+      "title": "Couture sur mesure & retouches",
+      "description": "Robes sur mesure et retouches expertes par Élisheva Ifergan à Tel Aviv — du croquis à l'essayage final : ourlets, réparations et restauration."
+    },
+    "classes": {
+      "title": "Cours de couture enfants & adultes",
+      "description": "Cours de couture de six semaines pour enfants et adultes à l'atelier Vol D'Oiseau à Tel Aviv. Machine, points à la main et vrais projets."
+    },
+    "contact": {
+      "title": "Contact & visite à Tel Aviv",
+      "description": "Rendez-nous visite au King George 6, Tel Aviv, ou contactez-nous sur WhatsApp et par téléphone : robes, sur mesure, retouches et cours de couture."
+    }
   }
 }

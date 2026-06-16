@@ -46,7 +46,8 @@
     "back": "Back to collection",
     "category_evening": "Evening gown",
     "category_wedding": "Wedding dress",
-    "ils": "₪"
+    "ils": "₪",
+    "related": "You may also like"
   },
   "services": {
     "title": "The Atelier",
@@ -126,5 +127,27 @@
     "status_new": "New",
     "status_read": "Read",
     "status_replied": "Replied"
+  },
+  "seo": {
+    "home": {
+      "title": "Vol D'Oiseau — Evening & Wedding Dresses, Tel Aviv",
+      "description": "Parisian-inspired boutique in Tel Aviv. Evening gowns and wedding dresses to buy or rent, plus bespoke dressmaking, alterations and sewing classes."
+    },
+    "collection": {
+      "title": "Evening Gowns & Wedding Dresses",
+      "description": "Browse evening gowns and wedding dresses for sale and rental at King George 6, Tel Aviv. Message us on WhatsApp for prices, sizes and fittings."
+    },
+    "services": {
+      "title": "Bespoke Dressmaking & Alterations",
+      "description": "Made-to-measure dresses and expert alterations by Élisheva Ifergan in Tel Aviv — from first sketch to final fitting, plus hems, repairs and restoration."
+    },
+    "classes": {
+      "title": "Sewing Classes for Kids & Adults",
+      "description": "Six-week sewing courses for children and adults at the Vol D'Oiseau atelier in Tel Aviv. Learn the machine, hand-stitching and make real projects."
+    },
+    "contact": {
+      "title": "Contact & Visit Us in Tel Aviv",
+      "description": "Visit Vol D'Oiseau at King George 6, Tel Aviv, or reach us on WhatsApp and by phone for gowns, wedding dresses, dressmaking, alterations and classes."
+    }
   }
 }

@@ -3,12 +3,28 @@ import { createClient } from '@/lib/supabase/server'
 import CollectionClient from './CollectionClient'
 import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
+import type { Metadata } from 'next'
+import { pageMetadata, absoluteUrl } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { breadcrumbSchema } from '@/lib/schema'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: PageProps<'/[locale]/collection'>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo.collection' })
+  return pageMetadata({
+    locale,
+    subpath: '/collection',
+    title: t('title'),
+    description: t('description'),
+  })
+}
 
 export default async function CollectionPage({ params }: PageProps<'/[locale]/collection'>) {
   const { locale } = await params
   const t = await getTranslations('collection')
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
   const supabase = await createClient()
 
   const { data: dresses } = await supabase
@@ -19,6 +35,12 @@ export default async function CollectionPage({ params }: PageProps<'/[locale]/co
 
   return (
     <div className="pt-20">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: tNav('home'), url: absoluteUrl(`/${locale}`) },
+          { name: tNav('collection'), url: absoluteUrl(`/${locale}/collection`) },
+        ])}
+      />
       <section className="relative py-16 sm:py-20 md:py-28 px-5 sm:px-6 border-b border-gold/10 animate-fade-in-down overflow-hidden">
         <Image
           src="/shop/interior/elisheva-at-work.jpg"

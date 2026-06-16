@@ -9,7 +9,6 @@ import Marquee from '@/components/Marquee'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import ScrollProgress from '@/components/ScrollProgress'
 import IntroOverlay from '@/components/IntroOverlay'
-import LocaleDirSetter from './LocaleDirSetter'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -30,7 +29,6 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <LocaleDirSetter locale={locale} />
       <IntroOverlay />
       <ScrollProgress />
       <Navbar />

@@ -2,14 +2,39 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import { getWhatsAppUrl } from '@/lib/utils'
+import type { Metadata } from 'next'
+import { pageMetadata, absoluteUrl } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema'
+
+export async function generateMetadata({ params }: PageProps<'/[locale]/contact'>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo.contact' })
+  return pageMetadata({
+    locale,
+    subpath: '/contact',
+    title: t('title'),
+    description: t('description'),
+  })
+}
 
 export default async function ContactPage({ params }: PageProps<'/[locale]/contact'>) {
-  await params
+  const { locale } = await params
   const t = await getTranslations('contact')
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
   const whatsappUrl = getWhatsAppUrl(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '33781721617')
 
   return (
     <div className="pt-20">
+      <JsonLd
+        data={[
+          localBusinessSchema(),
+          breadcrumbSchema([
+            { name: tNav('home'), url: absoluteUrl(`/${locale}`) },
+            { name: tNav('contact'), url: absoluteUrl(`/${locale}/contact`) },
+          ]),
+        ]}
+      />
       {/* Header */}
       <section className="relative py-16 sm:py-24 md:py-28 px-5 sm:px-6 text-center border-b border-gold/10 animate-fade-in-down overflow-hidden">
         <Image

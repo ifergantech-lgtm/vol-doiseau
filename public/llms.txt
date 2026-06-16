@@ -1,0 +1,26 @@
+# Vol D'Oiseau
+
+> Vol D'Oiseau is a Parisian-inspired fashion boutique in Tel Aviv (King George 6) offering evening gowns and wedding dresses for sale and rental, bespoke dressmaking and alterations by designer Élisheva Ifergan, and sewing classes for children and adults.
+
+The website is multilingual (Hebrew, French, English, Spanish, Italian, Russian, Arabic, Portuguese); Hebrew is the default language. It is a showcase and enquiry platform — customers enquire via WhatsApp or a contact form, and there is no online checkout. Prices are provided on enquiry.
+
+## Key pages
+- [Home](https://vol-doiseau.vercel.app/en): The boutique and an overview of its services.
+- [Collection](https://vol-doiseau.vercel.app/en/collection): Evening gowns and wedding dresses available for sale and for rental.
+- [Services](https://vol-doiseau.vercel.app/en/services): Bespoke (made-to-measure) dressmaking and expert alterations.
+- [Sewing classes](https://vol-doiseau.vercel.app/en/classes): Six-session courses for children (grades 1–5) and for adults.
+- [Contact](https://vol-doiseau.vercel.app/en/contact): Address, phone, WhatsApp and an embedded map.
+
+## Services
+- Evening gown sale and rental
+- Wedding dress sale and rental
+- Custom / bespoke dressmaking (made to measure)
+- Alterations and retouching (hems, taking in/out, lace and beading restoration)
+- Children's sewing classes (grades 1–5)
+- Adult sewing classes (all levels)
+
+## Contact
+- Address: King George 6, Tel Aviv, Israel
+- Phone: +972 50-229-0718
+- WhatsApp: +33 7 81 72 16 17
+- Instagram: https://www.instagram.com/voldoiseauparis

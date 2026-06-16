@@ -46,7 +46,8 @@
     "back": "Voltar à coleção",
     "category_evening": "Vestido de gala",
     "category_wedding": "Vestido de noiva",
-    "ils": "₪"
+    "ils": "₪",
+    "related": "Você também pode gostar"
   },
   "services": {
     "title": "O Ateliê",
@@ -126,5 +127,27 @@
     "status_new": "Novo",
     "status_read": "Lido",
     "status_replied": "Respondido"
+  },
+  "seo": {
+    "home": {
+      "title": "Vol D'Oiseau — Vestidos de festa e noiva, Tel Aviv",
+      "description": "Boutique de inspiração parisiense em Tel Aviv. Vestidos de festa e de noiva para venda e aluguel, alta-costura sob medida, ajustes e aulas de costura."
+    },
+    "collection": {
+      "title": "Vestidos de festa e de noiva",
+      "description": "Veja nossos vestidos de festa e de noiva para venda e aluguel na King George 6, Tel Aviv. Fale conosco no WhatsApp para preços, tamanhos e provas."
+    },
+    "services": {
+      "title": "Costura sob medida e ajustes",
+      "description": "Vestidos sob medida e ajustes profissionais por Élisheva Ifergan em Tel Aviv — do primeiro esboço à prova final: barras, reparos e restauração."
+    },
+    "classes": {
+      "title": "Aulas de costura crianças e adultos",
+      "description": "Cursos de costura de seis semanas para crianças e adultos no ateliê do Vol D'Oiseau em Tel Aviv. Máquina, costura à mão e projetos reais."
+    },
+    "contact": {
+      "title": "Contato e visite-nos em Tel Aviv",
+      "description": "Visite-nos na King George 6, Tel Aviv, ou fale no WhatsApp e por telefone: vestidos de festa e de noiva, costura, ajustes e aulas."
+    }
   }
 }

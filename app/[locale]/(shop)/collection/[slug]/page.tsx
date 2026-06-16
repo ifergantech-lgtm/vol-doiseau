@@ -1,16 +1,53 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import DressGallery from '@/components/DressGallery'
+import DressCard from '@/components/DressCard'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { formatPrice, getLocalizedText, getWhatsAppUrl, type Locale } from '@/lib/utils'
+import type { Metadata } from 'next'
+import { pageMetadata, truncate, absoluteUrl } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { productSchema, breadcrumbSchema } from '@/lib/schema'
 
 // Always fetch fresh from Supabase, no static caching
 export const dynamic = 'force-dynamic'
 
+export async function generateMetadata({ params }: PageProps<'/[locale]/collection/[slug]'>): Promise<Metadata> {
+  const { locale, slug } = await params
+  const subpath = `/collection/${slug}`
+  const supabase = await createClient()
+  const { data: dress } = await supabase
+    .from('dresses')
+    .select('title, description, category, images')
+    .eq('slug', slug)
+    .eq('is_active', true)
+    .single()
+
+  const tSeo = await getTranslations({ locale, namespace: 'seo.collection' })
+  if (!dress) {
+    return pageMetadata({ locale, subpath, title: tSeo('title'), description: tSeo('description') })
+  }
+
+  const tDress = await getTranslations({ locale, namespace: 'dress' })
+  const title = getLocalizedText(dress.title, locale as Locale)
+  const rawDescription = getLocalizedText(dress.description, locale as Locale)
+  const categoryLabel = tDress(`category_${dress.category}` as 'category_evening' | 'category_wedding')
+  const firstImage = (dress.images as string[] | null)?.[0]
+
+  return pageMetadata({
+    locale,
+    subpath,
+    title: `${title} — ${categoryLabel}`,
+    description: truncate(rawDescription || tSeo('description')),
+    image: firstImage && firstImage.startsWith('http') ? firstImage : undefined,
+  })
+}
+
 export default async function DressPage({ params }: PageProps<'/[locale]/collection/[slug]'>) {
   const { locale, slug } = await params
   const t = await getTranslations('dress')
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
 
   const supabase = await createClient()
   const { data: dress } = await supabase
@@ -28,16 +65,46 @@ export default async function DressPage({ params }: PageProps<'/[locale]/collect
 
   const categoryLabel = t(`category_${dress.category}` as 'category_evening' | 'category_wedding')
 
+  // Related dresses in the same category — interlinks product pages (no dead ends).
+  const tCol = await getTranslations('collection')
+  const { data: relatedRaw } = await supabase
+    .from('dresses')
+    .select('id, slug, title, category, availability, price_sale, price_rental, images')
+    .eq('is_active', true)
+    .eq('category', dress.category)
+    .neq('id', dress.id)
+    .limit(4)
+  const related = relatedRaw || []
+
   return (
     <div className="pt-20">
+      <JsonLd
+        data={[
+          productSchema({
+            name: title,
+            url: absoluteUrl(`/${locale}/collection/${dress.slug}`),
+            description: description || undefined,
+            images: dress.images,
+            category: categoryLabel,
+            priceSale: dress.price_sale,
+            priceRental: dress.price_rental,
+          }),
+          breadcrumbSchema([
+            { name: tNav('home'), url: absoluteUrl(`/${locale}`) },
+            { name: tNav('collection'), url: absoluteUrl(`/${locale}/collection`) },
+            { name: title, url: absoluteUrl(`/${locale}/collection/${dress.slug}`) },
+          ]),
+        ]}
+      />
       <div className="max-w-6xl mx-auto px-6 py-16">
-        {/* Back */}
-        <Link
-          href={`/${locale}/collection`}
-          className="inline-flex items-center gap-2 text-[10px] tracking-widest uppercase text-cream/40 hover:text-gold transition-colors mb-12"
-        >
-          ← {t('back')}
-        </Link>
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-[10px] tracking-widest uppercase text-cream/40 mb-12">
+          <Link href={`/${locale}`} className="hover:text-gold transition-colors">{tNav('home')}</Link>
+          <span className="text-cream/25">/</span>
+          <Link href={`/${locale}/collection`} className="hover:text-gold transition-colors">{tNav('collection')}</Link>
+          <span className="text-cream/25">/</span>
+          <span className="text-cream/70 normal-case tracking-normal">{title}</span>
+        </nav>
 
         <div className="grid md:grid-cols-2 gap-16">
           {/* Gallery */}
@@ -100,6 +167,24 @@ export default async function DressPage({ params }: PageProps<'/[locale]/collect
             </a>
           </div>
         </div>
+
+        {related.length > 0 && (
+          <section className="mt-20 pt-12 border-t border-gold/10">
+            <h2 className="font-display text-xl sm:text-2xl tracking-[0.08em] text-cream mb-8">
+              {t('related')}
+            </h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {related.map((d) => (
+                <DressCard
+                  key={d.id}
+                  dress={d}
+                  locale={locale as Locale}
+                  availabilityLabels={{ sale: tCol('sale_label'), rental: tCol('rental_label'), both: tCol('both_label') }}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )

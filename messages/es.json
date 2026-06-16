@@ -46,7 +46,8 @@
     "back": "Volver a la colección",
     "category_evening": "Vestido de noche",
     "category_wedding": "Vestido de novia",
-    "ils": "₪"
+    "ils": "₪",
+    "related": "También te puede gustar"
   },
   "services": {
     "title": "El Atelier",
@@ -126,5 +127,27 @@
     "status_new": "Nuevo",
     "status_read": "Leído",
     "status_replied": "Respondido"
+  },
+  "seo": {
+    "home": {
+      "title": "Vol D'Oiseau — Vestidos de noche y novia, Tel Aviv",
+      "description": "Boutique de inspiración parisina en Tel Aviv. Vestidos de noche y de novia en venta y alquiler, confección a medida, arreglos y clases de costura."
+    },
+    "collection": {
+      "title": "Vestidos de noche y de novia",
+      "description": "Descubre nuestros vestidos de noche y de novia en venta y alquiler en King George 6, Tel Aviv. Escríbenos por WhatsApp para precios y pruebas."
+    },
+    "services": {
+      "title": "Confección a medida y arreglos",
+      "description": "Vestidos a medida y arreglos expertos de Élisheva Ifergan en Tel Aviv — del primer boceto a la prueba final: dobladillos, reparaciones y restauración."
+    },
+    "classes": {
+      "title": "Clases de costura niños y adultos",
+      "description": "Cursos de costura de seis semanas para niños y adultos en el atelier de Vol D'Oiseau en Tel Aviv. Máquina, costura a mano y proyectos reales."
+    },
+    "contact": {
+      "title": "Contacto y visítanos en Tel Aviv",
+      "description": "Visítanos en King George 6, Tel Aviv, o contáctanos por WhatsApp y teléfono: vestidos de noche y novia, confección, arreglos y clases."
+    }
   }
 }

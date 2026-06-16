@@ -1,12 +1,22 @@
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
+import Link from 'next/link'
 
 export default function Footer() {
   const t = useTranslations('footer')
+  const tNav = useTranslations('nav')
+  const locale = useLocale()
   const year = new Date().getFullYear()
+
+  const navLinks = [
+    { href: `/${locale}/collection`, label: tNav('collection') },
+    { href: `/${locale}/services`, label: tNav('services') },
+    { href: `/${locale}/classes`, label: tNav('classes') },
+    { href: `/${locale}/contact`, label: tNav('contact') },
+  ]
 
   return (
     <footer className="border-t border-gold/20 bg-navy-deep py-12 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-start">
+      <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-3 items-start text-center md:text-start">
         <div>
           <p
             className="font-display text-lg tracking-[0.2em] uppercase mb-1"
@@ -21,9 +31,22 @@ export default function Footer() {
           </p>
           <p className="text-xs text-cream/50 tracking-wide">{t('tagline')}</p>
         </div>
-        <div className="text-xs text-cream/40 tracking-wide space-y-1">
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[11px] tracking-widest uppercase text-cream/55 hover:text-gold transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="text-xs text-cream/40 tracking-wide space-y-1 md:text-end">
           <p>{t('address')}</p>
-          <p>050-229-0718</p>
+          <p>
+            <a href="tel:+972502290718" className="hover:text-gold transition-colors">050-229-0718</a>
+          </p>
           <p>© {year} Vol D&apos;Oiseau. {t('rights')}.</p>
         </div>
       </div>

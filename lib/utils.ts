@@ -20,7 +20,7 @@ export function buildSlug(text: string): string {
     .replace(/\s+/g, '-')
 }
 
-export type Locale = 'he' | 'fr' | 'en'
+export type Locale = 'he' | 'fr' | 'en' | 'es' | 'it' | 'ru' | 'ar' | 'pt'
 
 export function getLocalizedText(
   field: Record<string, string> | null | undefined,

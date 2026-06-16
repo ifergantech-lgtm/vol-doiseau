@@ -3,13 +3,35 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import MagneticButton from '@/components/MagneticButton'
+import type { Metadata } from 'next'
+import { pageMetadata, absoluteUrl } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { breadcrumbSchema } from '@/lib/schema'
+
+export async function generateMetadata({ params }: PageProps<'/[locale]/services'>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo.services' })
+  return pageMetadata({
+    locale,
+    subpath: '/services',
+    title: t('title'),
+    description: t('description'),
+  })
+}
 
 export default async function ServicesPage({ params }: PageProps<'/[locale]/services'>) {
   const { locale } = await params
   const t = await getTranslations('services')
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
 
   return (
     <div className="pt-20">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: tNav('home'), url: absoluteUrl(`/${locale}`) },
+          { name: tNav('services'), url: absoluteUrl(`/${locale}/services`) },
+        ])}
+      />
       {/* Header */}
       <section className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 overflow-hidden">
         <Image

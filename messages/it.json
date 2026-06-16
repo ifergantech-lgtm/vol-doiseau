@@ -46,7 +46,8 @@
     "back": "Torna alla collezione",
     "category_evening": "Abito da sera",
     "category_wedding": "Abito da sposa",
-    "ils": "₪"
+    "ils": "₪",
+    "related": "Potrebbe piacerti anche"
   },
   "services": {
     "title": "L'Atelier",
@@ -126,5 +127,27 @@
     "status_new": "Nuovo",
     "status_read": "Letto",
     "status_replied": "Risposto"
+  },
+  "seo": {
+    "home": {
+      "title": "Vol D'Oiseau — Abiti da sera e da sposa, Tel Aviv",
+      "description": "Boutique d'ispirazione parigina a Tel Aviv. Abiti da sera e da sposa in vendita e a noleggio, sartoria su misura, modifiche e corsi di cucito."
+    },
+    "collection": {
+      "title": "Abiti da sera e da sposa",
+      "description": "Scopri i nostri abiti da sera e da sposa in vendita e a noleggio in King George 6, Tel Aviv. Scrivici su WhatsApp per prezzi, taglie e prove."
+    },
+    "services": {
+      "title": "Sartoria su misura e modifiche",
+      "description": "Abiti su misura e modifiche esperte di Élisheva Ifergan a Tel Aviv — dal primo schizzo alla prova finale: orli, riparazioni e restauro."
+    },
+    "classes": {
+      "title": "Corsi di cucito bambini e adulti",
+      "description": "Corsi di cucito di sei settimane per bambini e adulti nell'atelier di Vol D'Oiseau a Tel Aviv. Macchina, cucito a mano e progetti veri."
+    },
+    "contact": {
+      "title": "Contatti e vieni a trovarci",
+      "description": "Vieni a trovarci in King George 6, Tel Aviv, o contattaci su WhatsApp e per telefono: abiti da sera e da sposa, sartoria, modifiche e corsi."
+    }
   }
 }

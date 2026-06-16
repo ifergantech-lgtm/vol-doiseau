@@ -6,12 +6,29 @@ import AmbientGlow from '@/components/AmbientGlow'
 import MagneticButton from '@/components/MagneticButton'
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { localBusinessSchema, websiteSchema } from '@/lib/schema'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo.home' })
+  return pageMetadata({
+    locale,
+    subpath: '',
+    title: t('title'),
+    description: t('description'),
+    absoluteTitle: true,
+  })
+}
 
 export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = await params
   const t = await getTranslations('home')
+  const tSeo = await getTranslations({ locale, namespace: 'seo.home' })
   const supabase = await createClient()
 
   const { data: featured } = await supabase
@@ -49,6 +66,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <>
+      <JsonLd data={[localBusinessSchema({ description: tSeo('description') }), websiteSchema(locale)]} />
       {/* Hero */}
       <HeroSection
         locale={locale}

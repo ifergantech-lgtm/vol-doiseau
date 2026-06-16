@@ -3,12 +3,28 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Reveal from '@/components/Reveal'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
+import { pageMetadata, absoluteUrl } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { breadcrumbSchema, courseSchema } from '@/lib/schema'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: PageProps<'/[locale]/classes'>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'seo.classes' })
+  return pageMetadata({
+    locale,
+    subpath: '/classes',
+    title: t('title'),
+    description: t('description'),
+  })
+}
 
 export default async function ClassesPage({ params }: PageProps<'/[locale]/classes'>) {
   const { locale } = await params
   const t = await getTranslations('classes')
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
 
   // Schedules + notes are editable in the admin Classes tab (class_info table).
   // Use the saved value for this language when present; otherwise fall back to
@@ -47,6 +63,16 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
 
   return (
     <main className="bg-navy min-h-screen">
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: tNav('home'), url: absoluteUrl(`/${locale}`) },
+            { name: tNav('classes'), url: absoluteUrl(`/${locale}/classes`) },
+          ]),
+          courseSchema({ name: t('childrenTitle'), description: t('childrenDesc'), url: absoluteUrl(`/${locale}/classes`) }),
+          courseSchema({ name: t('adultsTitle'), description: t('adultsDesc'), url: absoluteUrl(`/${locale}/classes`) }),
+        ]}
+      />
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 px-5 sm:px-8 overflow-hidden">
