@@ -379,13 +379,13 @@ body {
   70%  { transform: translate(67vw, 31vh)  rotate(-5deg) scale(0.92); opacity: 1; }
   100% { transform: translate(123vw, 5vh)  rotate(12deg) scale(0.68); opacity: 0; }
 }
-/* The navy veil is wiped away left→right, tracking the bird's flight, so the
-   site is uncovered in the bird's wake. Waypoints match intro-bird's x. */
-@keyframes intro-reveal {
-  0%, 12% { clip-path: inset(0 0 0 0); }
-  42%     { clip-path: inset(0 0 0 33%); }
-  70%     { clip-path: inset(0 0 0 67%); }
-  100%    { clip-path: inset(0 0 0 100%); }
+/* The navy fabric is pulled off-screen (up & to the right, following the bird),
+   uncovering the site — like a semstress's cloth being drawn away. The cloth
+   holds briefly while the bird enters, then is whisked away with a soft
+   draped edge (handled by a mask on the element). */
+@keyframes intro-cloth {
+  0%, 14% { transform: translateX(-16vw) rotate(0deg)  skewX(0deg); }
+  100%    { transform: translateX(122vw) rotate(4deg) skewX(-3deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
