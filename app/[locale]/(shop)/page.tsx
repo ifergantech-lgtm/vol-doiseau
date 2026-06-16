@@ -1,21 +1,17 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
-import DressCard from '@/components/DressCard'
 import Reveal from '@/components/Reveal'
 import HeroSection from '@/components/HeroSection'
 import AmbientGlow from '@/components/AmbientGlow'
 import MagneticButton from '@/components/MagneticButton'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Locale } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = await params
   const t = await getTranslations('home')
-  const tn = await getTranslations('nav')
-  const tc = await getTranslations('collection')
   const supabase = await createClient()
 
   const { data: featured } = await supabase
@@ -62,54 +58,6 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
         ctaContact={t('cta_contact')}
         carouselImages={carouselImages}
       />
-
-      {/* Featured dresses */}
-      {featured && featured.length > 0 && (
-        <section className="relative overflow-hidden py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-navy via-navy/95 to-navy border-t border-gold/10">
-          <AmbientGlow density="light" orb="top-right" />
-          <div className="relative z-10 max-w-7xl mx-auto">
-            <Reveal>
-              <div className="mb-12 sm:mb-16 md:mb-20">
-                <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-4 sm:mb-6 md:mb-8">
-                  <p className="text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/50">— {tn('collection')} —</p>
-                  <h2 className="font-display text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] text-cream leading-[1.3] sm:leading-[1.2]">
-                    {t('featured_title').split(' ').slice(0, 1).join(' ')}
-                    <span className="gold-shimmer italic block sm:inline"> {t('featured_title').split(' ').slice(1).join(' ')}</span>
-                  </h2>
-                </div>
-                <div className="w-10 sm:w-12 h-px bg-gradient-to-r from-gold to-transparent" />
-              </div>
-            </Reveal>
-
-            <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 mb-12 sm:mb-16 md:mb-20">
-              {featured.map((dress) => (
-                <DressCard
-                  key={dress.id}
-                  dress={dress}
-                  locale={locale as Locale}
-                  availabilityLabels={{
-                    sale: tc('sale_label'),
-                    rental: tc('rental_label'),
-                    both: tc('both_label'),
-                  }}
-                />
-              ))}
-            </Reveal>
-
-            <Reveal>
-              <div className="text-left">
-                <Link
-                  href={`/${locale}/collection`}
-                  className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase border border-gold/40 text-cream/70 hover:text-gold hover:border-gold transition-all group h-11 sm:h-auto md:min-h-[44px] rounded-sm"
-                >
-                  <span>{t('cta_collection')}</span>
-                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
 
       {/* Services */}
       <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-navy-deep border-t border-gold/10 overflow-hidden">
