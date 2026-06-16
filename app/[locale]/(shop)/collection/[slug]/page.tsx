@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import DressGallery from '@/components/DressGallery'
-import EnquiryForm from '@/components/EnquiryForm'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { formatPrice, getLocalizedText, getWhatsAppUrl, type Locale } from '@/lib/utils'
@@ -12,7 +11,6 @@ export const dynamic = 'force-dynamic'
 export default async function DressPage({ params }: PageProps<'/[locale]/collection/[slug]'>) {
   const { locale, slug } = await params
   const t = await getTranslations('dress')
-  const tc = await getTranslations('collection')
 
   const supabase = await createClient()
   const { data: dress } = await supabase
@@ -90,13 +88,16 @@ export default async function DressPage({ params }: PageProps<'/[locale]/collect
               {t('whatsapp')}
             </a>
 
-            {/* Enquiry form */}
-            <div className="border-t border-gold/10 pt-8">
-              <h3 className="font-display text-lg tracking-[0.12em] uppercase text-cream mb-6">
-                {tc('enquire')}
-              </h3>
-              <EnquiryForm enquiryType="dress" dressId={dress.id} />
-            </div>
+            {/* Call — Israeli number */}
+            <a
+              href="tel:+972502290718"
+              className="flex items-center justify-center gap-3 py-4 text-xs tracking-widest uppercase border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition-all"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              050-229-0718
+            </a>
           </div>
         </div>
       </div>

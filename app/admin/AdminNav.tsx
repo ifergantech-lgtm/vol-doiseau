@@ -8,7 +8,6 @@ import { useAdminT, type AdminLang, type AdminStringKey } from './adminI18n'
 const links: { href: string; key: AdminStringKey }[] = [
   { href: '/admin', key: 'dashboard' },
   { href: '/admin/dresses', key: 'dresses' },
-  { href: '/admin/enquiries', key: 'enquiries' },
   { href: '/admin/classes', key: 'classes' },
   { href: '/admin/social', key: 'social' },
 ]

@@ -27,6 +27,16 @@ export default function Footer() {
           <p>© {year} Vol D&apos;Oiseau. {t('rights')}.</p>
         </div>
       </div>
+      {/* IferganTech credit */}
+      <div style={{ borderTop: '1px solid rgba(127,127,127,0.18)', padding: '1.1rem 1.25rem', textAlign: 'center' }}>
+        <span style={{ fontSize: '11px', letterSpacing: '0.04em', color: 'rgba(255,255,255,0.30)' }}>
+          Created by{' '}
+          <a href="https://ifergantech.vercel.app" target="_blank" rel="noopener noreferrer"
+             style={{ color: 'rgba(255,255,255,0.55)', textDecoration: 'none', borderBottom: '1px solid rgba(200,169,106,0.45)' }}>
+            IferganTech
+          </a>
+        </span>
+      </div>
     </footer>
   )
 }
