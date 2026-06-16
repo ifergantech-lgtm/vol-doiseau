@@ -11,17 +11,17 @@ import { useEffect, useState } from 'react'
 const FLIGHT = 2700 // ms — matches intro-bird / intro-cloth
 const DURATION = 2900 // ms — when the overlay unmounts
 
-// Navy satin: broad fold sheens + a fine weave + a warm gold glance.
+// Pleated navy satin: vertical pleat ridges + valleys, a broad diagonal sheen,
+// and a warm gold glance — reads as draped dressmaker's fabric.
 const CLOTH_BG = [
-  'linear-gradient(115deg, transparent 28%, rgba(255,255,255,0.06) 42%, transparent 52%)',
-  'linear-gradient(115deg, transparent 58%, rgba(255,255,255,0.045) 69%, transparent 80%)',
-  'repeating-linear-gradient(102deg, rgba(255,255,255,0.022) 0 2px, transparent 2px 11px)',
-  'linear-gradient(300deg, rgba(201,168,76,0.06), transparent 55%)',
+  'linear-gradient(108deg, transparent 32%, rgba(255,255,255,0.05) 45%, transparent 57%)',
+  'linear-gradient(300deg, rgba(201,168,76,0.07), transparent 52%)',
+  'repeating-linear-gradient(90deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.06) 16px, rgba(255,255,255,0) 34px, rgba(0,0,0,0.22) 52px, rgba(255,255,255,0) 72px)',
   '#1a1f3a',
 ].join(', ')
 
 // Soft, slightly angled edge so the cloth reads as fabric being drawn, not a hard wipe.
-const CLOTH_MASK = 'linear-gradient(100deg, transparent 0%, transparent 4%, #000 13%)'
+const CLOTH_MASK = 'linear-gradient(99deg, transparent 0%, transparent 3%, #000 12%)'
 
 export default function IntroOverlay() {
   // Server + first client render show the cloth (so the page never flashes
@@ -29,6 +29,8 @@ export default function IntroOverlay() {
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
+    // Debug: ?introtest holds the intro on screen (for tuning); never unmounts.
+    if (new URLSearchParams(window.location.search).has('introtest')) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const seen = sessionStorage.getItem('voldoiseau-intro')
     if (reduce || seen) {
@@ -50,7 +52,9 @@ export default function IntroOverlay() {
       aria-hidden="true"
       className="fixed inset-0 z-[100] overflow-hidden cursor-pointer"
     >
-      {/* Navy satin cloth — drawn off-screen to reveal the site beneath */}
+      {/* Navy pleated-satin cloth — drawn off-screen to reveal the site beneath.
+          drop-shadow casts a soft shadow onto the page so the cloth reads as a
+          lifted physical layer. */}
       <div
         className="absolute top-0 left-0 h-full"
         style={{
@@ -59,14 +63,20 @@ export default function IntroOverlay() {
           background: CLOTH_BG,
           WebkitMaskImage: CLOTH_MASK,
           maskImage: CLOTH_MASK,
+          filter: 'drop-shadow(-18px 0 26px rgba(0,0,0,0.5))',
           animation: `intro-cloth ${FLIGHT}ms ${ease} forwards`,
           transformOrigin: 'top right',
           willChange: 'transform',
         }}
       >
+        {/* lit fold catching the light right at the pull edge */}
         <div
-          className="absolute inset-0"
-          style={{ background: 'radial-gradient(circle at 58% 40%, rgba(201,168,76,0.12), transparent 60%)' }}
+          className="absolute inset-y-0"
+          style={{
+            left: '3%',
+            width: '13%',
+            background: 'linear-gradient(95deg, transparent, rgba(255,255,255,0.14) 55%, rgba(245,226,161,0.16) 72%, transparent)',
+          }}
         />
       </div>
 

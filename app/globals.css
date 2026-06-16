@@ -372,12 +372,13 @@ body {
 /* Continuous gentle shimmer-sweep for gold headings already uses .gold-shimmer */
 
 /* ---- Opening intro: the gold bird flies across, then the veil lifts ---- */
+/* The bird rides the pull-line, appearing to draw the cloth across. Its x
+   roughly tracks the cloth's leading edge so it reads as the puller. */
 @keyframes intro-bird {
-  0%   { transform: translate(-26vw, 64vh) rotate(-7deg) scale(0.45); opacity: 0; }
-  12%  { opacity: 1; }
-  42%  { transform: translate(33vw, 19vh)  rotate(9deg)  scale(1.06); opacity: 1; }
-  70%  { transform: translate(67vw, 31vh)  rotate(-5deg) scale(0.92); opacity: 1; }
-  100% { transform: translate(123vw, 5vh)  rotate(12deg) scale(0.68); opacity: 0; }
+  0%, 12% { transform: translate(-8vw, 50vh)  rotate(-4deg) scale(0.8);  opacity: 0; }
+  24%     { transform: translate(20vw, 40vh)  rotate(6deg)  scale(1);    opacity: 1; }
+  60%     { transform: translate(62vw, 28vh)  rotate(4deg)  scale(1);    opacity: 1; }
+  100%    { transform: translate(138vw, 12vh) rotate(11deg) scale(0.85); opacity: 1; }
 }
 /* The navy fabric is pulled off-screen (up & to the right, following the bird),
    uncovering the site — like a semstress's cloth being drawn away. The cloth
