@@ -76,12 +76,12 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </div>
           </Reveal>
 
-          <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+          <Reveal stagger className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6 lg:gap-8">
             {services.map(({ key, href }, idx) => (
               <Link
                 key={key}
                 href={href}
-                className="group relative border border-gold/15 hover:border-gold/50 p-5 sm:p-6 md:p-8 lg:p-10 flex flex-col transition-all duration-500 hover:bg-gold/5 hover:-translate-y-1 overflow-hidden rounded-sm min-h-[180px] sm:min-h-[220px]"
+                className="group relative border border-gold/15 hover:border-gold/50 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col transition-all duration-500 hover:bg-gold/5 hover:-translate-y-1 overflow-hidden rounded-sm min-h-[150px] sm:min-h-[220px]"
               >
                 <span className="block text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-gold/40 mb-3 sm:mb-4 md:mb-6 group-hover:text-gold transition-colors font-light">
                   {String(idx + 1).padStart(2, '0')}
