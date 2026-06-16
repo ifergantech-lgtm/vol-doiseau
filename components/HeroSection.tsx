@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import MagneticButton from '@/components/MagneticButton'
@@ -53,37 +53,20 @@ export default function HeroSection({
   ctaContact,
   carouselImages = [],
 }: HeroSectionProps) {
-  const bgRef = useRef<HTMLDivElement>(null)
   const [currentIdx, setCurrentIdx] = useState(0)
 
-  // Scroll parallax — bg moves at 25% of scroll speed
-  useEffect(() => {
-    const bg = bgRef.current
-    if (!bg) return
-
-    let ticking = false
-
-    function onScroll() {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        if (bg) bg.style.transform = `translateY(${window.scrollY * 0.25}px)`
-        ticking = false
-      })
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  // Show the dresses standing in a portrait frame (no cropping). Fall back to
+  // the storefront photo if there are no dress images yet.
+  const heroImages = carouselImages.length > 0 ? carouselImages : ['/shop/hero-storefront.jpg']
 
   // Auto-advance carousel every 2.4 seconds
   useEffect(() => {
-    if (carouselImages.length <= 1) return
+    if (heroImages.length <= 1) return
     const timer = setInterval(() => {
-      setCurrentIdx(i => (i + 1) % carouselImages.length)
+      setCurrentIdx(i => (i + 1) % heroImages.length)
     }, 2400)
     return () => clearInterval(timer)
-  }, [carouselImages.length])
+  }, [heroImages.length])
 
   const words = heroTitle.split(' ')
   const lastWord = words[words.length - 1]
@@ -92,70 +75,23 @@ export default function HeroSection({
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-navy">
 
-      {/* ── Parallax background ──────────────────────────────── */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Extra height top+bottom so parallax movement never shows a gap */}
-        <div
-          ref={bgRef}
-          style={{
-            position: 'absolute',
-            top: '-30%',
-            left: 0,
-            right: 0,
-            bottom: '-30%',
-            willChange: 'transform',
-          }}
-        >
-          {carouselImages.length > 0 ? (
-            carouselImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt=""
-                fill
-                priority={i === 0}
-                sizes="100vw"
-                className="object-cover object-[center_30%]"
-                style={{
-                  opacity: i === currentIdx ? 1 : 0,
-                  transform: i === currentIdx ? 'translateX(0)' : 'translateX(35%)',
-                  transition:
-                    'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-              />
-            ))
-          ) : (
-            <Image
-              src="/shop/hero-storefront.jpg"
-              alt="Vol D'Oiseau — King George 6, Tel Aviv"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          )}
-        </div>
-        {/* Gradient sits outside the parallax layer so it never moves */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/92 via-navy/80 to-navy/55 md:from-navy/95 md:via-navy/85 md:to-navy/40" />
-      </div>
-
       {/* ── Aurora orbs ──────────────────────────────────────── */}
       <div
         className="absolute z-0 pointer-events-none rounded-full animate-aurora"
         style={{
-          top: '8%',
-          right: '16%',
+          top: '6%',
+          right: '14%',
           width: 'clamp(260px, 38vw, 540px)',
           height: 'clamp(260px, 38vw, 540px)',
-          background: 'radial-gradient(circle, rgba(201,168,76,0.22) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(201,168,76,0.20) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
       />
       <div
         className="absolute z-0 pointer-events-none rounded-full animate-aurora"
         style={{
-          bottom: '15%',
-          right: '4%',
+          bottom: '12%',
+          left: '6%',
           width: 'clamp(160px, 22vw, 340px)',
           height: 'clamp(160px, 22vw, 340px)',
           background: 'radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)',
@@ -167,30 +103,22 @@ export default function HeroSection({
       {/* ── Floating particles ───────────────────────────────── */}
       <FloatingParticles />
 
-      {/* ── Hero content ─────────────────────────────────────── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-24 md:py-32 pt-20 sm:pt-24 md:pt-20">
-        <div className="max-w-2xl">
+      {/* ── Hero content: text + standing dress ──────────────── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 pt-28 pb-20 sm:py-24 md:py-20 grid md:grid-cols-2 items-center gap-10 sm:gap-12 lg:gap-16">
 
+        {/* Left — text */}
+        <div className="max-w-xl">
           {/* Tag + gold line */}
           <div className="mb-5 sm:mb-6 md:mb-8 space-y-2 sm:space-y-3">
-            <p
-              className="hero-enter text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60"
-              style={{ animationDelay: '150ms' }}
-            >
+            <p className="hero-enter text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60" style={{ animationDelay: '150ms' }}>
               Vol D&apos;Oiseau — Paris
             </p>
-            <div
-              className="hero-enter h-px bg-gradient-to-r from-gold to-transparent"
-              style={{ animationDelay: '300ms', width: '44px' }}
-            />
+            <div className="hero-enter h-px bg-gradient-to-r from-gold to-transparent" style={{ animationDelay: '300ms', width: '44px' }} />
           </div>
 
           {/* Main heading */}
-          <div
-            className="hero-enter mb-5 sm:mb-6"
-            style={{ animationDelay: '480ms' }}
-          >
-            <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
+          <div className="hero-enter mb-5 sm:mb-6" style={{ animationDelay: '480ms' }}>
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.08em] leading-[1.3] sm:leading-[1.2] md:leading-[1.1] text-cream">
               <span>{firstWords}</span>
               <br />
               <span className="gold-shimmer italic">{lastWord}</span>
@@ -198,18 +126,12 @@ export default function HeroSection({
           </div>
 
           {/* Subtitle */}
-          <p
-            className="hero-enter text-cream/75 text-xs sm:text-sm md:text-base leading-relaxed font-light mb-8 sm:mb-10"
-            style={{ animationDelay: '680ms' }}
-          >
+          <p className="hero-enter text-cream/75 text-xs sm:text-sm md:text-base leading-relaxed font-light mb-8 sm:mb-10" style={{ animationDelay: '680ms' }}>
             {heroSubtitle}
           </p>
 
           {/* CTAs */}
-          <div
-            className="hero-enter flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4"
-            style={{ animationDelay: '880ms' }}
-          >
+          <div className="hero-enter flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4" style={{ animationDelay: '880ms' }}>
             <MagneticButton
               href={`/${locale}/collection`}
               className="btn-gold breathe-glow px-6 sm:px-8 py-3 md:py-4 text-[10px] sm:text-xs tracking-widest uppercase font-medium text-navy-deep transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.4)] gold-gradient-bg h-11 sm:h-auto md:min-h-[44px] flex items-center justify-center flex-1 sm:flex-none rounded-sm"
@@ -223,27 +145,51 @@ export default function HeroSection({
               {ctaContact}
             </Link>
           </div>
+        </div>
 
+        {/* Right — standing dress in a portrait frame (no crop) */}
+        <div className="hero-enter order-first md:order-none" style={{ animationDelay: '400ms' }}>
+          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[330px] md:max-w-[400px] aspect-[3/4] rounded-sm overflow-hidden border border-gold/20 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]">
+            {heroImages.map((src, i) => (
+              <Image
+                key={src}
+                src={src}
+                alt=""
+                fill
+                priority={i === 0}
+                sizes="(max-width: 768px) 80vw, 400px"
+                className="object-cover object-center"
+                style={{
+                  opacity: i === currentIdx ? 1 : 0,
+                  transform: i === currentIdx ? 'translateX(0)' : 'translateX(20%)',
+                  transition: 'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+              />
+            ))}
+            {/* Soft inner border + bottom fade for depth */}
+            <div className="absolute inset-0 ring-1 ring-inset ring-gold/10 pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/40 to-transparent pointer-events-none" />
+          </div>
+
+          {/* Dots */}
+          {heroImages.length > 1 && (
+            <div className="flex justify-center gap-1.5 mt-5">
+              {heroImages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentIdx(i)}
+                  aria-label={`Show dress ${i + 1}`}
+                  className="h-px transition-all duration-500"
+                  style={{
+                    width: i === currentIdx ? '24px' : '10px',
+                    background: i === currentIdx ? 'rgba(201,168,76,0.85)' : 'rgba(201,168,76,0.3)',
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      {/* ── Carousel dots (only if multiple images) ──────────── */}
-      {carouselImages.length > 1 && (
-        <div className="absolute bottom-16 sm:bottom-20 right-4 sm:right-8 flex flex-col gap-1.5 z-20">
-          {carouselImages.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIdx(i)}
-              aria-label={`Show dress ${i + 1}`}
-              className="w-px transition-all duration-500"
-              style={{
-                height: i === currentIdx ? '20px' : '10px',
-                background: i === currentIdx ? 'rgba(201,168,76,0.8)' : 'rgba(201,168,76,0.3)',
-              }}
-            />
-          ))}
-        </div>
-      )}
 
       {/* ── Scroll indicator ─────────────────────────────────── */}
       <div
