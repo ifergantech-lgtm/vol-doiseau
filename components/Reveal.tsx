@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode, type ElementType } from 'react'
+import { createElement, useEffect, useRef, useState, type ReactNode, type ElementType } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -69,9 +69,5 @@ export default function Reveal({
   const visibleClass = visible ? ' is-visible' : ''
   const merged = `${baseClass}${visibleClass}${className ? ` ${className}` : ''}`
 
-  return (
-    <Tag ref={ref as never} className={merged}>
-      {children}
-    </Tag>
-  )
+  return createElement(Tag, { ref: ref as never, className: merged }, children)
 }
