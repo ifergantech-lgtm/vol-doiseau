@@ -372,21 +372,23 @@ body {
 /* Continuous gentle shimmer-sweep for gold headings already uses .gold-shimmer */
 
 /* ---- Opening intro: the gold bird flies across, then the veil lifts ---- */
-/* The bird rides the pull-line, appearing to draw the cloth across. Its x
-   roughly tracks the cloth's leading edge so it reads as the puller. */
+/* The bird rises, as if lifting the cloth free — then it drops away below. */
 @keyframes intro-bird {
-  0%, 12% { transform: translate(-8vw, 50vh)  rotate(-4deg) scale(0.8);  opacity: 0; }
-  24%     { transform: translate(20vw, 40vh)  rotate(6deg)  scale(1);    opacity: 1; }
-  60%     { transform: translate(62vw, 28vh)  rotate(4deg)  scale(1);    opacity: 1; }
-  100%    { transform: translate(138vw, 12vh) rotate(11deg) scale(0.85); opacity: 1; }
+  0%, 8% { transform: translate(45vw, 66vh)  rotate(4deg)   scale(0.7);  opacity: 0; }
+  26%    { transform: translate(53vw, 38vh)  rotate(-4deg)  scale(1);    opacity: 1; }
+  100%   { transform: translate(66vw, -30vh) rotate(-13deg) scale(1.05); opacity: 1; }
 }
 /* The navy fabric is pulled off-screen (up & to the right, following the bird),
    uncovering the site — like a semstress's cloth being drawn away. The cloth
    holds briefly while the bird enters, then is whisked away with a soft
    draped edge (handled by a mask on the element). */
-@keyframes intro-cloth {
-  0%, 14% { transform: translateX(-16vw) rotate(0deg)  skewX(0deg); }
-  100%    { transform: translateX(122vw) rotate(4deg) skewX(-3deg); }
+/* A fold of cloth releases and falls under gravity, tipping slightly and
+   accelerating (more distance in the second half). Per-fold delay (set inline)
+   sends a ripple through the curtain so it doesn't drop as one rigid sheet. */
+@keyframes intro-drop {
+  0%, 10% { transform: translateY(0) rotate(0deg); }
+  55%     { transform: translateY(38vh) rotate(var(--sway, 1.5deg)); }
+  100%    { transform: translateY(165vh) rotate(calc(var(--sway, 1.5deg) * 1.6)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

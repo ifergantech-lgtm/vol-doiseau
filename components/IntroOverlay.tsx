@@ -3,25 +3,27 @@
 import { useEffect, useState } from 'react'
 
 /**
- * One-time opening animation: a piece of navy satin "cloth" covers the site,
- * then the gold bird flies across and draws the cloth away — uncovering the
- * site, a nod to Élisheva the seamstress. Shows once per browser session,
- * is click-to-skip, and is disabled for reduced-motion users.
+ * One-time opening animation: a navy pleated-satin cloth covers the site, then
+ * (as the bird lifts away) it is released and falls under gravity — fold by
+ * fold, slightly out of sync so a ripple runs through it — uncovering the site.
+ * A nod to Élisheva the seamstress. Once per browser session, click-to-skip,
+ * disabled for reduced-motion users.
  */
-const FLIGHT = 2700 // ms — matches intro-bird / intro-cloth
-const DURATION = 2900 // ms — when the overlay unmounts
+const FOLDS = 9
+const FALL = 2200 // ms — a single fold's drop
+const STAGGER = 70 // ms between folds (the ripple)
+const DURATION = FALL + STAGGER * FOLDS + 250 // when the overlay unmounts
 
-// Pleated navy satin: vertical pleat ridges + valleys, a broad diagonal sheen,
-// and a warm gold glance — reads as draped dressmaker's fabric.
-const CLOTH_BG = [
-  'linear-gradient(108deg, transparent 32%, rgba(255,255,255,0.05) 45%, transparent 57%)',
-  'linear-gradient(300deg, rgba(201,168,76,0.07), transparent 52%)',
-  'repeating-linear-gradient(90deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.06) 16px, rgba(255,255,255,0) 34px, rgba(0,0,0,0.22) 52px, rgba(255,255,255,0) 72px)',
+// One drape fold: dark valleys at the sides, a lit satin ridge down the middle,
+// over deep navy with a faint warm glance. Adjacent folds read as pleated cloth.
+const FOLD_BG = [
+  'linear-gradient(90deg, rgba(0,0,0,0.34) 0%, rgba(255,255,255,0.04) 38%, rgba(255,255,255,0.08) 52%, rgba(0,0,0,0.10) 70%, rgba(0,0,0,0.36) 100%)',
+  'linear-gradient(180deg, rgba(201,168,76,0.06), transparent 42%)',
   '#1a1f3a',
 ].join(', ')
 
-// Soft, slightly angled edge so the cloth reads as fabric being drawn, not a hard wipe.
-const CLOTH_MASK = 'linear-gradient(99deg, transparent 0%, transparent 3%, #000 12%)'
+// Soft top edge so the released (reveal) edge looks draped, not cut.
+const TOP_FADE = 'linear-gradient(180deg, transparent 0, #000 5%)'
 
 export default function IntroOverlay() {
   // Server + first client render show the cloth (so the page never flashes
@@ -44,7 +46,7 @@ export default function IntroOverlay() {
 
   if (!visible) return null
 
-  const ease = 'cubic-bezier(0.55, 0, 0.45, 1)'
+  const slot = 100 / FOLDS
 
   return (
     <div
@@ -52,42 +54,41 @@ export default function IntroOverlay() {
       aria-hidden="true"
       className="fixed inset-0 z-[100] overflow-hidden cursor-pointer"
     >
-      {/* Navy pleated-satin cloth — drawn off-screen to reveal the site beneath.
-          drop-shadow casts a soft shadow onto the page so the cloth reads as a
-          lifted physical layer. */}
-      <div
-        className="absolute top-0 left-0 h-full"
-        style={{
-          width: '132vw',
-          transform: 'translateX(-16vw)',
-          background: CLOTH_BG,
-          WebkitMaskImage: CLOTH_MASK,
-          maskImage: CLOTH_MASK,
-          filter: 'drop-shadow(-18px 0 26px rgba(0,0,0,0.5))',
-          animation: `intro-cloth ${FLIGHT}ms ${ease} forwards`,
-          transformOrigin: 'top right',
-          willChange: 'transform',
-        }}
-      >
-        {/* lit fold catching the light right at the pull edge */}
-        <div
-          className="absolute inset-y-0"
-          style={{
-            left: '3%',
-            width: '13%',
-            background: 'linear-gradient(95deg, transparent, rgba(255,255,255,0.14) 55%, rgba(245,226,161,0.16) 72%, transparent)',
-          }}
-        />
-      </div>
+      {Array.from({ length: FOLDS }).map((_, i) => {
+        // Ripple from the centre outward so the cloth sags in the middle first.
+        const fromCentre = Math.abs(i - (FOLDS - 1) / 2)
+        const delay = (FOLDS / 2 - fromCentre) * STAGGER
+        const sway = (i % 2 ? 1 : -1) * (1.2 + fromCentre * 0.5)
+        return (
+          <div
+            key={i}
+            className="absolute"
+            style={{
+              top: '-12vh',
+              height: '128vh',
+              left: `${i * slot}vw`,
+              width: `calc(${slot}vw + 1.5px)`,
+              background: FOLD_BG,
+              WebkitMaskImage: TOP_FADE,
+              maskImage: TOP_FADE,
+              filter: 'drop-shadow(0 14px 22px rgba(0,0,0,0.4))',
+              transformOrigin: 'top center',
+              '--sway': `${sway}deg`,
+              animation: `intro-drop ${FALL}ms cubic-bezier(0.5, 0, 0.9, 0.42) ${delay}ms forwards`,
+              willChange: 'transform',
+            } as React.CSSProperties}
+          />
+        )
+      })}
 
-      {/* The bird leads, appearing to draw the cloth away */}
+      {/* The bird rises, lifting the cloth free */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/logo-bird.svg"
         alt=""
         className="absolute top-0 left-0 w-[64px] sm:w-[84px] md:w-[96px] h-auto"
         style={{
-          animation: `intro-bird ${FLIGHT}ms ${ease} forwards`,
+          animation: `intro-bird ${FALL}ms cubic-bezier(0.3, 0, 0.4, 1) forwards`,
           filter: 'drop-shadow(0 0 24px rgba(201,168,76,0.55))',
           willChange: 'transform, opacity',
         }}
