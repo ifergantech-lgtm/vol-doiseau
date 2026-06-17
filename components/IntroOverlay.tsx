@@ -18,6 +18,7 @@ export default function IntroOverlay() {
   const [leaving, setLeaving] = useState(false) // fade-out
   const [freezeAt, setFreezeAt] = useState<number | undefined>(undefined) // ?introfreeze=<s> debug
   const testRef = useRef(false) // ?introtest / ?introfreeze: hold the intro open for tuning
+  const birdRef = useRef<HTMLImageElement | null>(null) // positioned by the cloth sim each frame
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -63,18 +64,20 @@ export default function IntroOverlay() {
 
       {/* The falling-cloth simulation (transparent canvas) */}
       <div className="absolute inset-0">
-        <ClothCanvas onReveal={() => setCovered(false)} onDone={finish} freezeAt={freezeAt} />
+        <ClothCanvas onReveal={() => setCovered(false)} onDone={finish} freezeAt={freezeAt} birdRef={birdRef} />
       </div>
 
-      {/* The bird lifts away as the cloth is drawn up and falls */}
+      {/* The bird — its position is driven by the cloth sim each frame so it
+          appears to draw the cloth off as it crosses left → right */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        ref={birdRef}
         src="/logo-bird.svg"
         alt=""
-        className="absolute top-0 left-0 w-[64px] sm:w-[84px] md:w-[96px] h-auto"
+        className="absolute top-0 left-0 w-[72px] sm:w-[88px] md:w-[96px] h-auto"
         style={{
-          animation: 'intro-bird 2600ms cubic-bezier(0.3, 0, 0.4, 1) forwards',
-          filter: 'drop-shadow(0 0 24px rgba(201,168,76,0.55))',
+          opacity: 0,
+          filter: 'drop-shadow(0 0 24px rgba(201,168,76,0.6))',
           willChange: 'transform, opacity',
         }}
       />

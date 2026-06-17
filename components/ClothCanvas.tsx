@@ -1,17 +1,19 @@
 'use client'
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, type RefObject } from 'react'
 import * as THREE from 'three'
 
 /**
- * A real Verlet cloth: a navy-satin sheet pinned along the top that, after a
- * beat, is released and falls under gravity — rippling and folding naturally —
- * to uncover the site behind the (transparent) canvas.
+ * A real Verlet cloth linked to the bird: the bird sweeps left→right and the
+ * navy-satin sheet is unpinned column by column just behind it, peeling off and
+ * falling under gravity — so the bird appears to draw the cloth away and drop
+ * it, uncovering the site behind the transparent canvas.
  */
 
-const RELEASE_AT = 0.55 // s — how long the cloth hangs before it drops
-const MAX_LIFE = 4.2 // s — safety cap before we report "done"
+const SWEEP_START = 0.3 // s before the bird starts crossing
+const SWEEP_DUR = 2.3 // s for the bird to cross + peel the cloth
+const MAX_LIFE = 4.6 // s safety cap
 const FIXED_DT = 1 / 60
 
 interface ClothSim {
@@ -20,7 +22,6 @@ interface ClothSim {
   prev: Float32Array
   pinned: Uint8Array
   constraints: { a: number; b: number; rest: number }[]
-  W: number
   H: number
   cols: number
 }
@@ -39,10 +40,10 @@ function buildSim(W: number, H: number, cols: number, rows: number): ClothSim {
       const k = j * nx + i
       const x = -W / 2 + (i / cols) * W
       const y = H / 2 - (j / rows) * H
-      const z = Math.sin(i * 0.6) * 0.12 + Math.sin(j * 0.5) * 0.1 // initial billow
+      const z = Math.sin(i * 0.6) * 0.12 + Math.sin(j * 0.5) * 0.1
       pos[k * 3] = x; pos[k * 3 + 1] = y; pos[k * 3 + 2] = z
       prev[k * 3] = x; prev[k * 3 + 1] = y; prev[k * 3 + 2] = z
-      pinned[k] = j === 0 ? 1 : 0
+      pinned[k] = j === 0 ? 1 : 0 // top row pinned; released L→R as the bird passes
       uv[k * 2] = i / cols; uv[k * 2 + 1] = 1 - j / rows
     }
   }
@@ -78,16 +79,28 @@ function buildSim(W: number, H: number, cols: number, rows: number): ClothSim {
   geometry.setIndex(indices)
   geometry.computeVertexNormals()
 
-  return { geometry, pos, prev, pinned, constraints, W, H, cols }
+  return { geometry, pos, prev, pinned, constraints, H, cols }
 }
 
 interface ClothProps {
   onReveal: () => void
   onDone: () => void
   freezeAt?: number
+  birdRef: RefObject<HTMLImageElement | null>
 }
 
-function Cloth({ onReveal, onDone, freezeAt }: ClothProps) {
+function positionBird(el: HTMLImageElement | null, front: number) {
+  if (!el) return
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const x = front * (vw + 120) - 60 // travels fully across, entering/leaving off-screen
+  const y = vh * 0.16 + Math.sin(Math.min(front, 1) * Math.PI) * -vh * 0.06 // gentle arc
+  const rot = -8 + front * 20
+  el.style.transform = `translate(${x - 48}px, ${y - 48}px) rotate(${rot}deg)`
+  el.style.opacity = String(front < 0.04 ? front / 0.04 : front > 0.97 ? Math.max(0, (1.05 - front) / 0.08) : 1)
+}
+
+function Cloth({ onReveal, onDone, freezeAt, birdRef }: ClothProps) {
   const { viewport } = useThree()
   const W = viewport.width * 1.25
   const H = viewport.height * 1.25
@@ -97,21 +110,31 @@ function Cloth({ onReveal, onDone, freezeAt }: ClothProps) {
 
   const sim = useMemo(() => buildSim(W, H, cols, rows), [W, H, cols, rows])
   const elapsed = useRef(0)
-  const released = useRef(false)
+  const revealed = useRef(false)
   const done = useRef(false)
   const frozen = useRef(false)
+
+  function progress() {
+    return Math.min(Math.max((elapsed.current - SWEEP_START) / SWEEP_DUR, 0), 1)
+  }
 
   function step(dt: number) {
     const { pos, prev, pinned, constraints, H } = sim
     elapsed.current += dt
+    const p = progress()
+    const front = p * 1.06 // bird leads the peel slightly
 
-    if (!released.current && elapsed.current >= RELEASE_AT) {
-      released.current = true
+    if (p > 0 && !revealed.current) {
+      revealed.current = true
       onReveal()
-      for (let i = 0; i <= cols; i++) {
+    }
+
+    // unpin the top row column-by-column as the bird passes; kick each free
+    for (let i = 0; i <= cols; i++) {
+      if (pinned[i] && front >= i / cols) {
         pinned[i] = 0
-        prev[i * 3 + 1] = pos[i * 3 + 1] - H * 0.06 // upward lift
-        prev[i * 3 + 2] = pos[i * 3 + 2] - 0.5 // toward camera
+        prev[i * 3 + 1] = pos[i * 3 + 1] - H * 0.05 // flick up where the bird grabs
+        prev[i * 3 + 2] = pos[i * 3 + 2] - 0.6 // toward camera
       }
     }
 
@@ -158,23 +181,24 @@ function Cloth({ onReveal, onDone, freezeAt }: ClothProps) {
   useFrame((_, rawDelta) => {
     if (done.current) return
 
-    // Debug: compute one deterministic frame at `freezeAt` and hold it.
     if (freezeAt != null) {
       if (frozen.current) return
       let guard = 0
       while (elapsed.current < freezeAt && guard < 3000) { step(FIXED_DT); guard++ }
       commit()
+      positionBird(birdRef.current, progress() * 1.06)
       frozen.current = true
       return
     }
 
     step(Math.min(rawDelta, 1 / 30))
     commit()
+    positionBird(birdRef.current, progress() * 1.06)
 
     let topMost = -Infinity
     const { pos, pinned, H } = sim
     for (let k = 0; k < pinned.length; k++) topMost = Math.max(topMost, pos[k * 3 + 1])
-    if ((released.current && topMost < -H / 2) || elapsed.current > MAX_LIFE) {
+    if ((progress() >= 1 && topMost < -H / 2) || elapsed.current > MAX_LIFE) {
       done.current = true
       onDone()
     }
@@ -199,9 +223,10 @@ interface ClothCanvasProps {
   onReveal: () => void
   onDone: () => void
   freezeAt?: number
+  birdRef: RefObject<HTMLImageElement | null>
 }
 
-export default function ClothCanvas({ onReveal, onDone, freezeAt }: ClothCanvasProps) {
+export default function ClothCanvas({ onReveal, onDone, freezeAt, birdRef }: ClothCanvasProps) {
   return (
     <Canvas
       orthographic
@@ -213,7 +238,7 @@ export default function ClothCanvas({ onReveal, onDone, freezeAt }: ClothCanvasP
       <ambientLight intensity={0.55} />
       <directionalLight position={[-3, 4, 6]} intensity={1.5} />
       <directionalLight position={[4, -2, 3]} intensity={0.4} color={'#c9a84c'} />
-      <Cloth onReveal={onReveal} onDone={onDone} freezeAt={freezeAt} />
+      <Cloth onReveal={onReveal} onDone={onDone} freezeAt={freezeAt} birdRef={birdRef} />
     </Canvas>
   )
 }
