@@ -27,7 +27,7 @@ export default function Footer() {
               backgroundClip: 'text',
             }}
           >
-            Vol D&apos;Oiseau Paris
+            Vol D&apos;Oiseau
           </p>
           <p className="text-xs text-cream/50 tracking-wide">{t('tagline')}</p>
         </div>

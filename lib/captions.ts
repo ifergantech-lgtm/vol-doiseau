@@ -27,7 +27,7 @@ export async function generateCaptions(dress: Dress): Promise<GeneratedCaptions>
     : dress.availability === 'rental' ? 'for rental'
     : 'for sale and rental'
 
-  const prompt = `You are writing Instagram captions for Vol D'Oiseau, a premium Paris-inspired fashion boutique in Tel Aviv owned by Elisheva Ifergan.
+  const prompt = `You are writing Instagram captions for Vol D'Oiseau, a premium French-inspired fashion boutique in Tel Aviv owned by Elisheva Ifergan.
 
 Dress details:
 - Name: ${title}
@@ -44,7 +44,7 @@ Write three short, elegant Instagram captions — one in each language. Each cap
 - Feel editorial, not salesy
 - French caption first (this is the brand's primary language)
 
-Also write a single hashtag block (shared, in English/French/Hebrew) with 15–20 relevant hashtags covering: fashion, evening wear/bridal, Tel Aviv, Paris, boutique, and the dress category.
+Also write a single hashtag block (shared, in English/French/Hebrew) with 15–20 relevant hashtags covering: fashion, evening wear/bridal, Tel Aviv, boutique, and the dress category.
 
 Respond ONLY with this exact JSON structure (no markdown, no explanation):
 {
@@ -90,7 +90,7 @@ Respond ONLY with this exact JSON structure (no markdown, no explanation):
       fr: `Une robe ${dress.category} d'exception vous attend chez @voldoiseauparis. Venez la découvrir.`,
       en: `A stunning ${dress.category} gown awaits you at @voldoiseauparis. Enquire to book your fitting.`,
       he: `שמלת ${dress.category} מרהיבה מחכה לכם ב-@voldoiseauparis. צרו קשר לפרטים.`,
-      hashtags: '#fashion #eveningwear #telaviv #paris #boutique #robedesoir #שמלות #voldoiseauparis',
+      hashtags: '#fashion #eveningwear #telaviv #boutique #robedesoir #שמלות #voldoiseauparis',
     }
   }
 }

@@ -70,7 +70,7 @@ export default function Navbar() {
                 Vol D&apos;Oiseau
               </span>
               <span className="text-[7px] sm:text-[8px] tracking-[0.4em] uppercase text-gold/70 mt-0.5 group-hover:text-gold transition-colors">
-                Paris
+                Tel Aviv
               </span>
             </div>
           </Link>

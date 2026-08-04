@@ -106,34 +106,50 @@ export default function HeroSection({
             willChange: 'transform',
           }}
         >
-          {carouselImages.length > 0 ? (
-            carouselImages.map((src, i) => (
+          {/* Mobile: portrait background video (silent, looping) */}
+          <video
+            className="md:hidden absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-mobile-poster.jpg"
+          >
+            <source src="/hero-mobile.mp4" type="video/mp4" />
+          </video>
+
+          {/* Desktop: image carousel */}
+          <div className="hidden md:block absolute inset-0">
+            {carouselImages.length > 0 ? (
+              carouselImages.map((src, i) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt=""
+                  fill
+                  priority={i === 0}
+                  sizes="100vw"
+                  className="object-cover object-[center_30%]"
+                  style={{
+                    opacity: i === currentIdx ? 1 : 0,
+                    transform: i === currentIdx ? 'translateX(0)' : 'translateX(35%)',
+                    transition:
+                      'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                />
+              ))
+            ) : (
               <Image
-                key={src}
-                src={src}
-                alt=""
+                src="/shop/hero-storefront.jpg"
+                alt="Vol D'Oiseau — King George 6, Tel Aviv"
                 fill
-                priority={i === 0}
+                priority
                 sizes="100vw"
-                className="object-cover object-[center_30%]"
-                style={{
-                  opacity: i === currentIdx ? 1 : 0,
-                  transform: i === currentIdx ? 'translateX(0)' : 'translateX(35%)',
-                  transition:
-                    'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
+                className="object-cover"
               />
-            ))
-          ) : (
-            <Image
-              src="/shop/hero-storefront.jpg"
-              alt="Vol D'Oiseau — King George 6, Tel Aviv"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          )}
+            )}
+          </div>
         </div>
         {/* Gradient sits outside the parallax layer so it never moves */}
         <div className="absolute inset-0 bg-gradient-to-r from-navy/92 via-navy/80 to-navy/55 md:from-navy/95 md:via-navy/85 md:to-navy/40" />
@@ -177,7 +193,7 @@ export default function HeroSection({
               className="hero-enter text-[9px] sm:text-xs tracking-[0.4em] uppercase text-gold/60"
               style={{ animationDelay: '150ms' }}
             >
-              Vol D&apos;Oiseau — Paris
+              Vol D&apos;Oiseau — Tel Aviv
             </p>
             <div
               className="hero-enter h-px bg-gradient-to-r from-gold to-transparent"
@@ -229,7 +245,7 @@ export default function HeroSection({
 
       {/* ── Carousel dots (only if multiple images) ──────────── */}
       {carouselImages.length > 1 && (
-        <div className="absolute bottom-16 sm:bottom-20 right-4 sm:right-8 flex flex-col gap-1.5 z-20">
+        <div className="hidden md:flex absolute bottom-16 sm:bottom-20 right-4 sm:right-8 flex-col gap-1.5 z-20">
           {carouselImages.map((_, i) => (
             <button
               key={i}

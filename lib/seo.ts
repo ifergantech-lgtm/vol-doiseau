@@ -71,7 +71,7 @@ export function localeAlternates(locale: string, subpath = '') {
  */
 export const BUSINESS = {
   name: "Vol D'Oiseau",
-  legalName: "Vol D'Oiseau Paris",
+  legalName: "Vol D'Oiseau",
   phone: '+972502290718',
   phoneDisplay: '050-229-0718',
   whatsapp: '+33781721617',

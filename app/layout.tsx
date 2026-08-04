@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s · Vol D'Oiseau",
   },
   description:
-    "Vol D'Oiseau — a Parisian-inspired boutique in the heart of Tel Aviv. Evening gowns and wedding dresses for sale and rental, bespoke dressmaking, alterations, and sewing classes.",
+    "Vol D'Oiseau — a French-inspired boutique in the heart of Tel Aviv. Evening gowns and wedding dresses for sale and rental, bespoke dressmaking, alterations, and sewing classes.",
   applicationName: "Vol D'Oiseau",
   openGraph: {
     siteName: "Vol D'Oiseau",

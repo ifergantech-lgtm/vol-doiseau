@@ -120,7 +120,7 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
           <div className="group relative h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm border border-gold/15 hover:border-gold/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_15px_40px_-15px_rgba(201,168,76,0.3)]">
             <Image
               src="/shop/interior/studio-rack.jpg"
-              alt="Dresses and Paris fashion prints inside the Vol D'Oiseau boutique"
+              alt="Dresses and fashion prints inside the Vol D'Oiseau boutique"
               fill
               sizes="(max-width: 768px) 50vw, 40vw"
               className="object-cover object-center brightness-[1.05] contrast-[1.02] transition-transform duration-[1200ms] ease-out group-hover:scale-105"
