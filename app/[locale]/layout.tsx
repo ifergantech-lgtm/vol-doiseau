@@ -7,7 +7,6 @@ import Footer from '@/components/Footer'
 import Marquee from '@/components/Marquee'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import ScrollProgress from '@/components/ScrollProgress'
-import IntroOverlay from '@/components/IntroOverlay'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -28,7 +27,6 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <IntroOverlay />
       <ScrollProgress />
       <Navbar />
       <main className="flex-1">{children}</main>

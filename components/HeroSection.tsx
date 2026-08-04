@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import MagneticButton from '@/components/MagneticButton'
 
 // Deterministic positions — no Math.random (avoids hydration mismatch)
@@ -42,6 +41,7 @@ interface HeroSectionProps {
   heroSubtitle: string
   ctaCollection: string
   ctaContact: string
+  // Accepted for backwards compatibility with the home page; the hero now uses video.
   carouselImages?: string[]
 }
 
@@ -51,10 +51,8 @@ export default function HeroSection({
   heroSubtitle,
   ctaCollection,
   ctaContact,
-  carouselImages = [],
 }: HeroSectionProps) {
   const bgRef = useRef<HTMLDivElement>(null)
-  const [currentIdx, setCurrentIdx] = useState(0)
 
   // Scroll parallax — bg moves at 25% of scroll speed
   useEffect(() => {
@@ -76,15 +74,6 @@ export default function HeroSection({
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Auto-advance carousel every 2.4 seconds
-  useEffect(() => {
-    if (carouselImages.length <= 1) return
-    const timer = setInterval(() => {
-      setCurrentIdx(i => (i + 1) % carouselImages.length)
-    }, 2400)
-    return () => clearInterval(timer)
-  }, [carouselImages.length])
-
   const words = heroTitle.split(' ')
   const lastWord = words[words.length - 1]
   const firstWords = words.slice(0, -1).join(' ')
@@ -92,7 +81,7 @@ export default function HeroSection({
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-navy">
 
-      {/* ── Parallax background ──────────────────────────────── */}
+      {/* ── Parallax background video ────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {/* Extra height top+bottom so parallax movement never shows a gap */}
         <div
@@ -106,7 +95,7 @@ export default function HeroSection({
             willChange: 'transform',
           }}
         >
-          {/* Mobile: portrait background video (silent, looping) */}
+          {/* Mobile: portrait video (silent, looping) */}
           <video
             className="md:hidden absolute inset-0 h-full w-full object-cover"
             autoPlay
@@ -119,37 +108,18 @@ export default function HeroSection({
             <source src="/hero-mobile.mp4" type="video/mp4" />
           </video>
 
-          {/* Desktop: image carousel */}
-          <div className="hidden md:block absolute inset-0">
-            {carouselImages.length > 0 ? (
-              carouselImages.map((src, i) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt=""
-                  fill
-                  priority={i === 0}
-                  sizes="100vw"
-                  className="object-cover object-[center_30%]"
-                  style={{
-                    opacity: i === currentIdx ? 1 : 0,
-                    transform: i === currentIdx ? 'translateX(0)' : 'translateX(35%)',
-                    transition:
-                      'opacity 380ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1)',
-                  }}
-                />
-              ))
-            ) : (
-              <Image
-                src="/shop/hero-storefront.jpg"
-                alt="Vol D'Oiseau — King George 6, Tel Aviv"
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-              />
-            )}
-          </div>
+          {/* Desktop: landscape video (silent, looping) */}
+          <video
+            className="hidden md:block absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-desktop-poster.jpg"
+          >
+            <source src="/hero-desktop.mp4" type="video/mp4" />
+          </video>
         </div>
         {/* Gradient sits outside the parallax layer so it never moves */}
         <div className="absolute inset-0 bg-gradient-to-r from-navy/92 via-navy/80 to-navy/55 md:from-navy/95 md:via-navy/85 md:to-navy/40" />
@@ -242,24 +212,6 @@ export default function HeroSection({
 
         </div>
       </div>
-
-      {/* ── Carousel dots (only if multiple images) ──────────── */}
-      {carouselImages.length > 1 && (
-        <div className="hidden md:flex absolute bottom-16 sm:bottom-20 right-4 sm:right-8 flex-col gap-1.5 z-20">
-          {carouselImages.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIdx(i)}
-              aria-label={`Show dress ${i + 1}`}
-              className="w-px transition-all duration-500"
-              style={{
-                height: i === currentIdx ? '20px' : '10px',
-                background: i === currentIdx ? 'rgba(201,168,76,0.8)' : 'rgba(201,168,76,0.3)',
-              }}
-            />
-          ))}
-        </div>
-      )}
 
       {/* ── Scroll indicator ─────────────────────────────────── */}
       <div
