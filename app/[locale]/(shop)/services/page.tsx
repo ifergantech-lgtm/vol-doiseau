@@ -83,7 +83,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
               </p>
               <Link
                 href={`/${locale}/contact`}
-                className="inline-block px-8 py-3.5 text-xs tracking-widest uppercase border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition-all"
+                className="btn-outline inline-block px-8 py-3.5 text-xs tracking-widest uppercase rounded-sm"
               >
                 {t('book_cta')}
               </Link>
@@ -120,7 +120,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
               </p>
               <Link
                 href={`/${locale}/contact`}
-                className="inline-block px-8 py-3.5 text-xs tracking-widest uppercase border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold transition-all"
+                className="btn-outline inline-block px-8 py-3.5 text-xs tracking-widest uppercase rounded-sm"
               >
                 {t('book_cta')}
               </Link>

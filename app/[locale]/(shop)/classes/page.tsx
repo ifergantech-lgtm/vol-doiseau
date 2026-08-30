@@ -131,90 +131,63 @@ export default async function ClassesPage({ params }: PageProps<'/[locale]/class
         </Reveal>
       </section>
 
-      {/* ── Classes ──────────────────────────────────────── */}
-      {classes.map((cls, i) => (
-        <section
-          key={cls.num}
-          className={`px-5 sm:px-8 py-14 sm:py-20 border-t border-gold/10 ${
-            i % 2 === 1 ? 'bg-navy-deep' : ''
-          }`}
-        >
-          <div className="max-w-7xl mx-auto">
-            <Reveal>
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 sm:gap-16 items-start">
-
-                {/* Left — number + title + description */}
-                <div>
-                  <span className="font-display text-[72px] sm:text-[100px] md:text-[130px] leading-none text-gold/8 select-none block -mb-4 sm:-mb-6">
+      {/* ── Classes — children & adults side by side ─────── */}
+      <section className="px-5 sm:px-8 py-14 sm:py-20 border-t border-gold/10">
+        <div className="max-w-6xl mx-auto">
+          <Reveal stagger className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+            {classes.map((cls) => (
+              <div key={cls.num} className="surface-card flex flex-col p-6 sm:p-8 md:p-9">
+                {/* Header */}
+                <div className="flex items-baseline gap-4 mb-4">
+                  <span className="font-display text-5xl sm:text-6xl leading-none text-gold/25 select-none">
                     {cls.num}
                   </span>
-                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[0.08em] text-cream mb-4 sm:mb-5">
-                    {t(cls.titleKey)}
-                  </h2>
-                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-gold/50 mb-5 sm:mb-7">
-                    {t(cls.ageKey)}
-                  </p>
-                  <p className="text-cream/65 text-sm sm:text-base leading-relaxed max-w-lg">
-                    {t(cls.descKey)}
-                  </p>
+                  <div>
+                    <h2 className="font-display text-2xl sm:text-3xl tracking-[0.06em] text-cream leading-tight">
+                      {t(cls.titleKey)}
+                    </h2>
+                    <p className="text-[10px] tracking-[0.3em] uppercase text-gold/60 mt-1.5">
+                      {t(cls.ageKey)}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Right — specs + CTA */}
-                <div className="border border-gold/15 p-6 sm:p-8 space-y-6">
-                  {/* Schedule */}
-                  <div>
-                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
-                      {t('schedule')}
-                    </p>
-                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
-                      {cls.sched}
-                    </p>
+                <p className="text-cream/65 text-sm sm:text-[15px] leading-relaxed mb-6">
+                  {t(cls.descKey)}
+                </p>
+
+                {/* Specs — tinted rows so the details stand out */}
+                <div className="grid grid-cols-2 gap-2.5 mb-6 mt-auto">
+                  <div className="spec-row col-span-2">
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-gold/55 mb-1">{t('schedule')}</p>
+                    <p className="text-cream text-sm font-display tracking-wide">{cls.sched}</p>
                   </div>
-                  <div className="h-px bg-gold/10" />
-                  {/* Duration */}
-                  <div>
-                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
-                      {t('length')}
-                    </p>
-                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
-                      {t('duration')}
-                    </p>
+                  <div className="spec-row">
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-gold/55 mb-1">{t('length')}</p>
+                    <p className="text-cream text-sm font-display tracking-wide">{t('duration')}</p>
                   </div>
-                  <div className="h-px bg-gold/10" />
-                  {/* Course length */}
-                  <div>
-                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
-                      {t('courseLength')}
-                    </p>
-                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
-                      {t('sessions')}
-                    </p>
+                  <div className="spec-row">
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-gold/55 mb-1">{t('courseLength')}</p>
+                    <p className="text-cream text-sm font-display tracking-wide">{t('sessions')}</p>
                   </div>
-                  <div className="h-px bg-gold/10" />
-                  {/* Location */}
-                  <div>
-                    <p className="text-[9px] tracking-[0.35em] uppercase text-gold/45 mb-1.5">
-                      {t('location')}
-                    </p>
-                    <p className="text-cream text-sm sm:text-base font-display tracking-wide">
-                      {t('location_value')}
-                    </p>
+                  <div className="spec-row col-span-2">
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-gold/55 mb-1">{t('location')}</p>
+                    <p className="text-cream text-sm font-display tracking-wide">{t('location_value')}</p>
                   </div>
-                  {/* CTA */}
-                  <Link
-                    href={`/${locale}/contact`}
-                    className="block text-center text-[10px] tracking-widest uppercase font-medium text-navy-deep py-3.5 mt-2 transition-opacity hover:opacity-90"
-                    style={{ background: 'linear-gradient(135deg, #b8860b, #c9a84c, #e8c97a, #c9a84c)' }}
-                  >
-                    {t('enquire')} →
-                  </Link>
                 </div>
 
+                {/* CTA */}
+                <Link
+                  href={`/${locale}/contact`}
+                  className="btn-gold gold-gradient-bg block text-center text-[10px] tracking-widest uppercase font-semibold text-navy-deep py-3.5 rounded-sm"
+                >
+                  {t('enquire')} →
+                </Link>
               </div>
-            </Reveal>
-          </div>
-        </section>
-      ))}
+            ))}
+          </Reveal>
+        </div>
+      </section>
 
       {/* ── Curriculum strip ─────────────────────────────── */}
       <section className="px-5 sm:px-8 py-14 sm:py-20 border-t border-gold/10">

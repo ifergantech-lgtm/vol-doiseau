@@ -4,7 +4,7 @@ import Reveal from '@/components/Reveal'
 import HeroSection from '@/components/HeroSection'
 import AmbientGlow from '@/components/AmbientGlow'
 import MagneticButton from '@/components/MagneticButton'
-import Link from 'next/link'
+import ServicesCarousel from '@/components/ServicesCarousel'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import { pageMetadata } from '@/lib/seo'
@@ -58,11 +58,25 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   }
 
   const services = [
-    { key: 'sale', href: `/${locale}/collection` },
-    { key: 'rental', href: `/${locale}/collection?availability=rental` },
-    { key: 'custom', href: `/${locale}/services` },
-    { key: 'classes', href: `/${locale}/classes` },
+    { key: 'sale', href: `/${locale}/collection`, img: '/shop/interior/studio-rack.jpg' },
+    { key: 'rental', href: `/${locale}/collection?availability=rental`, img: '/shop/hero-storefront.jpg' },
+    { key: 'custom', href: `/${locale}/services`, img: '/atelier/dressmaking.png' },
+    { key: 'classes', href: `/${locale}/classes`, img: '/shop/interior/studio-singer.jpg' },
   ] as const
+
+  const serviceItems = services.map(({ key, href, img }, idx) => ({
+    href,
+    img,
+    num: String(idx + 1).padStart(2, '0'),
+    title: t(`service_${key}`),
+    desc: t(`service_${key}_desc`),
+  }))
+
+  const discoverLabels: Record<string, string> = {
+    en: 'Discover', fr: 'Découvrir', es: 'Descubrir', pt: 'Descobrir',
+    it: 'Scopri', ru: 'Открыть', he: 'לגלות', ar: 'اكتشفوا',
+  }
+  const discoverLabel = discoverLabels[locale] ?? 'Discover'
 
   return (
     <>
@@ -94,25 +108,8 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </div>
           </Reveal>
 
-          <Reveal stagger className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6 lg:gap-8">
-            {services.map(({ key, href }, idx) => (
-              <Link
-                key={key}
-                href={href}
-                className="group relative border border-gold/15 hover:border-gold/50 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col transition-all duration-500 hover:bg-gold/5 hover:-translate-y-1 overflow-hidden rounded-sm min-h-[150px] sm:min-h-[220px]"
-              >
-                <span className="block text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-gold/40 mb-3 sm:mb-4 md:mb-6 group-hover:text-gold transition-colors font-light">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <h3 className="font-display text-base sm:text-lg md:text-xl tracking-[0.05em] text-cream mb-3 sm:mb-4 group-hover:text-gold transition-colors leading-tight">
-                  {t(`service_${key}`)}
-                </h3>
-                <p className="text-[11px] sm:text-xs md:text-sm text-cream/50 leading-relaxed flex-grow">
-                  {t(`service_${key}_desc`)}
-                </p>
-                <div className="w-6 sm:w-8 h-px bg-gold/30 mt-4 sm:mt-6 group-hover:w-10 sm:group-hover:w-12 group-hover:bg-gold transition-all duration-500" />
-              </Link>
-            ))}
+          <Reveal>
+            <ServicesCarousel items={serviceItems} discoverLabel={discoverLabel} />
           </Reveal>
         </div>
       </section>
